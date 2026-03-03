@@ -1046,27 +1046,40 @@ window.addEventListener('scroll', function() {
 function openModal(modalType) {
     const modal = document.getElementById(modalType + 'Modal');
     if (!modal) return;
-    modal.style.display = 'block';
-    requestAnimationFrame(function() {
+    
+    // Принудительно сбрасываем все состояния перед открытием
+    modal.style.display = 'none';
+    modal.classList.remove('active');
+    
+    // Небольшая задержка для полного сброса
+    setTimeout(function() {
+        modal.style.display = 'block';
+        // Двойной rAF для гарантии применения стилей
         requestAnimationFrame(function() {
-            modal.classList.add('active');
+            requestAnimationFrame(function() {
+                modal.classList.add('active');
+            });
         });
-    });
-    document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+    }, 50);
 }
 
 function closeModal(modalType) {
     const modal = document.getElementById(modalType + 'Modal');
     if (!modal) return;
+    
     modal.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Ждём окончания анимации перед скрытием
     setTimeout(function() {
         if (!modal.classList.contains('active')) {
             modal.style.display = 'none';
         }
-    }, 460);
-    document.body.style.overflow = '';
+    }, 500);
 }
 
+// Закрытие по клику на оверлей
 document.addEventListener('click', function(e) {
     if (e.target && e.target.classList.contains('modal-overlay')) {
         const id = e.target.id;
@@ -1075,6 +1088,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// Закрытие по Escape
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         document.querySelectorAll('.modal-overlay.active').forEach(function(modal) {
@@ -1083,7 +1097,6 @@ document.addEventListener('keydown', function(e) {
         });
     }
 });
-
 document.addEventListener('DOMContentLoaded', function() {
     const loader = document.getElementById('gothic-loader');
     const progressBar = document.querySelector('.loader-progress-bar');
@@ -1130,6 +1143,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 
 </html>
+
 
 
 
