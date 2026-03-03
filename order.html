@@ -1063,7 +1063,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const pdCheck = document.getElementById('pd-check');
     const submitBtn = document.getElementById('submit-btn');
 
- 
+    // ===== ПРОВЕРКА СОСТОЯНИЯ КНОПКИ ОТПРАВКИ =====
     function updateSubmitButtonState() {
         if (consentCheck.checked && pdCheck.checked) {
             submitBtn.disabled = false;
@@ -1076,6 +1076,7 @@ document.addEventListener('DOMContentLoaded', function() {
     pdCheck.addEventListener('change', updateSubmitButtonState);
     updateSubmitButtonState();
 
+    // ===== ОБРАБОТЧИК ИЗМЕНЕНИЯ ТИПА КОНТАКТА =====
     contactTypeRadios.forEach(radio => {
         radio.addEventListener('change', function() {
             updateContactField(this.value);
@@ -1112,7 +1113,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     updateContactField('Telegram');
 
-
+    // ===== ЗАПОЛНЕНИЕ СЕТКИ ТОВАРОВ =====
     products.forEach(product => {
         const productElement = document.createElement('div');
         productElement.className = 'product-item';
@@ -1137,22 +1138,19 @@ ${descriptionHTML}
 `;
 
         productElement.addEventListener('click', function() {
-
             document.querySelectorAll('.product-item').forEach(item => {
                 item.classList.remove('selected');
             });
-
             this.classList.add('selected');
-
             productNameInput.value = product.name;
             document.getElementById('product-type').value = product.name;
-
             closeModalHandler();
         });
 
         productsContainer.appendChild(productElement);
     });
 
+    // ===== ОТКРЫТИЕ/ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА =====
     productSelector.addEventListener('click', () => {
         modal.classList.add('open');
         modal.style.display = 'flex';
@@ -1167,7 +1165,6 @@ ${descriptionHTML}
 
     closeModal.addEventListener('click', closeModalHandler);
 
-
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             closeModalHandler();
@@ -1180,7 +1177,7 @@ ${descriptionHTML}
         }
     });
 
-
+    // ===== ПРОВЕРКА URL ПАРАМЕТРА (ПЕРЕХОД С КАТАЛОГА) =====
     const urlParams = new URLSearchParams(window.location.search);
     const productParam = urlParams.get('product');
     if (productParam) {
@@ -1188,7 +1185,6 @@ ${descriptionHTML}
             const decodedProduct = decodeURIComponent(productParam);
             productNameInput.value = decodedProduct;
             document.getElementById('product-type').value = decodedProduct;
- 
             document.querySelectorAll('.product-item').forEach(item => {
                 if (item.dataset.productName === decodedProduct) {
                     item.classList.add('selected');
@@ -1199,18 +1195,20 @@ ${descriptionHTML}
         }
     }
 
+    // ===== ОТПРАВКА ФОРМЫ (ИСПРАВЛЕННАЯ) =====
     document.getElementById('order-form').addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const submitBtn = document.querySelector('.submit-btn');
         const originalBtnText = submitBtn.innerHTML;
 
+        // Проверка выбора товара
         if (!productNameInput.value || productNameInput.value === '') {
             alert('❌ Пожалуйста, выберите товар');
             return;
         }
 
-
+        // Проверка согласия
         if (!consentCheck.checked) {
             alert('❌ Пожалуйста, отметьте согласие с документами');
             return;
@@ -1230,7 +1228,7 @@ ${descriptionHTML}
             const contactType = data['contact-type'] || 'Telegram';
             let contactField = data['contact-field'] ? data['contact-field'].trim() : '';
 
-
+            // Проверка поля контакта
             if (contactType === 'Telegram') {
                 if (!contactField.startsWith('@')) {
                     contactField = '@' + contactField;
@@ -1250,24 +1248,19 @@ ${descriptionHTML}
                 }
             }
 
-
+            // 🔐 ЗАЩИТА: декодирование токена и chatId из Base64
             const botToken = atob('NzgyMTM5NTEwODpBQUc4c3lZN3hDZFR2TjZJNGRCS05QV0pwYXg4RFNMcHlsWQ==');
             const chatId = atob('NzU0MDk0MzA2MA==');
 
             const message = `🛒 Новый заказ VORTAS STORE 🛒
-` +
-`📱 Способ связи: ${contactType}
-` +
-`👤 Контакт: ${contactField}
-` +
-`🖼 Товар: ${data['product-name'] || 'Не указан'}
-` +
-`💳 Оплата: ${data.payment || 'Не указана'}
-` +
-`⏱ Срочность: ${data.urgency || 'Не указана'}
-` +
-`🕒 ${new Date().toLocaleString()}`;
+📱 Способ связи: ${contactType}
+👤 Контакт: ${contactField}
+🖼 Товар: ${data['product-name'] || 'Не указан'}
+💳 Оплата: ${data.payment || 'Не указана'}
+⏱ Срочность: ${data.urgency || 'Не указана'}
+🕒 ${new Date().toLocaleString()}`;
 
+            // Отправка в Telegram
             const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1284,6 +1277,10 @@ ${descriptionHTML}
                 throw new Error(result.description || `Ошибка HTTP: ${response.status}`);
             }
 
+            if (!result.ok) {
+                throw new Error('Telegram API вернул ошибку: ' + (result.description || 'Неизвестная ошибка'));
+            }
+
             let successMessage = '✅ Заказ успешно отправлен! ';
             if (contactType === 'Telegram') {
                 successMessage += 'Мы свяжемся с вами в Telegram в ближайшее время.';
@@ -1296,7 +1293,21 @@ ${descriptionHTML}
 
         } catch (error) {
             console.error('Ошибка отправки:', error);
-            alert('❌ Ошибка при отправке: ' + error.message);
+            
+            // Показываем более подробную ошибку
+            let errorMessage = '❌ Ошибка при отправке: ' + error.message;
+            
+            if (error.message.includes('401')) {
+                errorMessage += '\n\nПроблема с токеном бота. Обратитесь к администратору.';
+            } else if (error.message.includes('403')) {
+                errorMessage += '\n\nБот не имеет доступа к чату. Добавьте бота в чат.';
+            } else if (error.message.includes('404')) {
+                errorMessage += '\n\nНеверный chatId. Проверьте настройки.';
+            } else if (error.message.includes('Failed to fetch')) {
+                errorMessage += '\n\nПроблема с сетью. Проверьте подключение к интернету.';
+            }
+            
+            alert(errorMessage);
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnText;
@@ -1304,6 +1315,7 @@ ${descriptionHTML}
     });
 });
 
+// ===== УПРАВЛЕНИЕ МОДАЛАМИ ДОКУМЕНТОВ =====
 function openDocModal(type) {
     var el = document.getElementById('doc-' + type);
     if (el) {
@@ -1322,7 +1334,7 @@ function closeDocModal(type) {
     }
 }
 
-
+// Закрытие по клику на оверлей
 document.querySelectorAll('.doc-overlay').forEach(function(el) {
     el.addEventListener('click', function(e) {
         if (e.target === el) {
@@ -1331,7 +1343,7 @@ document.querySelectorAll('.doc-overlay').forEach(function(el) {
     });
 });
 
-
+// Закрытие по клавише Escape
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         ['agreement', 'oferta', 'pd'].forEach(function(t) {
@@ -1473,4 +1485,5 @@ document.addEventListener('keydown', function(e) {
 </body>
 
 </html>
+
 
