@@ -794,7 +794,47 @@ window.addEventListener('scroll', function() {
         </div>
     </div>
 </div>
-
+<div id="personalDataModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('personalData')">&times;</button>
+            <div class="modal-header"><h2>Согласие на обработку персональных данных</h2></div>
+            <div class="modal-body">
+                <div class="agreement-text">
+                    <p class="agreement-subtitle">В соответствии с Федеральным законом №&nbsp;152-ФЗ «О персональных данных» &middot; <strong>vortas.store</strong></p>
+                    <h3>Кто собирает данные</h3>
+                    <p>Оператор персональных данных: <strong>VORTAS STORE</strong> (Николай). Telegram: <em>@vrtas</em>. Сайт: <em>vortas.store</em>.</p>
+                    <h3>Какие данные собираются</h3>
+                    <p>При оформлении заказа через форму на сайте собираются следующие данные:</p>
+                    <ul>
+                        <li><strong>Telegram-юзернейм</strong> — если выбран способ связи «Telegram»;</li>
+                        <li><strong>Адрес электронной почты (email)</strong> — если выбран способ связи «Email».</li>
+                    </ul>
+                    <p>Иные персональные данные (имя, адрес, номер телефона и т.д.) через форму не запрашиваются и не собираются.</p>
+                    <h3>Цель обработки</h3>
+                    <p>Данные используются исключительно для:</p>
+                    <ul>
+                        <li>связи с Заказчиком по оформленному заказу;</li>
+                        <li>согласования деталей и условий выполнения заказа.</li>
+                    </ul>
+                    <h3>Куда передаются данные</h3>
+                    <p>Введённые данные передаются в <strong>Telegram-бот</strong> VORTAS STORE в виде уведомления о новом заказе. Данные не продаются, не передаются третьим лицам и не используются в рекламных целях.</p>
+                    <h3>Срок хранения</h3>
+                    <p>Данные хранятся в переписке Telegram-бота до момента завершения заказа или до получения запроса на их удаление.</p>
+                    <h3>Права субъекта данных</h3>
+                    <p>Вы вправе в любой момент:</p>
+                    <ul>
+                        <li>отозвать согласие на обработку персональных данных;</li>
+                        <li>запросить информацию о хранящихся данных;</li>
+                        <li>потребовать удаления своих данных.</li>
+                    </ul>
+                    <p>Для этого обратитесь к оператору через Telegram: <em>@vrtas</em> или по email: <em>vortas@vortas.store</em>.</p>
+                    <h3>Правовое основание</h3>
+                    <p>Обработка персональных данных осуществляется на основании согласия субъекта персональных данных (п.&nbsp;1 ч.&nbsp;1 ст.&nbsp;6 Федерального закона №&nbsp;152-ФЗ «О персональных данных»).</p>
+                    <p class="agreement-important"><strong>Нажимая «Заказать» на сайте</strong>, вы подтверждаете своё согласие с условиями обработки персональных данных, изложенными в данном документе.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <style>
 :root {
@@ -973,41 +1013,54 @@ window.addEventListener('scroll', function() {
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Функции для работы с модальными окнами
-function openModal(modalType) {
-    const modal = document.getElementById(modalType + 'Modal');
-    document.body.style.overflow = 'hidden';
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 10);
-}
+    <script>
+    function openModal(modalType) {
+        const modal = document.getElementById(modalType + 'Modal');
+        if (!modal) return;
+        // Показываем элемент (flex нужен для центровки overflow-y)
+        modal.style.display = 'block';
+        // Двойной rAF гарантирует, что браузер применит display:block
+        // ДО добавления класса active (иначе transition не сработает)
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                modal.classList.add('active');
+            });
+        });
+        document.body.style.overflow = 'hidden';
+    }
 
-function closeModal(modalType) {
-    const modal = document.getElementById(modalType + 'Modal');
-    modal.classList.remove('active');
-    document.body.style.overflow = 'auto';
-}
+    function closeModal(modalType) {
+        const modal = document.getElementById(modalType + 'Modal');
+        if (!modal) return;
+        modal.classList.remove('active');
+        // Ждём окончания CSS-перехода (0.45s = 450мс) и скрываем
+        setTimeout(function() {
+            if (!modal.classList.contains('active')) {
+                modal.style.display = 'none';
+            }
+        }, 460);
+        document.body.style.overflow = '';
+    }
 
-// Закрытие модалок при клике на оверлей
-document.querySelectorAll('.modal-overlay').forEach(modal => {
-    modal.addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.classList.remove('active');
-            document.body.style.overflow = 'auto';
+    // Закрытие по клику на оверлей
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('modal-overlay')) {
+            const id = e.target.id; // e.g. "aboutModal"
+            const type = id.replace('Modal', '');
+            closeModal(type);
         }
     });
-});
 
-// Закрытие модалок по ESC
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        document.querySelectorAll('.modal-overlay').forEach(modal => {
-            modal.classList.remove('active');
-        });
-        document.body.style.overflow = 'auto';
-    }
-});
-</script>
+    // Закрытие по Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay.active').forEach(function(modal) {
+                const type = modal.id.replace('Modal', '');
+                closeModal(type);
+            });
+        }
+    });
+    </script>
 <script>
 // Простой и надежный прелоадер
 document.addEventListener('DOMContentLoaded', function() {
@@ -1067,3 +1120,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 
 </html>
+
