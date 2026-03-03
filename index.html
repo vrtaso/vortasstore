@@ -1024,26 +1024,7 @@ window.addEventListener('scroll', function() {
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script>
-document.querySelectorAll('.faq-item h3').forEach(question => {
-    question.addEventListener('click', () => {
-        const item = question.parentNode;
-        item.classList.toggle('active');
-        document.querySelectorAll('.faq-item').forEach(otherItem => {
-            if (otherItem !== item && otherItem.classList.contains('active')) {
-                otherItem.classList.remove('active');
-            }
-        });
-    });
-});
-
-window.addEventListener('scroll', function() {
-    const header = document.querySelector('.animated-header');
-    const scrollPosition = window.scrollY;
-    header.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
-});
-
-function openModal(modalType) {
+<script>function openModal(modalType) {
     const modal = document.getElementById(modalType + 'Modal');
     if (!modal) return;
     
@@ -1097,52 +1078,11 @@ document.addEventListener('keydown', function(e) {
         });
     }
 });
-document.addEventListener('DOMContentLoaded', function() {
-    const loader = document.getElementById('gothic-loader');
-    const progressBar = document.querySelector('.loader-progress-bar');
-    const percentage = document.querySelector('.loader-status-percentage');
-    if (!loader) {
-        document.body.classList.add('loaded');
-        return;
-    }
-    let progress = 0;
-    const messages = [
-        'ЗАГРУЗКА...', 'ЗАГРУЗКА...', 'ЗАГРУЗКА...',
-        'ЗАГРУЗКА...', 'ЗАГРУЗКА...', 'ПОЛНАЯ ГОТОВНОСТЬ', 'VORTAS STORE'
-    ];
-    let messageIndex = 0;
-    function update() {
-        if (progress >= 100) {
-            finishLoading();
-            return;
-        }
-        const increment = progress < 70 ? 1.5 : 2.5;
-        progress = Math.min(progress + increment, 100);
-        if (progressBar) progressBar.style.width = progress + '%';
-        if (percentage) percentage.textContent = Math.round(progress) + '%';
-        if (messageIndex < messages.length && progress >= (messageIndex + 1) * 15) {
-            const textElement = document.querySelector('.loader-progress-text');
-            if (textElement) textElement.textContent = messages[messageIndex];
-            messageIndex++;
-        }
-        setTimeout(update, progress < 50 ? 40 : 30);
-    }
-    function finishLoading() {
-        setTimeout(() => {
-            loader.style.opacity = '0';
-            loader.style.transition = 'opacity 0.5s ease';
-            setTimeout(() => {
-                loader.style.display = 'none';
-                document.body.classList.add('loaded');
-            }, 500);
-        }, 300);
-    }
-    update();
-});
 </script>
 </body>
 
 </html>
+
 
 
 
