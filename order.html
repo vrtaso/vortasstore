@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@400;500;600;700&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="icon" href="logo.ico" type="image/x-icon">
 <style>
-
+/* ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===== */
 :root {
 --black: #0a0a0a;
 --dark: #111111;
@@ -26,7 +26,7 @@
 --glass: rgba(255,255,255,0.05);
 --glass-border: rgba(255,255,255,0.2);
 }
-
+/* ===== БАЗОВЫЕ СТИЛИ ===== */
 * {
 margin: 0;
 padding: 0;
@@ -997,254 +997,314 @@ title="Юзернейм должен содержать 1-30 символов (�
 </div>
 
 <script>
-// === Данные товаров ===
 const products = [
     {
         id: 1,
         name: "VEXILLUM",
         price: "от 700₽/$8",
         image: "",
-        description: "Графика для привлечения внимания на сайте, в соцсетях и рекламе. Помогает быстро донести суть предложения и побудить к действию."
+        description: "Графика для привлечения внимания на сайте, в соцсетях и рекламе. Помогает быстро донести суть предложения и побудить к действию — переходу, заказу или звонку. Делаем под нужный размер и цель."
     },
     {
         id: 2,
         name: "EFFIGY",
         price: "от 1200₽/$14",
         image: "",
-        description: "Дизайн-макет для печати или публикации в соцсетях. Создаем визуальную идею, которая отражает суть вашего события или продукта."
+        description: "Это дизайн-макет для печати или публикации в соцсетях. Создаем визуальную идею, которая отражает суть вашего события, продукта или акции. Каждый макет — уникальное решение под вашу задачу."
     },
     {
         id: 3,
         name: "TENEBRATION",
         price: "от 300₽/$4",
         image: "",
-        description: "Готовые фотографии для вашего проекта. Улучшим цвет и свет, поправим детали и добавим стилизацию под ваш бренд."
+        description: "Готовые фотографии для вашего проекта. Мы улучшим цвет и свет, аккуратно поправим детали. Также добавим стилизацию под ваш бренд или выбранное настроение. Подготовим снимки к публикации."
     },
     {
         id: 4,
         name: "PACTLINGS",
-        price: "Цена от выбора",
+        price: "Цена от выбора (описание)",
         image: "",
-        description: "<p>Маскоты, адопты, наборы стикеров.</p><ul><li>Маскот: от 800₽</li><li>Адопт: от 700₽</li><li>Стикеры: от 500₽</li></ul>"
+        description: `
+<p>В этой категории вы приобретаете не просто картинку, а готовый образ с характером — будь то маскот для бренда, набор стикеров для чата или уникальный адопт-персонаж.</p>
+<div class="features-list">
+<p class="features-title">Что вы получаете в зависимости от выбора:</p>
+<ul class="pactlings-features">
+<li>
+<span class="feature-type">Маскот: от 800₽/10$</span>
+<span class="feature-desc">Яркий, запоминающийся главный образ персонажа для вашего бренда.</span>
+</li>
+<li>
+<span class="feature-type">Адопт: от 700₽/9$</span>
+<span class="feature-desc">Эксклюзивный дизайн персонажа, который будет принадлежать только вам.</span>
+</li>
+<li>
+<span class="feature-type">Набор стикеров: 3 стикера - 500₽/7$, 3+ стикеров - доплата 200₽/3$ за каждый</span>
+<span class="feature-desc">От 3-х выразительных изображений, готовых к использованию в чатах.</span>
+</li>
+</ul>
+</div>
+`
     }
 ];
 
-// === Инициализация ===
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('product-modal');
-    const closeModalBtn = document.querySelector('.close-modal');
+    const closeModal = document.querySelector('.close-modal');
     const productSelector = document.querySelector('.product-selector');
     const productNameInput = document.getElementById('product-name');
     const productsContainer = document.getElementById('products-container');
-    
+    const contactFieldGroup = document.getElementById('contact-field-group');
     const contactFieldLabel = document.getElementById('contact-field-label');
     const contactFieldInput = document.getElementById('contact-field');
+    const contactHint = document.getElementById('contact-hint');
     const contactInputWrapper = document.querySelector('.contact-input-wrapper');
     const contactTypeRadios = document.querySelectorAll('input[name="contact-type"]');
     const consentCheck = document.getElementById('consent-check');
     const pdCheck = document.getElementById('pd-check');
     const submitBtn = document.getElementById('submit-btn');
-    const orderForm = document.getElementById('order-form');
 
-    // Кнопка отправки
+    // ===== ПРОВЕРКА СОСТОЯНИЯ КНОПКИ ОТПРАВКИ =====
     function updateSubmitButtonState() {
-        if (submitBtn && consentCheck && pdCheck) {
-            submitBtn.disabled = !(consentCheck.checked && pdCheck.checked);
+        if (consentCheck.checked && pdCheck.checked) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
         }
     }
-    if (consentCheck) consentCheck.addEventListener('change', updateSubmitButtonState);
-    if (pdCheck) pdCheck.addEventListener('change', updateSubmitButtonState);
+
+    consentCheck.addEventListener('change', updateSubmitButtonState);
+    pdCheck.addEventListener('change', updateSubmitButtonState);
     updateSubmitButtonState();
 
-    // Поле контакта
+    // ===== ОБРАБОТЧИК ИЗМЕНЕНИЯ ТИПА КОНТАКТА =====
+    contactTypeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            updateContactField(this.value);
+        });
+    });
+
     function updateContactField(contactType) {
-        if (!contactFieldLabel || !contactFieldInput) return;
-        
+        const wrapper = contactInputWrapper;
         if (contactType === 'Telegram') {
             contactFieldLabel.textContent = 'Ваш юзернейм в Telegram:';
             contactFieldInput.placeholder = 'username';
             contactFieldInput.type = 'text';
-            if (contactInputWrapper) {
-                contactInputWrapper.classList.remove('email-field');
-                contactInputWrapper.classList.add('telegram-field');
+            contactFieldInput.pattern = '[a-zA-Z0-9_]{5,32}';
+            contactFieldInput.title = 'Юзернейм должен содержать 5-32 символа (буквы, цифры, подчеркивания)';
+            if (contactFieldInput.value && !contactFieldInput.value.startsWith('@') &&
+                !contactFieldInput.value.includes('@')) {
+                contactFieldInput.value = '@' + contactFieldInput.value;
             }
+            wrapper.classList.remove('email-field');
+            wrapper.classList.add('telegram-field');
         } else {
             contactFieldLabel.textContent = 'Ваш email:';
             contactFieldInput.placeholder = 'example@mail.com';
             contactFieldInput.type = 'email';
-            if (contactInputWrapper) {
-                contactInputWrapper.classList.remove('telegram-field');
-                contactInputWrapper.classList.add('email-field');
+            contactFieldInput.pattern = '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}';
+            contactFieldInput.title = 'Введите корректный email адрес';
+            if (contactFieldInput.value.startsWith('@')) {
+                contactFieldInput.value = contactFieldInput.value.substring(1);
             }
+            wrapper.classList.remove('telegram-field');
+            wrapper.classList.add('email-field');
         }
     }
 
-    if (contactTypeRadios) {
-        contactTypeRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                updateContactField(this.value);
+    updateContactField('Telegram');
+
+    // ===== ЗАПОЛНЕНИЕ СЕТКИ ТОВАРОВ =====
+    products.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.className = 'product-item';
+        productElement.dataset.productName = product.name;
+
+        const descriptionHTML = product.name === 'PACTLINGS'
+            ? product.description
+            : `<p>${product.description}</p>`;
+
+        productElement.innerHTML = `
+<img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.style.display='none'">
+<div class="product-info">
+<h3 class="product-name">${product.name}</h3>
+<p class="product-price">
+<i class="fas fa-tag"></i>
+<span>${product.price}</span>
+</p>
+<div class="product-description">
+${descriptionHTML}
+</div>
+</div>
+`;
+
+        productElement.addEventListener('click', function() {
+            document.querySelectorAll('.product-item').forEach(item => {
+                item.classList.remove('selected');
             });
+            this.classList.add('selected');
+            productNameInput.value = product.name;
+            document.getElementById('product-type').value = product.name;
+            closeModalHandler();
         });
-        updateContactField('Telegram');
-    }
 
-    // Карточки товаров
-    if (productsContainer) {
-        products.forEach(product => {
-            const productElement = document.createElement('div');
-            productElement.className = 'product-item';
-            productElement.dataset.productName = product.name;
-            productElement.innerHTML = `
-                <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.style.display='none'">
-                <div class="product-info">
-                    <h3 class="product-name">${product.name}</h3>
-                    <p class="product-price"><span>${product.price}</span></p>
-                    <div class="product-description">${product.description}</div>
-                </div>
-            `;
-            productElement.addEventListener('click', function() {
-                document.querySelectorAll('.product-item').forEach(item => item.classList.remove('selected'));
-                this.classList.add('selected');
-                if (productNameInput) productNameInput.value = product.name;
-                const productTypeInput = document.getElementById('product-type');
-                if (productTypeInput) productTypeInput.value = product.name;
-                if (modal) {
-                    modal.classList.remove('open');
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-            productsContainer.appendChild(productElement);
-        });
-    }
-
-    // Модальное окно
-    function openModal() {
-        if (modal) {
-            modal.classList.add('open');
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-    }
-    
-    function closeModalHandler() {
-        if (modal) {
-            modal.classList.remove('open');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    }
-
-    if (productSelector) productSelector.addEventListener('click', openModal);
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModalHandler);
-    if (modal) {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModalHandler();
-        });
-    }
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModalHandler();
+        productsContainer.appendChild(productElement);
     });
 
-    // Выбор из URL
+    // ===== ОТКРЫТИЕ/ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА =====
+    productSelector.addEventListener('click', () => {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    });
+
+    const closeModalHandler = () => {
+        modal.classList.remove('open');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    };
+
+    closeModal.addEventListener('click', closeModalHandler);
+
+    // Закрытие по клику на оверлей (затемнённую область)
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModalHandler();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeModalHandler();
+        }
+    });
+
+    // ===== ПРОВЕРКА URL ПАРАМЕТРА (ПЕРЕХОД С КАТАЛОГА) =====
     const urlParams = new URLSearchParams(window.location.search);
     const productParam = urlParams.get('product');
-    if (productParam && productsContainer) {
+    if (productParam) {
         try {
             const decodedProduct = decodeURIComponent(productParam);
-            if (productNameInput) productNameInput.value = decodedProduct;
-            const productTypeInput = document.getElementById('product-type');
-            if (productTypeInput) productTypeInput.value = decodedProduct;
+            productNameInput.value = decodedProduct;
+            document.getElementById('product-type').value = decodedProduct;
             document.querySelectorAll('.product-item').forEach(item => {
                 if (item.dataset.productName === decodedProduct) {
                     item.classList.add('selected');
                 }
             });
         } catch (e) {
-            console.error('Ошибка продукта:', e);
+            console.error('Ошибка декодирования:', e);
         }
     }
 
-    // === ОТПРАВКА ФОРМЫ ===
-    if (orderForm) {
-        orderForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            if (!submitBtn) return;
 
-            const originalBtnText = submitBtn.innerHTML;
+    document.getElementById('order-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
 
-            if (!productNameInput || !productNameInput.value) {
-                alert('Пожалуйста, выберите товар');
-                return;
-            }
-            if (!consentCheck || !consentCheck.checked) {
-                alert('Отметьте согласие с документами');
-                return;
-            }
-            if (!pdCheck || !pdCheck.checked) {
-                alert('Дайте согласие на обработку данных');
-                return;
-            }
+        const submitBtn = document.querySelector('.submit-btn');
+        const originalBtnText = submitBtn.innerHTML;
 
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = 'Отправка...';
 
-            try {
-                const formData = new FormData(this);
-                const data = Object.fromEntries(formData.entries());
-                const contactType = data['contact-type'] || 'Telegram';
-                let contactValue = (data['contact-field'] || '').trim();
+        if (!productNameInput.value || productNameInput.value === '') {
+            alert('❌ Пожалуйста, выберите товар');
+            return;
+        }
 
-                if (contactType === 'Telegram') {
-                    if (!contactValue.startsWith('@')) contactValue = '@' + contactValue;
-                    if (!/^@[a-zA-Z0-9_]{5,32}$/.test(contactValue)) {
-                        throw new Error('Неверный формат Telegram');
-                    }
-                } else {
-                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactValue)) {
-                        throw new Error('Неверный email');
-                    }
+        if (!consentCheck.checked) {
+            alert('❌ Пожалуйста, отметьте согласие с документами');
+            return;
+        }
+
+        if (!pdCheck.checked) {
+            alert('❌ Пожалуйста, дайте согласие на обработку персональных данных');
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Отправка...</span>';
+
+        try {
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            const contactType = data['contact-type'] || 'Telegram';
+            let contactField = data['contact-field'] ? data['contact-field'].trim() : '';
+
+
+            if (contactType === 'Telegram') {
+                if (!contactField.startsWith('@')) {
+                    contactField = '@' + contactField;
                 }
-
-                const message = 'Новый заказ VORTAS\nТовар: ' + data['product-name'] + 
-                                '\nСвязь: ' + contactType + 
-                                '\nКонтакт: ' + contactValue + 
-                                '\nОплата: ' + (data.payment || 'Не указана') + 
-                                '\nСрочность: ' + (data.urgency || 'Не указана');
-
-                const response = await fetch('/api/telegram', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: message })
-                });
-
-                const contentType = response.headers.get('content-type');
-                if (!contentType || !contentType.includes('application/json')) {
-                    throw new Error('Ошибка сервера (не JSON)');
+                if (!/^@[a-zA-Z0-9_]{5,32}$/.test(contactField)) {
+                    alert('❌ Для Telegram: юзернейм должен начинаться с @ и содержать 5-32 символа');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                    return;
                 }
-
-                const result = await response.json();
-                if (!response.ok) {
-                    throw new Error(result.error || 'Ошибка отправки');
+            } else if (contactType === 'Email') {
+                if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(contactField)) {
+                    alert('❌ Пожалуйста, введите корректный email адрес');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                    return;
                 }
-
-                alert('Заказ успешно отправлен!');
-                window.location.href = 'index.html';
-
-            } catch (error) {
-                console.error('Ошибка:', error);
-                alert('Ошибка: ' + error.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
             }
-        });
-    }
+
+
+            const botToken = '7821395108:AAG8syY7xCdTvN6I4dbKNPWJpax8DSLpylY';
+            const chatId = '7540943060';
+
+            const message = `🛒 Новый заказ VORTAS STORE 🛒
+` +
+`📱 Способ связи: ${contactType}
+` +
+`👤 Контакт: ${contactField}
+` +
+`🖼 Товар: ${data['product-name'] || 'Не указан'}
+` +
+`💳 Оплата: ${data.payment || 'Не указана'}
+` +
+`⏱ Срочность: ${data.urgency || 'Не указана'}
+` +
+`🕒 ${new Date().toLocaleString()}`;
+
+            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.description || `Ошибка HTTP: ${response.status}`);
+            }
+
+            let successMessage = '✅ Заказ успешно отправлен! ';
+            if (contactType === 'Telegram') {
+                successMessage += 'Мы свяжемся с вами в Telegram в ближайшее время.';
+            } else {
+                successMessage += 'Мы свяжемся с вами на указанный email.';
+            }
+
+            alert(successMessage);
+            window.location.href = 'index.html';
+
+        } catch (error) {
+            console.error('Ошибка отправки:', error);
+            alert('❌ Ошибка при отправке: ' + error.message);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        }
+    });
 });
 
-// Модальные окна документов
+
 function openDocModal(type) {
-    const el = document.getElementById('doc-' + type);
+    var el = document.getElementById('doc-' + type);
     if (el) {
         el.classList.add('open');
         el.style.display = 'flex';
@@ -1253,7 +1313,7 @@ function openDocModal(type) {
 }
 
 function closeDocModal(type) {
-    const el = document.getElementById('doc-' + type);
+    var el = document.getElementById('doc-' + type);
     if (el) {
         el.classList.remove('open');
         el.style.display = 'none';
@@ -1261,7 +1321,8 @@ function closeDocModal(type) {
     }
 }
 
-document.querySelectorAll('.doc-overlay').forEach(el => {
+
+document.querySelectorAll('.doc-overlay').forEach(function(el) {
     el.addEventListener('click', function(e) {
         if (e.target === el) {
             closeDocModal(el.id.replace('doc-', ''));
@@ -1269,12 +1330,17 @@ document.querySelectorAll('.doc-overlay').forEach(el => {
     });
 });
 
+// Закрытие по клавише Escape
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-        ['agreement', 'oferta', 'pd'].forEach(t => closeDocModal(t));
+        ['agreement', 'oferta', 'pd'].forEach(function(t) {
+            closeDocModal(t);
+        });
     }
 });
 </script>
+
+
 <div id="doc-agreement" class="doc-overlay">
 <div class="doc-box">
 <button class="doc-close" onclick="closeDocModal('agreement')">&times;</button>
@@ -1313,6 +1379,7 @@ document.addEventListener('keydown', function(e) {
 </div>
 </div>
 </div>
+
 
 <div id="doc-oferta" class="doc-overlay">
 <div class="doc-box">
@@ -1362,6 +1429,8 @@ document.addEventListener('keydown', function(e) {
 </div>
 </div>
 
+
+
 <div id="doc-pd" class="doc-overlay">
 <div class="doc-box">
 <button class="doc-close" onclick="closeDocModal('pd')">&times;</button>
@@ -1394,7 +1463,7 @@ document.addEventListener('keydown', function(e) {
 <li>запросить информацию о хранящихся данных;</li>
 <li>потребовать удаления своих данных.</li>
 </ul>
-<p>Для этого обратитесь к оператору через Telegram: <em>@vrtas</em> или по email: <em><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f1879e8385908295948298969f838482b1969c90989ddf929e9c">[email&#160;protected]</a></em>.</p>
+<p>Для этого обратитесь к оператору через Telegram: <em>@vrtas</em> или по email: <em>vortasdesignrus@gmail.com</em>.</p>
 <h3>Правовое основание</h3>
 <p>Обработка персональных данных осуществляется на основании согласия субъекта персональных данных (п.&nbsp;1 ч.&nbsp;1 ст.&nbsp;6 Федерального закона №&nbsp;152-ФЗ «О персональных данных»).</p>
 </div>
@@ -1403,4 +1472,5 @@ document.addEventListener('keydown', function(e) {
 </body>
 
 </html>
+
 
