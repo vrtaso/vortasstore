@@ -38,7 +38,7 @@
 
 ## Контакты
 
-- Telegram: [@vrtas](https://t.me/vrtas)
+- Telegram: [@vortasdesign](https://t.me/vortasdesign)
 - Email: vortasdesignrus@gmail.com
 - Канал: [@vortas_store](https://t.me/vortas_store)
 
