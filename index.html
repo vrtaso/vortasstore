@@ -47,17 +47,71 @@
     </div>
 
     <header class="animated-header">
-        <div class="logo-container">
-            <h1 class="logo">VORTAS STORE</h1>
-            <div class="logo-effects"></div>
+        <canvas class="header-canvas" id="headerCanvas"></canvas>
+        <div class="header-scanline"></div>
+
+        <div class="header-inner">
+            <div class="logo-container">
+                <div class="logo-ring logo-ring-1"></div>
+                <div class="logo-ring logo-ring-2"></div>
+                <div class="logo-ring logo-ring-3"></div>
+                <h1 class="logo">VORTAS STORE</h1>
+            </div>
+            <p class="subtitle">
+                <span class="subtitle-line"></span>
+                <span class="subtitle-text">design store by vortas</span>
+                <span class="subtitle-line"></span>
+            </p>
+            <nav>
+                <a href="#products"><span>Товары</span></a>
+                <a href="#contacts"><span>Контакты</span></a>
+                <a href="#order-rules"><span>Правила заказа</span></a>
+                <a href="#faq"><span>FAQ</span></a>
+            </nav>
         </div>
-        <p class="subtitle">design store by vortas</p>
-        <nav>
-            <a href="#products"><span>Товары</span><span class="border-effect"></span></a>
-            <a href="#contacts"><span>Контакты</span><span class="border-effect"></span></a>
-            <a href="#order-rules"><span>Правила заказа</span><span class="border-effect"></span></a>
-            <a href="#faq"><span>FAQ</span><span class="border-effect"></span></a>
-        </nav>
+
+        <script>
+        (function(){
+            var c = document.getElementById('headerCanvas');
+            var header = document.querySelector('.animated-header');
+            function resize(){
+                c.width  = header.offsetWidth;
+                c.height = header.offsetHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+            var ctx = c.getContext('2d');
+            var particles = [];
+            for(var i = 0; i < 60; i++){
+                particles.push({
+                    x: Math.random() * c.width,
+                    y: Math.random() * c.height,
+                    r: Math.random() * 1.4 + 0.2,
+                    a: Math.random() * Math.PI * 2,
+                    speed: Math.random() * 0.18 + 0.04,
+                    opacity: Math.random() * 0.55 + 0.08
+                });
+            }
+            function draw(){
+                ctx.clearRect(0, 0, c.width, c.height);
+                particles.forEach(function(p){
+                    p.x += Math.cos(p.a) * p.speed;
+                    p.y += Math.sin(p.a) * p.speed;
+                    p.a += (Math.random() - 0.5) * 0.018;
+                    if(p.x < 0) p.x = c.width;
+                    if(p.x > c.width) p.x = 0;
+                    if(p.y < 0) p.y = c.height;
+                    if(p.y > c.height) p.y = 0;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255,255,255,' + p.opacity + ')';
+                    ctx.fill();
+                });
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+        </script>
     </header>
 
     <main>
@@ -522,12 +576,19 @@
         if (!modal) return;
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        var done = false;
+        function hide() {
+            if (done) return;
+            done = true;
+            modal.classList.remove('show');
+        }
         modal.addEventListener('transitionend', function handler(e) {
             if (e.propertyName === 'opacity') {
-                modal.classList.remove('show');
                 modal.removeEventListener('transitionend', handler);
-              }
+                hide();
+            }
         });
+        setTimeout(hide, 600);
     }
 
     document.querySelectorAll('.modal-overlay').forEach(function(modal) {
