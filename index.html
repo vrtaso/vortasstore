@@ -70,48 +70,6 @@
             </nav>
         </div>
 
-        <script>
-        (function(){
-            var c = document.getElementById('headerCanvas');
-            var header = document.querySelector('.animated-header');
-            function resize(){
-                c.width  = header.offsetWidth;
-                c.height = header.offsetHeight;
-            }
-            resize();
-            window.addEventListener('resize', resize);
-            var ctx = c.getContext('2d');
-            var particles = [];
-            for(var i = 0; i < 60; i++){
-                particles.push({
-                    x: Math.random() * c.width,
-                    y: Math.random() * c.height,
-                    r: Math.random() * 1.4 + 0.2,
-                    a: Math.random() * Math.PI * 2,
-                    speed: Math.random() * 0.18 + 0.04,
-                    opacity: Math.random() * 0.55 + 0.08
-                });
-            }
-            function draw(){
-                ctx.clearRect(0, 0, c.width, c.height);
-                particles.forEach(function(p){
-                    p.x += Math.cos(p.a) * p.speed;
-                    p.y += Math.sin(p.a) * p.speed;
-                    p.a += (Math.random() - 0.5) * 0.018;
-                    if(p.x < 0) p.x = c.width;
-                    if(p.x > c.width) p.x = 0;
-                    if(p.y < 0) p.y = c.height;
-                    if(p.y > c.height) p.y = 0;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(255,255,255,' + p.opacity + ')';
-                    ctx.fill();
-                });
-                requestAnimationFrame(draw);
-            }
-            draw();
-        })();
-        </script>
     </header>
 
     <main>
@@ -599,3 +557,68 @@
                 closeModal(type);
             });
         }
+    });
+    </script>
+
+    <script>
+    window.addEventListener('load', function(){
+        var c = document.getElementById('headerCanvas');
+        if (!c) return;
+        var header = document.querySelector('.animated-header');
+        function resize(){
+            c.width  = header.offsetWidth;
+            c.height = header.offsetHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        var ctx = c.getContext('2d');
+        var particles = [];
+        for(var i = 0; i < 60; i++){
+            particles.push({
+                x: Math.random() * c.width,
+                y: Math.random() * c.height,
+                r: Math.random() * 1.4 + 0.2,
+                a: Math.random() * Math.PI * 2,
+                speed: Math.random() * 0.18 + 0.04,
+                opacity: Math.random() * 0.55 + 0.08
+            });
+        }
+        function draw(){
+            ctx.clearRect(0, 0, c.width, c.height);
+            particles.forEach(function(p){
+                p.x += Math.cos(p.a) * p.speed;
+                p.y += Math.sin(p.a) * p.speed;
+                p.a += (Math.random() - 0.5) * 0.018;
+                if(p.x < 0) p.x = c.width;
+                if(p.x > c.width) p.x = 0;
+                if(p.y < 0) p.y = c.height;
+                if(p.y > c.height) p.y = 0;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,' + p.opacity + ')';
+                ctx.fill();
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    });
+    </script>
+
+    <script>
+    (function(){
+      var s=document.createElement("span");
+      s.className="fas fa-check";
+      s.style.cssText="position:absolute;top:-999px;left:-999px;font-size:10px";
+      document.body.appendChild(s);
+      var f=window.getComputedStyle(s).fontFamily;
+      document.body.removeChild(s);
+      if(!f||f.indexOf("Font Awesome")===-1){
+        var l=document.createElement("link");
+        l.rel="stylesheet";
+        l.href="https://use.fontawesome.com/releases/v6.6.0/css/all.css";
+        document.head.appendChild(l);
+      }
+    }());
+    </script>
+</body>
+</html>
