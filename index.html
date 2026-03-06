@@ -520,13 +520,14 @@
     function openModal(type) {
         var modal = document.getElementById(type + 'Modal');
         if (!modal) return;
-        // сбрасываем незавершённое закрытие
         clearTimeout(modal._closeTimer);
         document.body.style.overflow = 'hidden';
         modal.classList.remove('modal-closing');
-        modal.classList.add('modal-open');
+        modal.style.display = 'block';
         requestAnimationFrame(function(){
-            modal.classList.add('modal-visible');
+            requestAnimationFrame(function(){
+                modal.classList.add('modal-visible');
+            });
         });
     }
 
@@ -535,9 +536,8 @@
         if (!modal) return;
         document.body.style.overflow = '';
         modal.classList.remove('modal-visible');
-        modal.classList.add('modal-closing');
         modal._closeTimer = setTimeout(function(){
-            modal.classList.remove('modal-open', 'modal-closing');
+            modal.style.display = 'none';
         }, 500);
     }
 
@@ -552,7 +552,7 @@
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            document.querySelectorAll('.modal-overlay.modal-open').forEach(function(modal) {
+            document.querySelectorAll('.modal-overlay.modal-visible').forEach(function(modal) {
                 var type = modal.id.replace('Modal', '');
                 closeModal(type);
             });
