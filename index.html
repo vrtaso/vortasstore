@@ -520,25 +520,25 @@
     function openModal(type) {
         var modal = document.getElementById(type + 'Modal');
         if (!modal) return;
+        // сбрасываем незавершённое закрытие
+        clearTimeout(modal._closeTimer);
         document.body.style.overflow = 'hidden';
-        modal.style.display = 'block';
-        modal.style.opacity = '0';
-        modal.style.pointerEvents = 'auto';
-        requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-                modal.style.opacity = '1';
-            });
+        modal.classList.remove('modal-closing');
+        modal.classList.add('modal-open');
+        requestAnimationFrame(function(){
+            modal.classList.add('modal-visible');
         });
     }
 
     function closeModal(type) {
         var modal = document.getElementById(type + 'Modal');
         if (!modal) return;
-        modal.style.opacity = '0';
         document.body.style.overflow = '';
-        setTimeout(function () {
-            modal.style.display = 'none';
-        }, 450);
+        modal.classList.remove('modal-visible');
+        modal.classList.add('modal-closing');
+        modal._closeTimer = setTimeout(function(){
+            modal.classList.remove('modal-open', 'modal-closing');
+        }, 500);
     }
 
     document.querySelectorAll('.modal-overlay').forEach(function(modal) {
@@ -552,7 +552,7 @@
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            document.querySelectorAll('.modal-overlay.active').forEach(function(modal) {
+            document.querySelectorAll('.modal-overlay.modal-open').forEach(function(modal) {
                 var type = modal.id.replace('Modal', '');
                 closeModal(type);
             });
