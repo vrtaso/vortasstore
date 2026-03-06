@@ -1331,8 +1331,16 @@ nav a:hover::before {
   -webkit-backdrop-filter: blur(10px);
   z-index: 1000;
   opacity: 0;
-  transition: opacity 0.45s ease;
+  transition: opacity 0.4s ease;
   overflow-y: auto;
+}
+
+.modal-overlay.modal-open {
+  display: block;
+}
+
+.modal-overlay.modal-visible {
+  opacity: 1;
 }
 
 .modal-content {
@@ -1345,6 +1353,14 @@ nav a:hover::before {
   border: 1px solid var(--glass-border);
   box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(255,255,255,0.1);
   overflow: hidden;
+  transform: translateY(-30px);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2), opacity 0.4s ease;
+}
+
+.modal-overlay.modal-visible .modal-content {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .modal-content::before {
