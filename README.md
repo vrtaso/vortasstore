@@ -1,4 +1,4 @@
-# VORTAS STORE — Сайт дизайн-студии
+ # VORTAS STORE — Сайт дизайн-студии
 
 Сайт дизайн-студии **VORTAS STORE**, задеплоенный через GitHub Pages.
 
