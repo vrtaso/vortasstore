@@ -175,7 +175,7 @@
         <section id="contacts" class="contacts-section">
             <h2>Контакты</h2>
             <div class="contacts-content">
-                <p>Email: <a href="/cdn-cgi/l/email-protection#fb8d94898f9a889f9e88929c95898e88bb9c969a9297d5989496" style="color: #cccccc; text-decoration: underline;"><span class="__cf_email__" data-cfemail="13657c616772607776607a747d61666053747e727a7f3d707c7e">[email&#160;protected]</span></a></p>
+                <p>Email: <a href="mailto:vortasdesignrus@gmail.com" style="color: #cccccc; text-decoration: underline;">vortasdesignrus@gmail.com</a></p>
                 <div class="social-links">
                     <a href="https://t.me/vortas_store" target="_blank" class="telegram-link"><i class="fab fa-telegram"></i> Основной канал</a>
                     <a href="https://t.me/vortashelp" target="_blank" class="telegram-link"><i class="fab fa-telegram"></i> Помощник</a>
@@ -259,7 +259,7 @@
                 <div class="footer-col-title">Контакты</div>
                 <div class="footer-contact-item">
                     <span class="footer-contact-label">Email</span>
-                 <a href="/cdn-cgi/l/email-protection#dfa9b0adabbeacbbbaacb6b8b1adaaac9fb8b2beb6b3f1bcb0b2" style="color: #cccccc; text-decoration: underline;"><span class="__cf_email__" data-cfemail="1f69706d6b7e6c7b7a6c7678716d6a6c5f78727e7673317c7072">[email&#160;protected]</span></a>
+                    <a href="mailto:vortasdesignrus@gmail.com" style="color: #cccccc; text-decoration: underline;">vortasdesignrus@gmail.com</a>
                 </div>
                 <div class="footer-contact-item">
                     <span class="footer-contact-label">Telegram</span>
@@ -285,6 +285,7 @@
         </div>
     </footer>
 
+    <!-- MODALS -->
     <div id="aboutModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('about')">&times;</button>
@@ -443,7 +444,7 @@
                     <h3>Срок хранения</h3>
                     <p>Данные хранятся до момента завершения заказа или до получения запроса на их удаление.</p>
                     <h3>Права субъекта данных</h3>
-                    <p>Вы вправе в любой момент отозвать согласие, запросить информацию о хранящихся данных или потребовать их удаления. Обратитесь через Telegram: <em>@vrtas</em> или email: <em><a href="/cdn-cgi/l/email-protection#81f7eef3f5e0f2e5e4f2e8e6eff3f4f2c1e6ece0e8edafe2eeec" style="color: #cccccc; text-decoration: underline;"><span class="__cf_email__" data-cfemail="a2d4cdd0d6c3d1c6c7d1cbc5ccd0d7d1e2c5cfc3cbce8cc1cdcf">[email&#160;protected]</span></a></em>.</p>
+                    <p>Вы вправе в любой момент отозвать согласие, запросить информацию о хранящихся данных или потребовать их удаления. Обратитесь через Telegram: <em>@vrtas</em> или email: <em>vortasdesignrus@gmail.com</em>.</p>
                     <h3>Правовое основание</h3>
                     <p>Обработка осуществляется на основании согласия субъекта персональных данных (п. 1 ч. 1 ст. 6 Федерального закона № 152-ФЗ).</p>
                 </div>
@@ -451,7 +452,8 @@
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
+    // ── Loader ──────────────────────────────────────────────────────────────
     (function () {
         var loader = document.getElementById('gothic-loader');
         var bar    = document.getElementById('loaderBar');
@@ -462,8 +464,8 @@
         function tick() {
             if (cur < tgt) {
                 cur++;
-                bar.style.width  = cur + '%';
-                pct.textContent  = cur + '%';
+                bar.style.width = cur + '%';
+                pct.textContent = cur + '%';
                 if (cur === 25) txt.textContent = 'Инициализация...';
                 if (cur === 60) txt.textContent = 'Подготовка интерфейса...';
                 if (cur === 90) txt.textContent = 'Почти готово...';
@@ -501,6 +503,7 @@
         }
     }());
 
+    // ── FAQ accordion ────────────────────────────────────────────────────────
     document.querySelectorAll('.faq-item h3').forEach(function (q) {
         q.addEventListener('click', function () {
             var item     = q.parentNode;
@@ -512,18 +515,20 @@
         });
     });
 
+    // ── Order redirect ───────────────────────────────────────────────────────
     function goToOrder(product) {
         var base = window.location.pathname.replace(/\/[^\/]*$/, '/');
         window.location.href = base + 'order.html?product=' + encodeURIComponent(product);
     }
 
+    // ── Modal open / close ───────────────────────────────────────────────────
     function openModal(type) {
         var modal = document.getElementById(type + 'Modal');
         if (!modal) return;
         clearTimeout(modal._closeTimer);
         document.body.style.overflow = 'hidden';
         modal.classList.add('show');
-        setTimeout(function(){
+        setTimeout(function () {
             modal.classList.add('active');
         }, 10);
     }
@@ -533,13 +538,14 @@
         if (!modal) return;
         document.body.style.overflow = '';
         modal.classList.remove('active');
-        modal._closeTimer = setTimeout(function(){
+        modal._closeTimer = setTimeout(function () {
             modal.classList.remove('show');
         }, 500);
     }
 
-    document.querySelectorAll('.modal-overlay').forEach(function(modal) {
-        modal.addEventListener('click', function(e) {
+    // Close on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(function (modal) {
+        modal.addEventListener('click', function (e) {
             if (e.target === modal) {
                 var type = modal.id.replace('Modal', '');
                 closeModal(type);
@@ -547,9 +553,10 @@
         });
     });
 
-    document.addEventListener('keydown', function(e) {
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
-            document.querySelectorAll('.modal-overlay.active').forEach(function(modal) {
+            document.querySelectorAll('.modal-overlay.active').forEach(function (modal) {
                 var type = modal.id.replace('Modal', '');
                 closeModal(type);
             });
@@ -558,28 +565,31 @@
     </script>
 
     <script>
-    window.addEventListener('load', function(){
+    // ── Header canvas particles ──────────────────────────────────────────────
+    window.addEventListener('load', function () {
         var c = document.getElementById('headerCanvas');
         if (!c) return;
         var header = document.querySelector('.animated-header');
-        function resize(){
+
+        function resize() {
             c.width  = header.offsetWidth;
             c.height = header.offsetHeight;
         }
         resize();
         window.addEventListener('resize', resize);
+
         var ctx = c.getContext('2d');
         var mouse = { x: -9999, y: -9999 };
-        header.addEventListener('mousemove', function(e){
+        header.addEventListener('mousemove', function (e) {
             var r = header.getBoundingClientRect();
             mouse.x = e.clientX - r.left;
             mouse.y = e.clientY - r.top;
         });
-        header.addEventListener('mouseleave', function(){ mouse.x = -9999; mouse.y = -9999; });
+        header.addEventListener('mouseleave', function () { mouse.x = -9999; mouse.y = -9999; });
 
         var COUNT = window.innerWidth < 768 ? 55 : 90;
         var particles = [];
-        for(var i = 0; i < COUNT; i++){
+        for (var i = 0; i < COUNT; i++) {
             particles.push({
                 x: Math.random() * c.width,
                 y: Math.random() * c.height,
@@ -591,27 +601,26 @@
                 pulseSpeed: Math.random() * 0.02 + 0.008
             });
         }
-        var LINK = window.innerWidth < 768 ? 90 : 130;
+        var LINK    = window.innerWidth < 768 ? 90 : 130;
         var MOUSE_R = 120;
 
-        function draw(){
+        function draw() {
             ctx.clearRect(0, 0, c.width, c.height);
-            particles.forEach(function(p){
-                // mouse repulsion
+            particles.forEach(function (p) {
                 var dx = p.x - mouse.x, dy = p.y - mouse.y;
-                var d = Math.sqrt(dx*dx + dy*dy);
-                if(d < MOUSE_R && d > 0){
+                var d  = Math.sqrt(dx * dx + dy * dy);
+                if (d < MOUSE_R && d > 0) {
                     var f = (MOUSE_R - d) / MOUSE_R * 0.3;
-                    p.vx += dx/d * f;
-                    p.vy += dy/d * f;
+                    p.vx += dx / d * f;
+                    p.vy += dy / d * f;
                 }
                 p.vx *= 0.98; p.vy *= 0.98;
-                p.x += p.vx; p.y += p.vy;
+                p.x  += p.vx; p.y  += p.vy;
                 p.pulse += p.pulseSpeed;
-                if(p.x < 0) p.x = c.width;
-                if(p.x > c.width) p.x = 0;
-                if(p.y < 0) p.y = c.height;
-                if(p.y > c.height) p.y = 0;
+                if (p.x < 0) p.x = c.width;
+                if (p.x > c.width) p.x = 0;
+                if (p.y < 0) p.y = c.height;
+                if (p.y > c.height) p.y = 0;
 
                 var op = p.opacity * (0.7 + 0.3 * Math.sin(p.pulse));
                 ctx.beginPath();
@@ -620,29 +629,27 @@
                 ctx.fill();
             });
 
-            // draw constellation lines between close particles
-            for(var i = 0; i < particles.length; i++){
-                for(var j = i+1; j < particles.length; j++){
+            for (var i = 0; i < particles.length; i++) {
+                for (var j = i + 1; j < particles.length; j++) {
                     var a = particles[i], b = particles[j];
                     var dx = a.x - b.x, dy = a.y - b.y;
-                    var dist = Math.sqrt(dx*dx + dy*dy);
-                    if(dist < LINK){
+                    var dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < LINK) {
                         ctx.beginPath();
                         ctx.moveTo(a.x, a.y);
                         ctx.lineTo(b.x, b.y);
-                        ctx.strokeStyle = 'rgba(255,255,255,' + (1 - dist/LINK) * 0.18 + ')';
+                        ctx.strokeStyle = 'rgba(255,255,255,' + (1 - dist / LINK) * 0.18 + ')';
                         ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }
                 }
-                // mouse connections
                 var mdx = particles[i].x - mouse.x, mdy = particles[i].y - mouse.y;
-                var md = Math.sqrt(mdx*mdx + mdy*mdy);
-                if(md < LINK * 1.5){
+                var md  = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (md < LINK * 1.5) {
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(mouse.x, mouse.y);
-                    ctx.strokeStyle = 'rgba(255,255,255,' + (1 - md/(LINK*1.5)) * 0.35 + ')';
+                    ctx.strokeStyle = 'rgba(255,255,255,' + (1 - md / (LINK * 1.5)) * 0.35 + ')';
                     ctx.lineWidth = 0.7;
                     ctx.stroke();
                 }
@@ -654,32 +661,47 @@
     </script>
 
     <script>
-    (function(){
-      var s=document.createElement("span");
-      s.className="fas fa-check";
-      s.style.cssText="position:absolute;top:-999px;left:-999px;font-size:10px";
-      document.body.appendChild(s);
-      var f=window.getComputedStyle(s).fontFamily;
-      document.body.removeChild(s);
-      if(!f||f.indexOf("Font Awesome")===-1){
-        var l=document.createElement("link");
-        l.rel="stylesheet";
-        l.href="https://use.fontawesome.com/releases/v6.6.0/css/all.css";
-        document.head.appendChild(l);
-      }
+    // ── Font Awesome fallback ────────────────────────────────────────────────
+    (function () {
+        var s = document.createElement('span');
+        s.className = 'fas fa-check';
+        s.style.cssText = 'position:absolute;top:-999px;left:-999px;font-size:10px';
+        document.body.appendChild(s);
+        var f = window.getComputedStyle(s).fontFamily;
+        document.body.removeChild(s);
+        if (!f || f.indexOf('Font Awesome') === -1) {
+            var l = document.createElement('link');
+            l.rel  = 'stylesheet';
+            l.href = 'https://use.fontawesome.com/releases/v6.6.0/css/all.css';
+            document.head.appendChild(l);
+        }
     }());
     </script>
 
     <script>
-
-    if(window.matchMedia('(hover: hover)').matches){
-        document.querySelectorAll('.product-card-horizontal').forEach(function(card){
+    // ── 3D card tilt (desktop hover only) ───────────────────────────────────
+    if (window.matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll('.product-card-horizontal').forEach(function (card) {
             var glare = document.createElement('div');
             glare.style.cssText = 'position:absolute;inset:0;border-radius:24px;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.3s ease;';
             card.appendChild(glare);
 
-            card.addEventListener('mousemove', function(e){
+            card.addEventListener('mousemove', function (e) {
                 var rect = card.getBoundingClientRect();
-                var xPct = (e.clientX - rect.left) / rect.width  - 0.5;
-                var yPct = (e.clientY - rect.top)  / rect.height - 0.5;
-                card.style.trans
+                var xPct = (e.clientX - rect.left)  / rect.width  - 0.5;
+                var yPct = (e.clientY - rect.top)   / rect.height - 0.5;
+                card.style.transform = 'translateY(-12px) scale(1.01) rotateY(' + (xPct * 8) + 'deg) rotateX(' + (-yPct * 6) + 'deg)';
+                glare.style.opacity    = '0.15';
+                glare.style.background = 'radial-gradient(circle at ' + ((xPct + 0.5) * 100) + '% ' + ((yPct + 0.5) * 100) + '%, rgba(255,255,255,0.25) 0%, transparent 60%)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                card.style.transform = '';
+                glare.style.opacity  = '0';
+            });
+        });
+    }
+    </script>
+
+</body>
+</html>
