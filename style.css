@@ -1792,6 +1792,17 @@ nav a:hover::before {
   image-rendering: -webkit-optimize-contrast;
 }
 
+.product-card-horizontal {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.15s ease, border-color 0.4s, box-shadow 0.4s !important;
+}
+.product-card-horizontal:hover {
+  /* shadow/border still applied, transform handled by JS */
+  border-color: var(--accent);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 40px rgba(255,255,255,0.35), inset 0 0 0 1px var(--accent);
+}
+
 *:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.5);
   outline-offset: 2px;
