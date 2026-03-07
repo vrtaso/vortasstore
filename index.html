@@ -175,7 +175,7 @@
         <section id="contacts" class="contacts-section">
             <h2>Контакты</h2>
             <div class="contacts-content">
-                <p>Email: <!--email_off--><a href="mailto:vortasdesignrus@gmail.com" style="color: #cccccc; text-decoration: underline;">vortasdesignrus@gmail.com</a><!--/email_off--></p>
+                <p>Email: <a href="/cdn-cgi/l/email-protection#fb8d94898f9a889f9e88929c95898e88bb9c969a9297d5989496" style="color: #cccccc; text-decoration: underline;"><span class="__cf_email__" data-cfemail="13657c616772607776607a747d61666053747e727a7f3d707c7e">[email&#160;protected]</span></a></p>
                 <div class="social-links">
                     <a href="https://t.me/vortas_store" target="_blank" class="telegram-link"><i class="fab fa-telegram"></i> Основной канал</a>
                     <a href="https://t.me/vortashelp" target="_blank" class="telegram-link"><i class="fab fa-telegram"></i> Помощник</a>
@@ -259,7 +259,7 @@
                 <div class="footer-col-title">Контакты</div>
                 <div class="footer-contact-item">
                     <span class="footer-contact-label">Email</span>
-                 <!--email_off--><a href="mailto:vortasdesignrus@gmail.com" style="color: #cccccc; text-decoration: underline;">vortasdesignrus@gmail.com</a><!--/email_off-->
+                 <a href="/cdn-cgi/l/email-protection#dfa9b0adabbeacbbbaacb6b8b1adaaac9fb8b2beb6b3f1bcb0b2" style="color: #cccccc; text-decoration: underline;"><span class="__cf_email__" data-cfemail="1f69706d6b7e6c7b7a6c7678716d6a6c5f78727e7673317c7072">[email&#160;protected]</span></a>
                 </div>
                 <div class="footer-contact-item">
                     <span class="footer-contact-label">Telegram</span>
@@ -443,7 +443,7 @@
                     <h3>Срок хранения</h3>
                     <p>Данные хранятся до момента завершения заказа или до получения запроса на их удаление.</p>
                     <h3>Права субъекта данных</h3>
-                    <p>Вы вправе в любой момент отозвать согласие, запросить информацию о хранящихся данных или потребовать их удаления. Обратитесь через Telegram: <em>@vrtas</em> или email: <em><!--email_off--><a href="mailto:vortasdesignrus@gmail.com" style="color: #cccccc; text-decoration: underline;">vortasdesignrus@gmail.com</a><!--/email_off--></em>.</p>
+                    <p>Вы вправе в любой момент отозвать согласие, запросить информацию о хранящихся данных или потребовать их удаления. Обратитесь через Telegram: <em>@vrtas</em> или email: <em><a href="/cdn-cgi/l/email-protection#81f7eef3f5e0f2e5e4f2e8e6eff3f4f2c1e6ece0e8edafe2eeec" style="color: #cccccc; text-decoration: underline;"><span class="__cf_email__" data-cfemail="a2d4cdd0d6c3d1c6c7d1cbc5ccd0d7d1e2c5cfc3cbce8cc1cdcf">[email&#160;protected]</span></a></em>.</p>
                     <h3>Правовое основание</h3>
                     <p>Обработка осуществляется на основании согласия субъекта персональных данных (п. 1 ч. 1 ст. 6 Федерального закона № 152-ФЗ).</p>
                 </div>
@@ -451,7 +451,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     (function () {
         var loader = document.getElementById('gothic-loader');
         var bar    = document.getElementById('loaderBar');
@@ -522,9 +522,9 @@
         if (!modal) return;
         clearTimeout(modal._closeTimer);
         document.body.style.overflow = 'hidden';
-        modal.style.display = 'block';
+        modal.classList.add('show');
         setTimeout(function(){
-            modal.classList.add('modal-visible');
+            modal.classList.add('active');
         }, 10);
     }
 
@@ -532,10 +532,10 @@
         var modal = document.getElementById(type + 'Modal');
         if (!modal) return;
         document.body.style.overflow = '';
-        modal.classList.remove('modal-visible');
+        modal.classList.remove('active');
         modal._closeTimer = setTimeout(function(){
-            modal.style.display = 'none';
-        }, 400);
+            modal.classList.remove('show');
+        }, 500);
     }
 
     document.querySelectorAll('.modal-overlay').forEach(function(modal) {
@@ -549,7 +549,7 @@
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            document.querySelectorAll('.modal-overlay.modal-visible').forEach(function(modal) {
+            document.querySelectorAll('.modal-overlay.active').forEach(function(modal) {
                 var type = modal.id.replace('Modal', '');
                 closeModal(type);
             });
@@ -569,32 +569,84 @@
         resize();
         window.addEventListener('resize', resize);
         var ctx = c.getContext('2d');
+        var mouse = { x: -9999, y: -9999 };
+        header.addEventListener('mousemove', function(e){
+            var r = header.getBoundingClientRect();
+            mouse.x = e.clientX - r.left;
+            mouse.y = e.clientY - r.top;
+        });
+        header.addEventListener('mouseleave', function(){ mouse.x = -9999; mouse.y = -9999; });
+
+        var COUNT = window.innerWidth < 768 ? 55 : 90;
         var particles = [];
-        for(var i = 0; i < 60; i++){
+        for(var i = 0; i < COUNT; i++){
             particles.push({
                 x: Math.random() * c.width,
                 y: Math.random() * c.height,
-                r: Math.random() * 1.4 + 0.2,
-                a: Math.random() * Math.PI * 2,
-                speed: Math.random() * 0.18 + 0.04,
-                opacity: Math.random() * 0.55 + 0.08
+                vx: (Math.random() - 0.5) * 0.35,
+                vy: (Math.random() - 0.5) * 0.35,
+                r: Math.random() * 1.6 + 0.3,
+                opacity: Math.random() * 0.6 + 0.1,
+                pulse: Math.random() * Math.PI * 2,
+                pulseSpeed: Math.random() * 0.02 + 0.008
             });
         }
+        var LINK = window.innerWidth < 768 ? 90 : 130;
+        var MOUSE_R = 120;
+
         function draw(){
             ctx.clearRect(0, 0, c.width, c.height);
             particles.forEach(function(p){
-                p.x += Math.cos(p.a) * p.speed;
-                p.y += Math.sin(p.a) * p.speed;
-                p.a += (Math.random() - 0.5) * 0.018;
+                // mouse repulsion
+                var dx = p.x - mouse.x, dy = p.y - mouse.y;
+                var d = Math.sqrt(dx*dx + dy*dy);
+                if(d < MOUSE_R && d > 0){
+                    var f = (MOUSE_R - d) / MOUSE_R * 0.3;
+                    p.vx += dx/d * f;
+                    p.vy += dy/d * f;
+                }
+                p.vx *= 0.98; p.vy *= 0.98;
+                p.x += p.vx; p.y += p.vy;
+                p.pulse += p.pulseSpeed;
                 if(p.x < 0) p.x = c.width;
                 if(p.x > c.width) p.x = 0;
                 if(p.y < 0) p.y = c.height;
                 if(p.y > c.height) p.y = 0;
+
+                var op = p.opacity * (0.7 + 0.3 * Math.sin(p.pulse));
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255,255,255,' + p.opacity + ')';
+                ctx.fillStyle = 'rgba(255,255,255,' + op + ')';
                 ctx.fill();
             });
+
+            // draw constellation lines between close particles
+            for(var i = 0; i < particles.length; i++){
+                for(var j = i+1; j < particles.length; j++){
+                    var a = particles[i], b = particles[j];
+                    var dx = a.x - b.x, dy = a.y - b.y;
+                    var dist = Math.sqrt(dx*dx + dy*dy);
+                    if(dist < LINK){
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.strokeStyle = 'rgba(255,255,255,' + (1 - dist/LINK) * 0.18 + ')';
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+                // mouse connections
+                var mdx = particles[i].x - mouse.x, mdy = particles[i].y - mouse.y;
+                var md = Math.sqrt(mdx*mdx + mdy*mdy);
+                if(md < LINK * 1.5){
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = 'rgba(255,255,255,' + (1 - md/(LINK*1.5)) * 0.35 + ')';
+                    ctx.lineWidth = 0.7;
+                    ctx.stroke();
+                }
+            }
             requestAnimationFrame(draw);
         }
         draw();
@@ -617,6 +669,17 @@
       }
     }());
     </script>
-</body>
-</html>
 
+    <script>
+
+    if(window.matchMedia('(hover: hover)').matches){
+        document.querySelectorAll('.product-card-horizontal').forEach(function(card){
+            var glare = document.createElement('div');
+            glare.style.cssText = 'position:absolute;inset:0;border-radius:24px;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.3s ease;';
+            card.appendChild(glare);
+
+            card.addEventListener('mousemove', function(e){
+                var rect = card.getBoundingClientRect();
+                var xPct = (e.clientX - rect.left) / rect.width  - 0.5;
+                var yPct = (e.clientY - rect.top)  / rect.height - 0.5;
+                card.style.trans
