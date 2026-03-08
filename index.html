@@ -527,6 +527,14 @@
         if (!modal) return;
         clearTimeout(modal._closeTimer);
         document.body.style.overflow = 'hidden';
+
+        // Force animation replay for .about-section elements each open
+        modal.querySelectorAll('.about-section').forEach(function (el) {
+            el.style.animation = 'none';
+            void el.offsetHeight; // trigger reflow to reset animation
+            el.style.animation = '';
+        });
+
         modal.classList.add('show');
         setTimeout(function () {
             modal.classList.add('active');
@@ -542,6 +550,11 @@
             modal.classList.remove('show');
         }, 500);
     }
+
+    // Expose globally so onclick= attributes always find them
+    window.openModal  = openModal;
+    window.closeModal = closeModal;
+    window.goToOrder  = goToOrder;
 
     // Close on overlay click
     document.querySelectorAll('.modal-overlay').forEach(function (modal) {
