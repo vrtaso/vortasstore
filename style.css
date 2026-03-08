@@ -74,7 +74,7 @@ main {
   margin: 0 auto;
 }
 
-/* LOADER */
+/* ── LOADER ──────────────────────────────────────────────────────────────── */
 
 .gothic-loader {
   position: fixed;
@@ -266,7 +266,7 @@ body.loaded footer {
   animation: contentFadeIn 0.8s ease forwards;
 }
 
-/* HEADER */
+/* ── HEADER ──────────────────────────────────────────────────────────────── */
 
 .animated-header {
   position: relative;
@@ -488,7 +488,7 @@ nav a:hover::before {
   nav a { font-size: 0.7rem; padding: 0.6rem 1rem; letter-spacing: 0.1rem; }
 }
 
-/* PRODUCTS */
+/* ── PRODUCTS ─────────────────────────────────────────────────────────────── */
 
 .products-section {
   scroll-margin-top: 2rem;
@@ -511,7 +511,6 @@ nav a:hover::before {
   padding: 0 2rem;
 }
 
-/* FIX: убран дублирующий блок с !important и preserve-3d */
 .product-card-horizontal {
   display: grid;
   grid-template-columns: 480px 1fr;
@@ -829,7 +828,7 @@ nav a:hover::before {
 .desktop-only { display: block; }
 .mobile-only  { display: none; }
 
-/* CONTACTS */
+/* ── CONTACTS ─────────────────────────────────────────────────────────────── */
 
 .contacts-section {
   scroll-margin-top: 2rem;
@@ -904,7 +903,7 @@ nav a:hover::before {
 .telegram-link i { font-size: 1.5rem; transition: transform 0.3s ease; }
 .telegram-link:hover i { transform: scale(1.3); }
 
-/* RULES */
+/* ── RULES ────────────────────────────────────────────────────────────────── */
 
 .rules-section {
   scroll-margin-top: 2rem;
@@ -989,7 +988,7 @@ nav a:hover::before {
   padding-left: 1.5rem;
 }
 
-/* FAQ */
+/* ── FAQ ──────────────────────────────────────────────────────────────────── */
 
 .faq-section {
   scroll-margin-top: 2rem;
@@ -1059,7 +1058,7 @@ nav a:hover::before {
   padding-bottom: 0.5rem;
 }
 
-/* FOOTER */
+/* ── FOOTER ───────────────────────────────────────────────────────────────── */
 
 .site-footer {
   background: linear-gradient(180deg, transparent 0%, rgba(4,4,6,0.97) 14%, #000 100%);
@@ -1283,7 +1282,7 @@ nav a:hover::before {
   font-family: 'Jost', sans-serif;
 }
 
-/* MODALS */
+/* ── MODALS ───────────────────────────────────────────────────────────────── */
 
 .modal-overlay {
   display: none;
@@ -1386,6 +1385,8 @@ nav a:hover::before {
   box-shadow: var(--neon);
 }
 
+/* ── ABOUT MODAL ──────────────────────────────────────────────────────────── */
+
 .about-text {
   line-height: 1.7;
   color: var(--accent-dark);
@@ -1418,16 +1419,24 @@ nav a:hover::before {
   font-style: italic;
 }
 
+/*
+  FIX: использован fill-mode "both" вместо "forwards"
+  чтобы элементы оставались невидимы во время delay
+  и становились видимы после завершения анимации.
+
+  FIX: nth-child скорректирован — .about-quote является
+  первым дочерним элементом .about-text, поэтому
+  .about-section начинаются со 2-го child.
+*/
 .about-section {
   margin-bottom: 2.5rem;
-  animation: fadeInUp 0.6s ease forwards;
-  opacity: 0;
+  animation: fadeInUp 0.6s ease both;
 }
 
-.about-section:nth-child(1) { animation-delay: 0.1s; }
-.about-section:nth-child(2) { animation-delay: 0.2s; }
-.about-section:nth-child(3) { animation-delay: 0.3s; }
-.about-section:nth-child(4) { animation-delay: 0.4s; }
+.about-section:nth-child(2) { animation-delay: 0.1s; }
+.about-section:nth-child(3) { animation-delay: 0.2s; }
+.about-section:nth-child(4) { animation-delay: 0.3s; }
+.about-section:nth-child(5) { animation-delay: 0.4s; }
 
 .about-subtitle {
   font-size: 1.4rem;
@@ -1475,6 +1484,8 @@ nav a:hover::before {
   font-weight: 600;
   font-style: italic;
 }
+
+/* ── AGREEMENT MODAL ─────────────────────────────────────────────────────── */
 
 .agreement-text {
   line-height: 1.6;
@@ -1552,7 +1563,7 @@ nav a:hover::before {
   border: 1px solid var(--glass-border);
 }
 
-/* KEYFRAMES */
+/* ── KEYFRAMES ────────────────────────────────────────────────────────────── */
 
 @keyframes textGlow {
   0%   { filter: drop-shadow(0 0 8px rgba(255,255,255,0.5)); }
@@ -1645,7 +1656,7 @@ nav a:hover::before {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* RESPONSIVE */
+/* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
 
 @media (max-width: 1200px) {
   .products-grid-horizontal { padding: 0 1rem; }
