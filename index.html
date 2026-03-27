@@ -10,6 +10,10 @@
     <meta property="og:url" content="https://vortas.store">
     <meta property="og:type" content="website">
     <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#000000">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VORTAS STORE — дизайн-студия">
+    <meta name="twitter:description" content="Начинающая дизайн-студия, создающая уникальные визуальные решения для вашего бизнеса и личных проектов.">
     <title>VORTAS STORE</title>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -21,7 +25,8 @@
 </head>
 <body>
 
-    <div id="gothic-loader" class="gothic-loader">
+    <!-- ── LOADER ── -->
+    <div id="gothic-loader" class="gothic-loader" role="status" aria-label="Загрузка сайта">
         <div class="loader-wrapper">
             <div class="loader-logo-container">
                 <h1 class="loader-logo">VORTAS STORE</h1>
@@ -39,49 +44,55 @@
                 <span class="loader-status-text" id="loaderStatusText">Загрузка сайта...</span>
                 <span class="loader-status-percentage" id="loaderPercent">0%</span>
             </div>
-            <div class="loader-effects">
+            <div class="loader-effects" aria-hidden="true">
                 <div class="loader-scanline"></div>
                 <div class="loader-scanline vertical"></div>
             </div>
         </div>
     </div>
 
+    <!-- ── HEADER ── -->
     <header class="animated-header">
-        <canvas class="header-canvas" id="headerCanvas"></canvas>
-        <div class="header-scanline"></div>
+        <canvas class="header-canvas" id="headerCanvas" aria-hidden="true"></canvas>
+        <div class="header-scanline" aria-hidden="true"></div>
 
         <div class="header-inner">
-            <div class="logo-container">
+            <div class="logo-container" aria-hidden="true">
                 <div class="logo-ring logo-ring-1"></div>
                 <div class="logo-ring logo-ring-2"></div>
                 <div class="logo-ring logo-ring-3"></div>
-                <h1 class="logo">VORTAS STORE</h1>
+                <h1 class="logo" data-text="VORTAS STORE">VORTAS STORE</h1>
             </div>
             <p class="subtitle">
-                <span class="subtitle-line"></span>
+                <span class="subtitle-line" aria-hidden="true"></span>
                 <span class="subtitle-text">design store by vortas</span>
-                <span class="subtitle-line"></span>
+                <span class="subtitle-line" aria-hidden="true"></span>
             </p>
-            <nav>
+
+            <button class="hamburger" id="hamburger" aria-label="Открыть меню" aria-expanded="false" aria-controls="navMenu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Основная навигация">
                 <a href="#products"><span>Товары</span></a>
                 <a href="#contacts"><span>Контакты</span></a>
                 <a href="#order-rules"><span>Правила заказа</span></a>
                 <a href="#faq"><span>FAQ</span></a>
             </nav>
         </div>
-
     </header>
 
+    <!-- ── MAIN ── -->
     <main>
 
-        <section id="products" class="products-section">
+        <section id="products" class="products-section reveal">
             <h2>Наши услуги</h2>
             <div class="products-grid-horizontal">
 
-                <div class="product-card-horizontal">
+                <div class="product-card-horizontal reveal reveal-delay-1">
                     <div class="product-image-container-horizontal">
-                        <img src="images/vexillum.png" class="product-image-horizontal" alt="VEXILLUM">
-                        <div class="image-overlay-horizontal"></div>
+                        <img src="images/vexillum.png" class="product-image-horizontal" alt="VEXILLUM — рекламная графика" loading="lazy" decoding="async">
+                        <div class="image-overlay-horizontal" aria-hidden="true"></div>
                     </div>
                     <div class="product-content-horizontal">
                         <h3>VEXILLUM</h3>
@@ -95,10 +106,10 @@
                     </div>
                 </div>
 
-                <div class="product-card-horizontal">
+                <div class="product-card-horizontal reveal reveal-delay-2">
                     <div class="product-image-container-horizontal">
-                        <img src="images/effigy.png" class="product-image-horizontal" alt="EFFIGY">
-                        <div class="image-overlay-horizontal"></div>
+                        <img src="images/effigy.png" class="product-image-horizontal" alt="EFFIGY — постеры и макеты" loading="lazy" decoding="async">
+                        <div class="image-overlay-horizontal" aria-hidden="true"></div>
                     </div>
                     <div class="product-content-horizontal">
                         <h3>EFFIGY</h3>
@@ -112,10 +123,10 @@
                     </div>
                 </div>
 
-                <div class="product-card-horizontal">
+                <div class="product-card-horizontal reveal reveal-delay-3">
                     <div class="product-image-container-horizontal">
-                        <img src="images/tenebration.png" class="product-image-horizontal" alt="TENEBRATION">
-                        <div class="image-overlay-horizontal"></div>
+                        <img src="images/tenebration.png" class="product-image-horizontal" alt="TENEBRATION — ретушь фото" loading="lazy" decoding="async">
+                        <div class="image-overlay-horizontal" aria-hidden="true"></div>
                     </div>
                     <div class="product-content-horizontal">
                         <h3>TENEBRATION</h3>
@@ -129,11 +140,11 @@
                     </div>
                 </div>
 
-                <div class="product-card-horizontal">
+                <div class="product-card-horizontal reveal">
                     <div class="product-image-container-horizontal">
-                        <img src="images/pactlings_pc.png" class="product-image-horizontal desktop-only" alt="PACTLINGS">
-                        <img src="images/pactlings_mb.png" class="product-image-horizontal mobile-only" alt="PACTLINGS">
-                        <div class="image-overlay-horizontal"></div>
+                        <img src="images/pactlings_pc.png" class="product-image-horizontal desktop-only" alt="PACTLINGS — маскоты и персонажи" loading="lazy" decoding="async">
+                        <img src="images/pactlings_mb.png" class="product-image-horizontal mobile-only" alt="PACTLINGS — маскоты и персонажи" loading="lazy" decoding="async">
+                        <div class="image-overlay-horizontal" aria-hidden="true"></div>
                     </div>
                     <div class="product-content-horizontal">
                         <h3>PACTLINGS</h3>
@@ -160,7 +171,7 @@
                         <div class="product-footer-horizontal">
                             <div class="price-container-horizontal">
                                 <div class="price-note-bottom">
-                                    <i class="fas fa-info-circle"></i>
+                                    <i class="fas fa-info-circle" aria-hidden="true"></i>
                                     <span class="note-text">Цена меняется в зависимости от выбора (описание листается вниз)</span>
                                 </div>
                             </div>
@@ -172,20 +183,26 @@
             </div>
         </section>
 
-        <section id="contacts" class="contacts-section">
+        <section id="contacts" class="contacts-section reveal">
             <h2>Контакты</h2>
             <div class="contacts-content">
-                <p>Email: <a href="mailto:vortasdesignrus@gmail.com" style="color: #cccccc; text-decoration: underline;">vortasdesignrus@gmail.com</a></p>
+                <p>Email: <a href="/cdn-cgi/l/email-protection#b2c4ddc0c6d3c1f2c4ddc0c6d3c19cc1c6ddc0d7" style="color: #cccccc; text-decoration: underline;"><span class="__cf_email__" data-cfemail="d3a5bca1a7b2a093a5bca1a7b2a0fda0a7bca1b6">[email&#160;protected]</span></a></p>
                 <div class="social-links">
-                    <a href="https://t.me/vortas_store" target="_blank" class="telegram-link"><i class="fab fa-telegram"></i> Основной канал</a>
-                    <a href="https://t.me/vortashelp" target="_blank" class="telegram-link"><i class="fab fa-telegram"></i> Помощник</a>
-                    <a href="https://t.me/vortasdesign" target="_blank" class="telegram-link"><i class="fab fa-telegram"></i> Задать вопрос</a>
+                    <a href="https://t.me/vortas_store" target="_blank" rel="noopener noreferrer" class="telegram-link">
+                        <i class="fab fa-telegram" aria-hidden="true"></i> Основной канал
+                    </a>
+                    <a href="https://t.me/vortashelp" target="_blank" rel="noopener noreferrer" class="telegram-link">
+                        <i class="fab fa-telegram" aria-hidden="true"></i> Помощник
+                    </a>
+                    <a href="https://t.me/vortasdesign" target="_blank" rel="noopener noreferrer" class="telegram-link">
+                        <i class="fab fa-telegram" aria-hidden="true"></i> Задать вопрос
+                    </a>
                 </div>
                 <p>Рабочие часы: 10:00–18:00 (по МСК / UTC+3)</p>
             </div>
         </section>
 
-        <section id="order-rules" class="rules-section">
+        <section id="order-rules" class="rules-section reveal">
             <h2>Правила заказа</h2>
             <div class="rules-content">
                 <ol>
@@ -201,7 +218,7 @@
             </div>
         </section>
 
-        <section id="faq" class="faq-section">
+        <section id="faq" class="faq-section reveal">
             <h2>FAQ</h2>
             <div class="faq-content">
                 <div class="faq-item">
@@ -229,6 +246,7 @@
 
     </main>
 
+    <!-- ── FOOTER ── -->
     <footer class="site-footer">
         <div class="footer-inner">
 
@@ -241,16 +259,16 @@
                 <div class="footer-col-title">Документы</div>
                 <div class="footer-buttons">
                     <button class="footer-btn" onclick="openModal('about')">
-                        <i class="fas fa-info-circle"></i> Подробнее о нас
+                        <i class="fas fa-info-circle" aria-hidden="true"></i> Подробнее о нас
                     </button>
                     <button class="footer-btn" onclick="openModal('agreement')">
-                        <i class="fas fa-file-contract"></i> Пользовательское соглашение
+                        <i class="fas fa-file-contract" aria-hidden="true"></i> Пользовательское соглашение
                     </button>
                     <button class="footer-btn" onclick="openModal('oferta')">
-                        <i class="fas fa-file-signature"></i> Публичная оферта
+                        <i class="fas fa-file-signature" aria-hidden="true"></i> Публичная оферта
                     </button>
                     <button class="footer-btn" onclick="openModal('personalData')">
-                        <i class="fas fa-user-shield"></i> Согласие на обработку персональных данных
+                        <i class="fas fa-user-shield" aria-hidden="true"></i> Согласие на обработку персональных данных
                     </button>
                 </div>
             </div>
@@ -259,17 +277,17 @@
                 <div class="footer-col-title">Контакты</div>
                 <div class="footer-contact-item">
                     <span class="footer-contact-label">Email</span>
-                    <a href="mailto:vortasdesignrus@gmail.com" style="color: #cccccc; text-decoration: underline;">vortasdesignrus@gmail.com</a>
+                    <a href="/cdn-cgi/l/email-protection#62140d1016031122140d101603114c11160d1007" style="color: #cccccc; text-decoration: underline;"><span class="__cf_email__" data-cfemail="3741584543564477415845435644194443584552">[email&#160;protected]</span></a>
                 </div>
                 <div class="footer-contact-item">
                     <span class="footer-contact-label">Telegram</span>
-                    <a href="https://t.me/vortas_store" target="_blank">Основной канал</a>
-                    <a href="https://t.me/vortashelp" target="_blank">Помощник</a>
+                    <a href="https://t.me/vortas_store" target="_blank" rel="noopener noreferrer">Основной канал</a>
+                    <a href="https://t.me/vortashelp" target="_blank" rel="noopener noreferrer">Помощник</a>
                 </div>
                 <div class="footer-contact-item">
                     <span class="footer-contact-label">Часы работы</span>
                     <div class="footer-hours">
-                        <i class="far fa-clock"></i>
+                        <i class="far fa-clock" aria-hidden="true"></i>
                         <span>10:00–18:00 (МСК)</span>
                     </div>
                 </div>
@@ -285,11 +303,16 @@
         </div>
     </footer>
 
-    <!-- MODALS -->
-    <div id="aboutModal" class="modal-overlay">
+    <!-- ── SCROLL TO TOP ── -->
+    <button class="scroll-top" id="scrollTop" aria-label="Наверх">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- ── MODALS ── -->
+    <div id="aboutModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('about')">&times;</button>
-            <div class="modal-header"><h2>О VORTAS STORE</h2></div>
+            <button class="modal-close" onclick="closeModal('about')" aria-label="Закрыть">&times;</button>
+            <div class="modal-header"><h2 id="aboutModalTitle">О VORTAS STORE</h2></div>
             <div class="modal-body">
                 <div class="about-text">
                     <div class="about-quote">
@@ -322,10 +345,10 @@
         </div>
     </div>
 
-    <div id="agreementModal" class="modal-overlay">
+    <div id="agreementModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="agreementModalTitle">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('agreement')">&times;</button>
-            <div class="modal-header"><h2>Пользовательское соглашение</h2></div>
+            <button class="modal-close" onclick="closeModal('agreement')" aria-label="Закрыть">&times;</button>
+            <div class="modal-header"><h2 id="agreementModalTitle">Пользовательское соглашение</h2></div>
             <div class="modal-body">
                 <div class="agreement-text">
                     <p class="agreement-subtitle">(Публичная оферта) для интернет-магазина <strong>"VORTAS STORE"</strong></p>
@@ -367,10 +390,10 @@
         </div>
     </div>
 
-    <div id="ofertaModal" class="modal-overlay">
+    <div id="ofertaModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="ofertaModalTitle">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('oferta')">&times;</button>
-            <div class="modal-header"><h2>Публичная оферта</h2></div>
+            <button class="modal-close" onclick="closeModal('oferta')" aria-label="Закрыть">&times;</button>
+            <div class="modal-header"><h2 id="ofertaModalTitle">Публичная оферта</h2></div>
             <div class="modal-body">
                 <div class="agreement-text">
                     <p class="agreement-subtitle">Договор оказания дизайн-услуг дистанционным способом &middot; <strong>vortas.store</strong> &middot; Редакция: 01.01.2026</p>
@@ -421,10 +444,10 @@
         </div>
     </div>
 
-    <div id="personalDataModal" class="modal-overlay">
+    <div id="personalDataModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="personalDataModalTitle">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('personalData')">&times;</button>
-            <div class="modal-header"><h2>Согласие на обработку персональных данных</h2></div>
+            <button class="modal-close" onclick="closeModal('personalData')" aria-label="Закрыть">&times;</button>
+            <div class="modal-header"><h2 id="personalDataModalTitle">Согласие на обработку персональных данных</h2></div>
             <div class="modal-body">
                 <div class="agreement-text">
                     <p class="agreement-subtitle">В соответствии с Федеральным законом № 152-ФЗ «О персональных данных» · <strong>vortas.store</strong></p>
@@ -444,7 +467,7 @@
                     <h3>Срок хранения</h3>
                     <p>Данные хранятся до момента завершения заказа или до получения запроса на их удаление.</p>
                     <h3>Права субъекта данных</h3>
-                    <p>Вы вправе в любой момент отозвать согласие, запросить информацию о хранящихся данных или потребовать их удаления. Обратитесь через Telegram: <em>@vrtas</em> или email: <em>vortasdesignrus@gmail.com</em>.</p>
+                    <p>Вы вправе в любой момент отозвать согласие, запросить информацию о хранящихся данных или потребовать их удаления. Обратитесь через Telegram: <em>@vrtas</em> или email: <em><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="54223b2620352714223b262035277a27203b2631">[email&#160;protected]</a></em>.</p>
                     <h3>Правовое основание</h3>
                     <p>Обработка осуществляется на основании согласия субъекта персональных данных (п. 1 ч. 1 ст. 6 Федерального закона № 152-ФЗ).</p>
                 </div>
@@ -452,9 +475,18 @@
         </div>
     </div>
 
-    <script>
+    <!-- ── SCRIPTS ── -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ── Loader ──────────────────────────────────────────────────────────────
     (function () {
+        // Уважаем prefers-reduced-motion
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            var loader = document.getElementById('gothic-loader');
+            if (loader) loader.style.display = 'none';
+            document.body.classList.add('loaded');
+            return;
+        }
+
         var loader = document.getElementById('gothic-loader');
         var bar    = document.getElementById('loaderBar');
         var pct    = document.getElementById('loaderPercent');
@@ -505,13 +537,19 @@
 
     // ── FAQ accordion ────────────────────────────────────────────────────────
     document.querySelectorAll('.faq-item h3').forEach(function (q) {
-        q.addEventListener('click', function () {
+        q.setAttribute('tabindex', '0');
+        q.setAttribute('role', 'button');
+        function toggle() {
             var item     = q.parentNode;
             var isActive = item.classList.contains('active');
             document.querySelectorAll('.faq-item').forEach(function (el) {
                 el.classList.remove('active');
             });
             if (!isActive) item.classList.add('active');
+        }
+        q.addEventListener('click', toggle);
+        q.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
         });
     });
 
@@ -528,17 +566,20 @@
         clearTimeout(modal._closeTimer);
         document.body.style.overflow = 'hidden';
 
-        // Force animation replay for .about-section elements each open
         modal.querySelectorAll('.about-section').forEach(function (el) {
             el.style.animation = 'none';
-            void el.offsetHeight; // trigger reflow to reset animation
+            void el.offsetHeight;
             el.style.animation = '';
         });
 
         modal.classList.add('show');
+        setTimeout(function () { modal.classList.add('active'); }, 10);
+
+        // Фокус на кнопку закрытия для accessibility
         setTimeout(function () {
-            modal.classList.add('active');
-        }, 10);
+            var closeBtn = modal.querySelector('.modal-close');
+            if (closeBtn) closeBtn.focus();
+        }, 50);
     }
 
     function closeModal(type) {
@@ -551,7 +592,6 @@
         }, 500);
     }
 
-    // Expose globally so onclick= attributes always find them
     window.openModal  = openModal;
     window.closeModal = closeModal;
     window.goToOrder  = goToOrder;
@@ -575,55 +615,197 @@
             });
         }
     });
+
+    // ── Hamburger menu ───────────────────────────────────────────────────────
+    (function () {
+        var btn  = document.getElementById('hamburger');
+        var menu = document.getElementById('navMenu');
+        if (!btn || !menu) return;
+
+        btn.addEventListener('click', function () {
+            var isOpen = menu.classList.toggle('open');
+            btn.classList.toggle('open', isOpen);
+            btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            btn.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        // Закрыть при клике на ссылку
+        menu.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                menu.classList.remove('open');
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.setAttribute('aria-label', 'Открыть меню');
+                document.body.style.overflow = '';
+            });
+        });
+    }());
+
+    // ── Scroll to top ────────────────────────────────────────────────────────
+    (function () {
+        var btn = document.getElementById('scrollTop');
+        if (!btn) return;
+        window.addEventListener('scroll', function () {
+            btn.classList.toggle('visible', window.scrollY > 500);
+        }, { passive: true });
+        btn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }());
+
+    // ── Reveal on scroll (IntersectionObserver) ──────────────────────────────
+    (function () {
+        if (!('IntersectionObserver' in window)) {
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(function (el) {
+                el.classList.add('visible');
+            });
+            return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(function (el) {
+            observer.observe(el);
+        });
+
+        // Stagger FAQ items
+        var faqObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    var items = entry.target.querySelectorAll('.faq-item');
+                    items.forEach(function (item, i) {
+                        item.style.transitionDelay = (i * 0.08) + 's';
+                        item.classList.add('reveal-visible');
+                    });
+                    faqObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.05 });
+
+        var faqContent = document.querySelector('.faq-content');
+        if (faqContent) {
+            var items = faqContent.querySelectorAll('.faq-item');
+            items.forEach(function (item) {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(24px)';
+                item.style.transition = 'opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+            });
+            faqObserver.observe(faqContent);
+        }
+    }());
+
+    // Auto add faq-visible class
+    document.addEventListener('animationend', function () {});
+    (function () {
+        var style = document.createElement('style');
+        style.textContent = '.faq-item.reveal-visible { opacity: 1 !important; transform: translateY(0) !important; }';
+        document.head.appendChild(style);
+    }());
     </script>
 
     <script>
-    // ── Header canvas particles ──────────────────────────────────────────────
+    // ── Header canvas particles (оптимизированный) ──────────────────────────
     window.addEventListener('load', function () {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
         var c = document.getElementById('headerCanvas');
         if (!c) return;
         var header = document.querySelector('.animated-header');
+        var ctx = c.getContext('2d');
 
         function resize() {
             c.width  = header.offsetWidth;
             c.height = header.offsetHeight;
         }
         resize();
-        window.addEventListener('resize', resize);
 
-        var ctx = c.getContext('2d');
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(resize, 100);
+        });
+
         var mouse = { x: -9999, y: -9999 };
         header.addEventListener('mousemove', function (e) {
             var r = header.getBoundingClientRect();
             mouse.x = e.clientX - r.left;
             mouse.y = e.clientY - r.top;
+        }, { passive: true });
+        header.addEventListener('mouseleave', function () {
+            mouse.x = -9999; mouse.y = -9999;
         });
-        header.addEventListener('mouseleave', function () { mouse.x = -9999; mouse.y = -9999; });
 
-        var COUNT = window.innerWidth < 768 ? 55 : 90;
+        // Уменьшаем кол-во частиц на мобильных для производительности
+        var isMobile = window.innerWidth < 768;
+        var COUNT = isMobile ? 40 : 75;
+        var LINK  = isMobile ? 80 : 120;
+        var MOUSE_R = 110;
+
         var particles = [];
         for (var i = 0; i < COUNT; i++) {
             particles.push({
                 x: Math.random() * c.width,
                 y: Math.random() * c.height,
-                vx: (Math.random() - 0.5) * 0.35,
-                vy: (Math.random() - 0.5) * 0.35,
-                r: Math.random() * 1.6 + 0.3,
-                opacity: Math.random() * 0.6 + 0.1,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.3,
+                r: Math.random() * 1.4 + 0.3,
+                opacity: Math.random() * 0.5 + 0.1,
                 pulse: Math.random() * Math.PI * 2,
-                pulseSpeed: Math.random() * 0.02 + 0.008
+                pulseSpeed: Math.random() * 0.018 + 0.006
             });
         }
-        var LINK    = window.innerWidth < 768 ? 90 : 130;
-        var MOUSE_R = 120;
 
+        // Пространственное хэширование для оптимизации O(n²) → ~O(n)
+        var CELL = LINK;
+        var grid = {};
+
+        function gridKey(x, y) {
+            return (Math.floor(x / CELL) + ',' + Math.floor(y / CELL));
+        }
+
+        function buildGrid() {
+            grid = {};
+            particles.forEach(function (p, idx) {
+                var k = gridKey(p.x, p.y);
+                if (!grid[k]) grid[k] = [];
+                grid[k].push(idx);
+            });
+        }
+
+        function getNeighbors(p) {
+            var cx = Math.floor(p.x / CELL);
+            var cy = Math.floor(p.y / CELL);
+            var result = [];
+            for (var dx = -1; dx <= 1; dx++) {
+                for (var dy = -1; dy <= 1; dy++) {
+                    var k = (cx + dx) + ',' + (cy + dy);
+                    if (grid[k]) result = result.concat(grid[k]);
+                }
+            }
+            return result;
+        }
+
+        var frameCount = 0;
         function draw() {
             ctx.clearRect(0, 0, c.width, c.height);
+            frameCount++;
+
+            // Перестраиваем grid каждые 2 кадра
+            if (frameCount % 2 === 0) buildGrid();
+
             particles.forEach(function (p) {
                 var dx = p.x - mouse.x, dy = p.y - mouse.y;
                 var d  = Math.sqrt(dx * dx + dy * dy);
                 if (d < MOUSE_R && d > 0) {
-                    var f = (MOUSE_R - d) / MOUSE_R * 0.3;
+                    var f = (MOUSE_R - d) / MOUSE_R * 0.28;
                     p.vx += dx / d * f;
                     p.vy += dy / d * f;
                 }
@@ -642,33 +824,44 @@
                 ctx.fill();
             });
 
-            for (var i = 0; i < particles.length; i++) {
-                for (var j = i + 1; j < particles.length; j++) {
-                    var a = particles[i], b = particles[j];
+            // Линии между близкими частицами (через grid)
+            var drawn = new Set();
+            particles.forEach(function (a, i) {
+                var neighbors = getNeighbors(a);
+                neighbors.forEach(function (j) {
+                    if (j <= i) return;
+                    var key = i + '-' + j;
+                    if (drawn.has(key)) return;
+                    drawn.add(key);
+                    var b = particles[j];
                     var dx = a.x - b.x, dy = a.y - b.y;
                     var dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < LINK) {
                         ctx.beginPath();
                         ctx.moveTo(a.x, a.y);
                         ctx.lineTo(b.x, b.y);
-                        ctx.strokeStyle = 'rgba(255,255,255,' + (1 - dist / LINK) * 0.18 + ')';
+                        ctx.strokeStyle = 'rgba(255,255,255,' + (1 - dist / LINK) * 0.16 + ')';
                         ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }
-                }
-                var mdx = particles[i].x - mouse.x, mdy = particles[i].y - mouse.y;
+                });
+
+                // Линия к мышке
+                var mdx = a.x - mouse.x, mdy = a.y - mouse.y;
                 var md  = Math.sqrt(mdx * mdx + mdy * mdy);
-                if (md < LINK * 1.5) {
+                if (md < LINK * 1.4) {
                     ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.moveTo(a.x, a.y);
                     ctx.lineTo(mouse.x, mouse.y);
-                    ctx.strokeStyle = 'rgba(255,255,255,' + (1 - md / (LINK * 1.5)) * 0.35 + ')';
-                    ctx.lineWidth = 0.7;
+                    ctx.strokeStyle = 'rgba(255,255,255,' + (1 - md / (LINK * 1.4)) * 0.32 + ')';
+                    ctx.lineWidth = 0.6;
                     ctx.stroke();
                 }
-            }
+            });
+
             requestAnimationFrame(draw);
         }
+        buildGrid();
         draw();
     });
     </script>
@@ -692,8 +885,8 @@
     </script>
 
     <script>
-    // ── 3D card tilt (desktop hover only) ───────────────────────────────────
-    if (window.matchMedia('(hover: hover)').matches) {
+    // ── 3D card tilt (только desktop с hover) ───────────────────────────────
+    if (window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
         document.querySelectorAll('.product-card-horizontal').forEach(function (card) {
             var glare = document.createElement('div');
             glare.style.cssText = 'position:absolute;inset:0;border-radius:24px;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.3s ease;';
@@ -703,14 +896,19 @@
                 var rect = card.getBoundingClientRect();
                 var xPct = (e.clientX - rect.left)  / rect.width  - 0.5;
                 var yPct = (e.clientY - rect.top)   / rect.height - 0.5;
-                card.style.transform = 'translateY(-12px) scale(1.01) rotateY(' + (xPct * 8) + 'deg) rotateX(' + (-yPct * 6) + 'deg)';
-                glare.style.opacity    = '0.15';
-                glare.style.background = 'radial-gradient(circle at ' + ((xPct + 0.5) * 100) + '% ' + ((yPct + 0.5) * 100) + '%, rgba(255,255,255,0.25) 0%, transparent 60%)';
-            });
+                card.style.transform = 'translateY(-12px) scale(1.01) rotateX(' + (-yPct * 6) + 'deg) rotateY(' + (xPct * 6) + 'deg)';
+
+                var glareX = (e.clientX - rect.left) / rect.width  * 100;
+                var glareY = (e.clientY - rect.top)  / rect.height * 100;
+                glare.style.background =
+                    'radial-gradient(circle at ' + glareX + '% ' + glareY + '%, ' +
+                    'rgba(255,255,255,0.08) 0%, transparent 65%)';
+                glare.style.opacity = '1';
+            }, { passive: true });
 
             card.addEventListener('mouseleave', function () {
                 card.style.transform = '';
-                glare.style.opacity  = '0';
+                glare.style.opacity = '0';
             });
         });
     }
