@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@400;500;600;700&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+/* Fonts loaded via <link> in HTML — нет дублирующего @import */
 
 :root {
   --black: #000000;
@@ -48,6 +48,28 @@ h2 {
   font-weight: 800;
   letter-spacing: 1px;
   font-family: 'Cinzel', serif;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Живая шиммер-линия под заголовком */
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0.9) 50%,
+    rgba(255,255,255,0.15) 80%,
+    transparent 100%);
+  background-size: 200% 100%;
+  animation: sectionUnderline 4s linear infinite;
 }
 
 .logo, .loader-logo {
@@ -120,10 +142,7 @@ main {
 
 .loader-logo-effects {
   position: absolute;
-  top: -40px;
-  left: -40px;
-  right: -40px;
-  bottom: -40px;
+  top: -40px; left: -40px; right: -40px; bottom: -40px;
   border: 2px solid var(--light-gray);
   border-radius: 5px;
   z-index: 1;
@@ -146,8 +165,7 @@ main {
 .loader-subtitle::after {
   content: '';
   position: absolute;
-  bottom: -15px;
-  left: 50%;
+  bottom: -15px; left: 50%;
   transform: translateX(-50%);
   width: 50%;
   height: 1px;
@@ -231,9 +249,7 @@ main {
 
 .loader-scanline {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 1px;
   background: var(--accent);
   filter: drop-shadow(var(--neon));
@@ -241,17 +257,15 @@ main {
 }
 
 .loader-scanline.vertical {
-  top: auto;
-  bottom: 0;
-  left: auto;
-  right: 0;
-  width: 1px;
-  height: 50%;
+  top: auto; bottom: 0;
+  left: auto; right: 0;
+  width: 1px; height: 50%;
   animation: scanlineVertical 4s infinite linear 1s;
 }
 
 .gothic-loader.fade-out {
-  animation: loaderFadeOut 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+  animation: loaderFadeOut 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
 }
 
 body:not(.loaded) main,
@@ -325,8 +339,7 @@ body.loaded footer {
 .header-scanline {
   position: absolute;
   top: 0; left: -80%;
-  width: 50%;
-  height: 100%;
+  width: 50%; height: 100%;
   background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.028) 50%, transparent 100%);
   animation: scanSweep 8s ease-in-out infinite;
   pointer-events: none;
@@ -379,11 +392,7 @@ body.loaded footer {
   text-transform: uppercase;
   color: transparent;
   background: linear-gradient(160deg,
-    #ffffff 0%,
-    #d8d8d8 28%,
-    #ffffff 52%,
-    #acacac 76%,
-    #ffffff 100%);
+    #ffffff 0%, #d8d8d8 28%, #ffffff 52%, #acacac 76%, #ffffff 100%);
   background-size: 250% 250%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -394,7 +403,36 @@ body.loaded footer {
   white-space: nowrap;
 }
 
-.logo::before { display: none; }
+/* Глитч-слои на логотипе */
+.logo::before,
+.logo::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.logo::before {
+  animation: glitch 8s infinite 4s;
+  opacity: 0.6;
+  filter: drop-shadow(2px 0 rgba(255,120,120,0.5));
+}
+
+.logo::after {
+  animation: glitchAlt 8s infinite 4s;
+  opacity: 0.5;
+  filter: drop-shadow(-2px 0 rgba(120,200,255,0.4));
+}
+
+.logo-container:not(:hover) .logo::before,
+.logo-container:not(:hover) .logo::after {
+  display: none;
+}
 
 .subtitle {
   display: flex;
@@ -409,9 +447,7 @@ body.loaded footer {
   width: 100%;
 }
 
-.subtitle::before,
-.subtitle::after { display: none; }
-
+.subtitle::before, .subtitle::after { display: none; }
 .subtitle-text { flex-shrink: 0; }
 
 .subtitle-line {
@@ -425,7 +461,9 @@ body.loaded footer {
   background: linear-gradient(90deg, rgba(255,255,255,0.35), transparent);
 }
 
-nav {
+/* ── NAV ─────────────────────────────────────────────────────────────────── */
+
+nav.nav-menu {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
@@ -458,8 +496,7 @@ nav a::before {
   position: absolute;
   top: -50%; left: -50%;
   width: 200%; height: 200%;
-  background: linear-gradient(to bottom right,
-    transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+  background: linear-gradient(to bottom right, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
   transform: rotate(30deg);
   opacity: 0;
   transition: opacity 0.6s ease;
@@ -476,17 +513,36 @@ nav a:hover::before {
   animation: liquidShine 2.5s linear infinite;
 }
 
-@media (max-width: 768px) {
-  .header-inner { padding: 4rem 1rem 3rem; }
-  .logo { font-size: 3.2rem; letter-spacing: 0.2rem; white-space: nowrap; }
-  nav { gap: 0.7rem; padding: 0 1rem; }
-  nav a { font-size: 0.75rem; padding: 0.7rem 1.2rem; letter-spacing: 0.15rem; }
+/* ── HAMBURGER ───────────────────────────────────────────────────────────── */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  z-index: 200;
+  position: relative;
+  margin-top: 1rem;
 }
 
-@media (max-width: 480px) {
-  .logo { font-size: 2.6rem; letter-spacing: 0.15rem; }
-  nav a { font-size: 0.7rem; padding: 0.6rem 1rem; letter-spacing: 0.1rem; }
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: center;
 }
+
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ── PRODUCTS ─────────────────────────────────────────────────────────────── */
 
@@ -518,7 +574,7 @@ nav a:hover::before {
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 24px;
   overflow: hidden;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.15s ease;
+  transition: border-color 0.5s ease, box-shadow 0.5s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
   backdrop-filter: blur(20px);
   position: relative;
   min-height: 320px;
@@ -526,24 +582,46 @@ nav a:hover::before {
   will-change: transform;
 }
 
+/* Бегущий highlight по контуру карточки при hover */
 .product-card-horizontal::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.03) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.04) 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Анимированная светящаяся обводка сверху */
+.product-card-horizontal::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,0) 20%,
+    rgba(255,255,255,0.8) 50%,
+    rgba(255,255,255,0) 80%,
+    transparent 100%);
+  background-size: 200% 100%;
   opacity: 0;
   transition: opacity 0.4s ease;
-  z-index: 1;
+  animation: sectionUnderline 3s linear infinite;
+  z-index: 4;
+  pointer-events: none;
 }
 
 .product-card-horizontal:hover {
-  border-color: var(--accent);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 40px rgba(255,255,255,0.4), inset 0 0 0 1px var(--accent);
+  border-color: rgba(255,255,255,0.35);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.85), 0 0 50px rgba(255,255,255,0.12), inset 0 0 0 1px rgba(255,255,255,0.15);
+  transform: translateY(-6px);
 }
 
-.product-card-horizontal:hover::before {
-  opacity: 1;
-}
+.product-card-horizontal:hover::before { opacity: 1; }
+.product-card-horizontal:hover::after  { opacity: 1; }
 
 .product-image-container-horizontal {
   position: relative;
@@ -710,8 +788,7 @@ nav a:hover::before {
 .price-main-horizontal::after {
   content: '';
   position: absolute;
-  bottom: -5px;
-  left: 0;
+  bottom: -5px; left: 0;
   width: 100%;
   height: 2px;
   background: var(--accent);
@@ -779,7 +856,7 @@ nav a:hover::before {
   letter-spacing: 0.15rem;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
   z-index: 2;
@@ -789,6 +866,7 @@ nav a:hover::before {
   box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1), inset 0 0 10px rgba(255,255,255,0.05);
   align-self: flex-end;
   flex-shrink: 0;
+  animation: btnGlowPulse 4s ease-in-out infinite;
 }
 
 .buy-button-horizontal::before {
@@ -813,11 +891,22 @@ nav a:hover::before {
 }
 
 .buy-button-horizontal:hover {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.22);
   border-color: var(--accent);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px var(--accent), inset 0 0 20px rgba(255,255,255,0.2), 0 0 30px rgba(255,255,255,0.3);
-  transform: translateY(-3px);
-  text-shadow: 0 0 10px rgba(255,255,255,0.8);
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.5),
+    0 0 0 1px var(--accent),
+    inset 0 0 24px rgba(255,255,255,0.15),
+    0 0 50px rgba(255,255,255,0.2);
+  transform: translateY(-4px) scale(1.02);
+  text-shadow: 0 0 14px rgba(255,255,255,0.9);
+  letter-spacing: 0.2rem;
+  animation: none;
+}
+
+.buy-button-horizontal:active {
+  transform: translateY(-1px) scale(0.99);
+  transition-duration: 0.1s;
 }
 
 .buy-button-horizontal:hover::before {
@@ -876,6 +965,9 @@ nav a:hover::before {
   max-width: 500px;
 }
 
+.telegram-link i { font-size: 1.5rem; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+.telegram-link:hover i { animation: telegramBounce 0.6s ease forwards; }
+
 .telegram-link {
   display: inline-flex;
   align-items: center;
@@ -886,22 +978,32 @@ nav a:hover::before {
   padding: 1.2rem 2rem;
   border: 1px solid var(--light-gray);
   border-radius: 10px;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   background: rgba(40,40,40,0.5);
   backdrop-filter: blur(5px);
   will-change: transform;
+  position: relative;
+  overflow: hidden;
+}
+
+.telegram-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .telegram-link:hover {
   color: var(--accent);
-  border-color: var(--accent);
-  background: rgba(255,255,255,0.1);
-  transform: translateY(-5px);
-  box-shadow: var(--neon);
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 20px rgba(255,255,255,0.15), 0 8px 30px rgba(0,0,0,0.4);
 }
 
-.telegram-link i { font-size: 1.5rem; transition: transform 0.3s ease; }
-.telegram-link:hover i { transform: scale(1.3); }
+.telegram-link:hover::before { opacity: 1; }
 
 /* ── RULES ────────────────────────────────────────────────────────────────── */
 
@@ -921,8 +1023,7 @@ nav a:hover::before {
   content: '';
   position: absolute;
   bottom: 0; left: 0;
-  width: 100%;
-  height: 3px;
+  width: 100%; height: 3px;
   background: linear-gradient(90deg, var(--accent), transparent);
   transform: translateX(-100%);
   transition: transform 0.8s ease;
@@ -1013,49 +1114,75 @@ nav a:hover::before {
   margin-bottom: 2rem;
   border-bottom: 1px solid var(--light-gray);
   padding-bottom: 1.5rem;
-  transition: all 0.5s ease;
+  transition: border-color 0.4s ease;
 }
 
 .faq-item:last-child { border-bottom: none; }
 
+.faq-item.active {
+  border-color: rgba(255,255,255,0.25);
+}
+
 .faq-item h3 {
   font-size: 1.3rem;
-  color: var(--accent);
+  color: var(--accent-dark);
   margin-bottom: 1rem;
   cursor: pointer;
   position: relative;
   padding-right: 3rem;
-  transition: all 0.3s ease;
+  transition: color 0.35s ease, text-shadow 0.35s ease, letter-spacing 0.3s ease;
   user-select: none;
 }
 
+.faq-item.active h3,
+.faq-item h3:hover {
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(255,255,255,0.3);
+  letter-spacing: 0.02rem;
+}
+
+/* Иконка + превращается в × с вращением */
 .faq-item h3::after {
   content: '+';
   position: absolute;
   right: 0; top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  transition: all 0.3s ease;
+  transform: translateY(-50%) rotate(0deg);
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 1;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.3s ease,
+              text-shadow 0.3s ease;
+  color: var(--accent-dark);
 }
 
-.faq-item.active h3::after { transform: translateY(-50%) rotate(45deg); }
+.faq-item.active h3::after {
+  transform: translateY(-50%) rotate(45deg);
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
 
 .faq-item p {
   color: var(--accent-dark);
   font-size: 1rem;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.4s ease;
+  transition: max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.4s ease,
+              padding 0.4s ease,
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
-  line-height: 1.7;
+  transform: translateY(-8px);
+  line-height: 1.75;
   padding-bottom: 0;
 }
 
 .faq-item.active p {
-  max-height: 500px;
+  max-height: 600px;
   opacity: 1;
   margin-top: 1rem;
   padding-bottom: 0.5rem;
+  transform: translateY(0);
 }
 
 /* ── FOOTER ───────────────────────────────────────────────────────────────── */
@@ -1282,6 +1409,56 @@ nav a:hover::before {
   font-family: 'Jost', sans-serif;
 }
 
+/* ── SCROLL TO TOP ────────────────────────────────────────────────────────── */
+
+.scroll-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  color: var(--accent);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(20px) scale(0.8);
+  transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1),
+              transform 0.45s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.3s ease,
+              background 0.3s ease;
+  pointer-events: none;
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+  animation: btnGlowPulse 3s ease-in-out infinite;
+}
+
+.scroll-top:hover {
+  background: rgba(255,255,255,0.18);
+  border-color: var(--accent);
+  box-shadow: 0 0 28px rgba(255,255,255,0.35), var(--neon);
+  transform: translateY(-4px) scale(1.1);
+  animation: none;
+}
+
+.scroll-top i {
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.scroll-top:hover i {
+  transform: translateY(-2px);
+}
+
 /* ── MODALS ───────────────────────────────────────────────────────────────── */
 
 .modal-overlay {
@@ -1376,6 +1553,7 @@ nav a:hover::before {
   justify-content: center;
   transition: all 0.3s ease;
   z-index: 10;
+  line-height: 1;
 }
 
 .modal-close:hover {
@@ -1419,15 +1597,6 @@ nav a:hover::before {
   font-style: italic;
 }
 
-/*
-  FIX: использован fill-mode "both" вместо "forwards"
-  чтобы элементы оставались невидимы во время delay
-  и становились видимы после завершения анимации.
-
-  FIX: nth-child скорректирован — .about-quote является
-  первым дочерним элементом .about-text, поэтому
-  .about-section начинаются со 2-го child.
-*/
 .about-section {
   margin-bottom: 2.5rem;
   animation: fadeInUp 0.6s ease both;
@@ -1563,6 +1732,43 @@ nav a:hover::before {
   border: 1px solid var(--glass-border);
 }
 
+/* ── REVEAL ON SCROLL ─────────────────────────────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(44px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Направленные reveal-варианты */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.93);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+.reveal-delay-1  { transition-delay: 0.12s; }
+.reveal-delay-2  { transition-delay: 0.24s; }
+.reveal-delay-3  { transition-delay: 0.36s; }
+.reveal-delay-4  { transition-delay: 0.48s; }
+
 /* ── KEYFRAMES ────────────────────────────────────────────────────────────── */
 
 @keyframes textGlow {
@@ -1626,11 +1832,6 @@ nav a:hover::before {
   to   { background-position: -200% 0; }
 }
 
-@keyframes loaderFadeOut {
-  0%   { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.1); visibility: hidden; }
-}
-
 @keyframes scanSweep {
   0%   { left: -60%; }
   100% { left: 160%; }
@@ -1652,9 +1853,76 @@ nav a:hover::before {
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ── NEW: улучшенные анимации ─────────────────────────────────────────────── */
+
+/* Глитч-эффект на заголовках */
+@keyframes glitch {
+  0%   { clip-path: inset(0 0 96% 0); transform: translateX(-4px); }
+  10%  { clip-path: inset(20% 0 70% 0); transform: translateX(4px); }
+  20%  { clip-path: inset(50% 0 30% 0); transform: translateX(-2px); }
+  30%  { clip-path: inset(80% 0 5% 0);  transform: translateX(3px); }
+  40%  { clip-path: inset(0 0 0 0);     transform: translateX(0); }
+  100% { clip-path: inset(0 0 0 0);     transform: translateX(0); }
+}
+
+@keyframes glitchAlt {
+  0%   { clip-path: inset(85% 0 0 0);   transform: translateX(3px)  scaleY(0.8); }
+  10%  { clip-path: inset(60% 0 20% 0); transform: translateX(-3px) scaleY(1.1); }
+  20%  { clip-path: inset(30% 0 55% 0); transform: translateX(2px); }
+  40%  { clip-path: inset(0 0 0 0);     transform: translateX(0); }
+  100% { clip-path: inset(0 0 0 0);     transform: translateX(0); }
+}
+
+/* Свечение кнопок */
+@keyframes btnGlowPulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(255,255,255,0.15), 0 4px 20px rgba(0,0,0,0.4); }
+  50%       { box-shadow: 0 0 28px rgba(255,255,255,0.35), 0 8px 30px rgba(0,0,0,0.4); }
+}
+
+/* Бегущий контур карточки */
+@keyframes cardBorderRun {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Loader: более плавный fade-out с blur */
+@keyframes loaderFadeOut {
+  0%   { opacity: 1; transform: scale(1);    filter: blur(0); }
+  60%  { opacity: 1; transform: scale(1.04); filter: blur(0); }
+  100% { opacity: 0; transform: scale(1.08); filter: blur(8px); visibility: hidden; }
+}
+
+/* Пульс для цен */
+@keyframes pricePop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* Shimmer-линия снизу секций */
+@keyframes sectionUnderline {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Появление чисел/прогресса */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Мерцание иконки Telegram */
+@keyframes telegramBounce {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  30%       { transform: scale(1.25) rotate(-8deg); }
+  60%       { transform: scale(1.1) rotate(6deg); }
+}
+
 
 /* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
 
@@ -1711,6 +1979,45 @@ nav a:hover::before {
   .about-text { padding: 20px; font-size: 1rem; }
   .about-title { font-size: 1.5rem; }
   .about-subtitle { font-size: 1.2rem; }
+  .header-inner { padding: 4rem 1rem 3rem; }
+  .logo { font-size: 3.2rem; letter-spacing: 0.2rem; white-space: nowrap; }
+  nav.nav-menu { gap: 0.7rem; padding: 0 1rem; }
+  nav a { font-size: 0.75rem; padding: 0.7rem 1.2rem; letter-spacing: 0.15rem; }
+}
+
+/* ── HAMBURGER (мобильное меню) ───────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .hamburger { display: flex; }
+
+  nav.nav-menu {
+    position: fixed;
+    inset: 0;
+    background: rgba(4,4,4,0.97);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    padding: 0;
+  }
+
+  nav.nav-menu.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  nav.nav-menu a {
+    font-size: 1.1rem !important;
+    padding: 1rem 3rem !important;
+    letter-spacing: 0.25rem !important;
+    border-radius: 50px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -1737,10 +2044,110 @@ nav a:hover::before {
   .about-text { padding: 15px; }
   .about-title { font-size: 1.3rem; }
   .modal-close { top: 1rem; right: 1rem; width: 35px; height: 35px; font-size: 1.2rem; }
+  .logo { font-size: 2.6rem; letter-spacing: 0.15rem; }
+  nav a { font-size: 0.7rem; padding: 0.6rem 1rem; letter-spacing: 0.1rem; }
 }
+
+/* ── FOCUS & ACCESSIBILITY ────────────────────────────────────────────────── */
 
 *:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.5);
   outline-offset: 2px;
   border-radius: 3px;
+}
+
+/* ── PREFERS REDUCED MOTION ───────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .gothic-loader {
+    display: none !important;
+  }
+  body:not(.loaded) main,
+  body:not(.loaded) header,
+  body:not(.loaded) footer {
+    opacity: 1 !important;
+  }
+}
+
+/* ── РЕЛИЗНЫЕ УЛУЧШЕНИЯ ──────────────────────────────────────────────────── */
+
+/* Кастомный курсор-текст при наведении на интерактивные элементы */
+a, button, [role="button"], .faq-item h3, .product-selector, .radio-label, label {
+  cursor: pointer;
+}
+
+/* Кастомный selection */
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+::-moz-selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Скроллбар в стиле сайта */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 3px;
+  transition: background 0.3s;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.35); }
+
+/* Focus ring в стиле сайта */
+:focus-visible {
+  outline: 1px solid rgba(255,255,255,0.5);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Плавный scroll между секциями */
+html { scroll-padding-top: 1rem; }
+
+/* GPU-акселерация для часто анимированных элементов */
+.loader-logo,
+.logo,
+.product-card-horizontal,
+.buy-button-horizontal,
+.telegram-link,
+.scroll-top {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Убираем will-change после ухода hover (экономия памяти) */
+.product-card-horizontal:not(:hover),
+.telegram-link:not(:hover) {
+  will-change: auto;
+}
+
+/* Улучшенная доступность — скрытые, но доступные элементы */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Печать — убираем лишнее */
+@media print {
+  .gothic-loader, .scroll-top, .header-canvas,
+  .loader-effects, .header-scanline { display: none !important; }
+  body { background: white; color: black; }
 }
