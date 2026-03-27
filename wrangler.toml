@@ -1,0 +1,14 @@
+name = "vortas-order"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://vortas.store"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "7718f7fa224043408421a1aa36eb7df0"
+
+[[routes]]
+pattern = "vortas.store/api/order"
+zone_name = "vortas.store"
