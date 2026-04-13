@@ -863,6 +863,34 @@ color: #e0e0e0;
 font-size: 0.93rem;
 line-height: 1.6;
 }
+
+.input-error {
+    border-color: rgba(255, 100, 100, 0.7) !important;
+    box-shadow: 0 0 0 2px rgba(255, 100, 100, 0.2), 0 0 10px rgba(255,80,80,0.3) !important;
+}
+.input-ok {
+    border-color: rgba(100, 255, 150, 0.6) !important;
+    box-shadow: 0 0 0 2px rgba(100, 255, 150, 0.15) !important;
+}
+.field-hint {
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    display: none;
+}
+.field-hint.error {
+    display: block;
+    color: rgba(255, 130, 130, 1);
+    background: rgba(255, 80, 80, 0.08);
+    border-left: 2px solid rgba(255, 100, 100, 0.5);
+}
+.field-hint.ok {
+    display: block;
+    color: rgba(120, 255, 160, 1);
+    background: rgba(80, 255, 120, 0.06);
+    border-left: 2px solid rgba(100, 255, 140, 0.4);
+}
 </style>
 </head>
 <body>
@@ -1125,6 +1153,61 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     updateContactField('Telegram');
+
+const fieldHint = document.createElement('div');
+fieldHint.className = 'field-hint';
+contactFieldInput.parentElement.parentElement.appendChild(fieldHint);
+
+function validateContactField() {
+    const val = contactFieldInput.value.trim();
+    const type = document.querySelector('input[name="contact-type"]:checked')?.value || 'Telegram';
+
+    if (!val) {
+        contactFieldInput.classList.remove('input-error', 'input-ok');
+        fieldHint.className = 'field-hint';
+        fieldHint.textContent = '';
+        return;
+    }
+
+    if (type === 'Telegram') {
+        const clean = val.startsWith('@') ? val.slice(1) : val;
+        const valid = /^[a-zA-Z0-9_]{5,32}$/.test(clean);
+        contactFieldInput.classList.toggle('input-error', !valid);
+        contactFieldInput.classList.toggle('input-ok', valid);
+        if (!valid) {
+            fieldHint.className = 'field-hint error';
+            if (clean.length < 5) fieldHint.textContent = '⚠ Слишком короткий юзернейм (мин. 5 символов)';
+            else if (clean.length > 32) fieldHint.textContent = '⚠ Слишком длинный юзернейм (макс. 32 символа)';
+            else fieldHint.textContent = '⚠ Только буквы, цифры и подчёркивание (_)';
+        } else {
+            fieldHint.className = 'field-hint ok';
+            fieldHint.textContent = '✓ Юзернейм корректен';
+        }
+    } else {
+        const valid = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(val);
+        const hasDot = val.includes('@') && val.split('@')[1]?.includes('.');
+        contactFieldInput.classList.toggle('input-error', !valid);
+        contactFieldInput.classList.toggle('input-ok', valid);
+        if (!valid) {
+            fieldHint.className = 'field-hint error';
+            if (!val.includes('@')) fieldHint.textContent = '⚠ Email должен содержать @';
+            else if (!hasDot) fieldHint.textContent = '⚠ Укажите домен (например: mail.com)';
+            else fieldHint.textContent = '⚠ Некорректный формат email';
+        } else {
+            fieldHint.className = 'field-hint ok';
+            fieldHint.textContent = '✓ Email корректен';
+        }
+    }
+}
+
+contactFieldInput.addEventListener('input', validateContactField);
+contactFieldInput.addEventListener('blur', validateContactField);
+contactTypeRadios.forEach(r => r.addEventListener('change', () => {
+    contactFieldInput.value = '';
+    contactFieldInput.classList.remove('input-error', 'input-ok');
+    fieldHint.className = 'field-hint';
+    fieldHint.textContent = '';
+}));
 
     products.forEach(product => {
         const item = document.createElement('div');
@@ -1468,6 +1551,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.head.appendChild(l);
   }
 }());
+
+document.addEventListener('click', function(e) {
+    const active = document.activeElement;
+    if (active && (active.tagName === 'INPUT' || active.tagName === 'SELECT') && !active.contains(e.target)) {
+        active.blur();
+    }
+});
 </script>
 </body>
 
