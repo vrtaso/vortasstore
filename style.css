@@ -520,10 +520,11 @@ nav a:hover::before {
 }
 
 .hamburger.open {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 300;
+  position: fixed !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  z-index: 300 !important;
+  margin: 0 !important;
 }
 
 .hamburger span {
@@ -1981,6 +1982,9 @@ nav a:hover::before {
     padding: 1rem 3rem !important;
     letter-spacing: 0.25rem !important;
     border-radius: 50px;
+  }
+    nav.nav-menu.open {
+    padding-top: 5rem;
   }
 }
 
