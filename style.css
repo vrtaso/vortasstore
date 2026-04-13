@@ -504,43 +504,6 @@ nav a:hover::before {
   animation: liquidShine 2.5s linear infinite;
 }
 
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 10px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  z-index: 200;
-  position: relative;
-  margin-top: 1rem;
-}
-
-.hamburger.open {
-  position: fixed !important;
-  top: 1rem !important;
-  right: 1rem !important;
-  z-index: 300 !important;
-  margin: 0 !important;
-}
-
-.hamburger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 2px;
-  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-  transform-origin: center;
-}
-
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
 .products-section {
   scroll-margin-top: 2rem;
   position: relative;
