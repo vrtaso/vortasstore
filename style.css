@@ -285,7 +285,7 @@ body.loaded footer {
     radial-gradient(ellipse 35% 50% at 85% 50%, rgba(255,255,255,0.018) 0%, transparent 55%),
     linear-gradient(to bottom, #040404 0%, #0c0c0c 55%, rgba(7,7,7,0.8) 100%);
   margin-bottom: 4rem;
-  overflow: hidden;
+  overflow: visible;
   z-index: 100;
 }
 
@@ -327,6 +327,7 @@ body.loaded footer {
   pointer-events: none;
   z-index: 0;
   opacity: 0.55;
+  clip-path: inset(0);
 }
 
 .header-scanline {
