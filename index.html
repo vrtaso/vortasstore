@@ -53,9 +53,26 @@
         </div>
     </div>
 	
+    <!-- Burger menu overlay -->
+    <div class="burger-overlay" id="burgerOverlay" aria-hidden="true"></div>
+    <nav class="burger-nav" id="burgerNav" role="navigation" aria-label="Мобильное меню" aria-hidden="true">
+        <button class="burger-close" id="burgerClose" aria-label="Закрыть меню">
+            <span></span><span></span>
+        </button>
+        <a href="#products" class="burger-link" onclick="closeBurger()"><span>Товары</span></a>
+        <a href="#contacts" class="burger-link" onclick="closeBurger()"><span>Контакты</span></a>
+        <a href="#order-rules" class="burger-link" onclick="closeBurger()"><span>Правила заказа</span></a>
+        <a href="#faq" class="burger-link" onclick="closeBurger()"><span>FAQ</span></a>
+    </nav>
+
     <header class="animated-header">
         <canvas class="header-canvas" id="headerCanvas" aria-hidden="true"></canvas>
         <div class="header-scanline" aria-hidden="true"></div>
+
+        <!-- Burger toggle button (mobile only) -->
+        <button class="burger-toggle" id="burgerToggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="burgerNav">
+            <span></span><span></span><span></span>
+        </button>
 
         <div class="header-inner">
             <div class="logo-container" aria-hidden="true">
@@ -182,7 +199,7 @@
         <section id="contacts" class="contacts-section reveal">
             <h2>Контакты</h2>
             <div class="contacts-content">
-                <p>Email: <a href="mailto:vortasdesignrus@gmail.com" style="color: #cccccc; text-decoration: underline;">vortasdesignrus@gmail.com</a></p>
+                <p>Email: <a href="/cdn-cgi/l/email-protection#176178656376647372647e707965626457707a767e7b3974787a" style="color: #cccccc; text-decoration: underline;"><span class="__cf_email__" data-cfemail="4e38213c3a2f3d2a2b3d2729203c3b3d0e29232f2722602d2123">[email&#160;protected]</span></a></p>
                 <div class="social-links">
                     <a href="https://t.me/vortas_store" target="_blank" rel="noopener noreferrer" class="telegram-link">
                         <i class="fab fa-telegram" aria-hidden="true"></i> Основной канал
@@ -272,7 +289,7 @@
                 <div class="footer-col-title">Контакты</div>
                 <div class="footer-contact-item">
                     <span class="footer-contact-label">Email</span>
-                    <a href="mailto:vortasdesignrus@gmail.com" style="color: #cccccc; text-decoration: underline;">vortasdesignrus@gmail.com</a>
+                    <a href="/cdn-cgi/l/email-protection#a4d2cbd6d0c5d7c0c1d7cdc3cad6d1d7e4c3c9c5cdc88ac7cbc9" style="color: #cccccc; text-decoration: underline;"><span class="__cf_email__" data-cfemail="c7b1a8b5b3a6b4a3a2b4aea0a9b5b2b487a0aaa6aeabe9a4a8aa">[email&#160;protected]</span></a>
                 </div>
                 <div class="footer-contact-item">
                     <span class="footer-contact-label">Telegram</span>
@@ -460,7 +477,7 @@
                     <h3>Срок хранения</h3>
                     <p>Данные хранятся до момента завершения заказа или до получения запроса на их удаление.</p>
                     <h3>Права субъекта данных</h3>
-                    <p>Вы вправе в любой момент отозвать согласие, запросить информацию о хранящихся данных или потребовать их удаления. Обратитесь через Telegram: <em>@vrtas</em> или email: <em><a href="mailto:vortasdesignrus@gmail.com">vortasdesignrus@gmail.com</a></em>.</p>
+                    <p>Вы вправе в любой момент отозвать согласие, запросить информацию о хранящихся данных или потребовать их удаления. Обратитесь через Telegram: <em>@vrtas</em> или email: <em><a href="/cdn-cgi/l/email-protection#5b2d34292f3a283f3e28323c35292e281b3c363a323775383436"><span class="__cf_email__" data-cfemail="ea9c85989e8b998e8f99838d84989f99aa8d878b8386c4898587">[email&#160;protected]</span></a></em>.</p>
                     <h3>Правовое основание</h3>
                     <p>Обработка осуществляется на основании согласия субъекта персональных данных (п. 1 ч. 1 ст. 6 Федерального закона № 152-ФЗ).</p>
                 </div>
@@ -468,7 +485,7 @@
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     (function () {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             var loader = document.getElementById('gothic-loader');
@@ -845,12 +862,8 @@
                 card.style.transform = 'translateY(-12px) scale(1.01) rotateX(' + (-yPct * 6) + 'deg) rotateY(' + (xPct * 6) + 'deg)';
 
                 var glareX = (e.clientX - rect.left) / rect.width  * 100;
-                var glareY = (e.clientY - rect.top)  / rect.height * 100;
-                glare.style.background =
-                    'radial-gradient(circle at ' + glareX + '% ' + glareY + '%, ' +
-                    'rgba(255,255,255,0.08) 0%, transparent 65%)';
-                glare.style.opacity = '1';
-            }, { passive: true });
+                var glare = glareX;
+            });
 
             card.addEventListener('mouseleave', function () {
                 card.style.transform = '';
@@ -858,6 +871,42 @@
             });
         });
     }
+    </script>
+	
+    <script>
+    (function() {
+        var toggle   = document.getElementById('burgerToggle');
+        var nav      = document.getElementById('burgerNav');
+        var overlay  = document.getElementById('burgerOverlay');
+        var closeBtn = document.getElementById('burgerClose');
+
+        function openBurger() {
+            nav.classList.add('is-open');
+            overlay.classList.add('is-open');
+            toggle.setAttribute('aria-expanded', 'true');
+            nav.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeBurger = function() {
+            nav.classList.remove('is-open');
+            overlay.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            nav.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        };
+
+        toggle.addEventListener('click', function() {
+            if (nav.classList.contains('is-open')) { closeBurger(); }
+            else { openBurger(); }
+        });
+        closeBtn.addEventListener('click', closeBurger);
+        overlay.addEventListener('click', closeBurger);
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeBurger();
+        });
+    })();
     </script>
 
 </body>
