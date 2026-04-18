@@ -64,6 +64,8 @@ Font Awesome 6.6           — иконки
 ├── worker.js           # Cloudflare Worker — API /api/order
 ├── wrangler.toml       # Конфиг Cloudflare Workers + KV namespace
 ├── CNAME               # Кастомный домен: vortas.store
+├── sitemap.xml         # Карта сайта для поисковиков
+├── robots.txt          # Инструкции для поисковых роботов
 ├── logo.ico            # Фавикон
 └── images/
     ├── vexillum.png        # Превью услуги VEXILLUM
