@@ -816,8 +816,6 @@
 
     window.addEventListener('load', function () {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        // Skip particle canvas on mobile — saves CPU, not visible anyway
-        if (window.innerWidth < 900) return;
 
         var c = document.getElementById('headerCanvas');
         if (!c) return;
@@ -846,7 +844,11 @@
             mouse.x = -9999; mouse.y = -9999;
         });
 
-        var COUNT = 55, LINK = 110, MOUSE_R = 110;
+        var isMobile = window.innerWidth < 768;
+        var COUNT = isMobile ? 40 : 75;
+        var LINK  = isMobile ? 80 : 120;
+        var MOUSE_R = 110;
+
         var particles = [];
         for (var i = 0; i < COUNT; i++) {
             particles.push({
@@ -861,64 +863,103 @@
             });
         }
 
-        var CELL = LINK, grid = {};
-        function gridKey(x, y) { return (Math.floor(x/CELL)+','+Math.floor(y/CELL)); }
+        var CELL = LINK;
+        var grid = {};
+
+        function gridKey(x, y) {
+            return (Math.floor(x / CELL) + ',' + Math.floor(y / CELL));
+        }
+
         function buildGrid() {
             grid = {};
-            particles.forEach(function(p,idx){var k=gridKey(p.x,p.y);if(!grid[k])grid[k]=[];grid[k].push(idx);});
+            particles.forEach(function (p, idx) {
+                var k = gridKey(p.x, p.y);
+                if (!grid[k]) grid[k] = [];
+                grid[k].push(idx);
+            });
         }
+
         function getNeighbors(p) {
-            var cx=Math.floor(p.x/CELL),cy=Math.floor(p.y/CELL),result=[];
-            for(var dx=-1;dx<=1;dx++)for(var dy=-1;dy<=1;dy++){var k=(cx+dx)+','+(cy+dy);if(grid[k])result=result.concat(grid[k]);}
+            var cx = Math.floor(p.x / CELL);
+            var cy = Math.floor(p.y / CELL);
+            var result = [];
+            for (var dx = -1; dx <= 1; dx++) {
+                for (var dy = -1; dy <= 1; dy++) {
+                    var k = (cx + dx) + ',' + (cy + dy);
+                    if (grid[k]) result = result.concat(grid[k]);
+                }
+            }
             return result;
         }
 
-        // Pause animation when header is off-screen
-        var isVisible = true;
-        var rafId = null;
         var frameCount = 0;
-
-        var visObserver = new IntersectionObserver(function(entries) {
-            isVisible = entries[0].isIntersecting;
-            if (isVisible && !rafId) rafId = requestAnimationFrame(draw);
-        }, { threshold: 0 });
-        visObserver.observe(header);
-
         function draw() {
-            rafId = null;
-            if (!isVisible) return;  // Stop loop when header not visible
-            rafId = requestAnimationFrame(draw);
-
             ctx.clearRect(0, 0, c.width, c.height);
             frameCount++;
+
             if (frameCount % 2 === 0) buildGrid();
 
-            particles.forEach(function(p) {
-                var dx=p.x-mouse.x,dy=p.y-mouse.y,d=Math.sqrt(dx*dx+dy*dy);
-                if(d<MOUSE_R&&d>0){var f=(MOUSE_R-d)/MOUSE_R*0.28;p.vx+=dx/d*f;p.vy+=dy/d*f;}
-                p.vx*=0.98;p.vy*=0.98;p.x+=p.vx;p.y+=p.vy;p.pulse+=p.pulseSpeed;
-                if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;
-                if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;
-                var op=p.opacity*(0.7+0.3*Math.sin(p.pulse));
-                ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-                ctx.fillStyle='rgba(255,255,255,'+op+')';ctx.fill();
+            particles.forEach(function (p) {
+                var dx = p.x - mouse.x, dy = p.y - mouse.y;
+                var d  = Math.sqrt(dx * dx + dy * dy);
+                if (d < MOUSE_R && d > 0) {
+                    var f = (MOUSE_R - d) / MOUSE_R * 0.28;
+                    p.vx += dx / d * f;
+                    p.vy += dy / d * f;
+                }
+                p.vx *= 0.98; p.vy *= 0.98;
+                p.x  += p.vx; p.y  += p.vy;
+                p.pulse += p.pulseSpeed;
+                if (p.x < 0) p.x = c.width;
+                if (p.x > c.width) p.x = 0;
+                if (p.y < 0) p.y = c.height;
+                if (p.y > c.height) p.y = 0;
+
+                var op = p.opacity * (0.7 + 0.3 * Math.sin(p.pulse));
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,' + op + ')';
+                ctx.fill();
             });
 
             var drawn = new Set();
-            particles.forEach(function(a,i) {
-                getNeighbors(a).forEach(function(j) {
-                    if(j<=i)return;var key=i+'-'+j;if(drawn.has(key))return;drawn.add(key);
-                    var b=particles[j],dx=a.x-b.x,dy=a.y-b.y,dist=Math.sqrt(dx*dx+dy*dy);
-                    if(dist<LINK){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
-                    ctx.strokeStyle='rgba(255,255,255,'+(1-dist/LINK)*0.16+')';ctx.lineWidth=0.5;ctx.stroke();}
+            particles.forEach(function (a, i) {
+                var neighbors = getNeighbors(a);
+                neighbors.forEach(function (j) {
+                    if (j <= i) return;
+                    var key = i + '-' + j;
+                    if (drawn.has(key)) return;
+                    drawn.add(key);
+                    var b = particles[j];
+                    var dx = a.x - b.x, dy = a.y - b.y;
+                    var dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < LINK) {
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.strokeStyle = 'rgba(255,255,255,' + (1 - dist / LINK) * 0.16 + ')';
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
                 });
-                var mdx=a.x-mouse.x,mdy=a.y-mouse.y,md=Math.sqrt(mdx*mdx+mdy*mdy);
-                if(md<LINK*1.4){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(mouse.x,mouse.y);
-                ctx.strokeStyle='rgba(255,255,255,'+(1-md/(LINK*1.4))*0.32+')';ctx.lineWidth=0.6;ctx.stroke();}
+
+                // Линия к мышке
+                var mdx = a.x - mouse.x, mdy = a.y - mouse.y;
+                var md  = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (md < LINK * 1.4) {
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = 'rgba(255,255,255,' + (1 - md / (LINK * 1.4)) * 0.32 + ')';
+                    ctx.lineWidth = 0.6;
+                    ctx.stroke();
+                }
             });
+
+            requestAnimationFrame(draw);
         }
         buildGrid();
-        rafId = requestAnimationFrame(draw);
+        draw();
     });
     </script>
 
@@ -939,54 +980,53 @@
     }());
     </script>
 
-    <!-- ══ FILM GRAIN (CSS-only, zero repaint) ══ -->
+    <!-- ══ FILM GRAIN (эффект лампового телевизора) ══ -->
     <script>
     (function() {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var canvas = document.getElementById('filmGrain');
         if (!canvas) return;
-
-        // Generate grain texture ONCE (256×256), then animate via CSS
-        var GS = 256;
-        canvas.width = canvas.height = GS;
         var ctx = canvas.getContext('2d');
-        var id = ctx.createImageData(GS, GS);
-        var d = id.data;
-        for (var i = 0; i < d.length; i += 4) {
-            var v = (Math.random() * 255) | 0;
-            d[i] = d[i+1] = d[i+2] = v;
-            d[i+3] = 255;
+        var w = 0, h = 0;
+
+        // Grain tile (256×256 — дешевле, чем весь экран каждый кадр)
+        var GS = 256;
+        var gc = document.createElement('canvas');
+        gc.width = gc.height = GS;
+        var gx = gc.getContext('2d');
+
+        function gen() {
+            var id = gx.createImageData(GS, GS);
+            var d = id.data;
+            for (var i = 0; i < d.length; i += 4) {
+                var v = (Math.random() * 255) | 0;
+                d[i] = d[i+1] = d[i+2] = v;
+                d[i+3] = 255;
+            }
+            gx.putImageData(id, 0, 0);
         }
-        ctx.putImageData(id, 0, 0);
 
-        // Convert to CSS background — no more JS animation loop
-        var dataUrl = canvas.toDataURL();
-        canvas.style.display = 'none';
+        function resize() {
+            w = canvas.width  = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize, { passive: true });
+        resize();
 
-        var style = document.createElement('style');
-        style.textContent = [
-            'body::after {',
-            '  content: "";',
-            '  position: fixed;',
-            '  inset: -300px;',
-            '  width: calc(100% + 600px);',
-            '  height: calc(100% + 600px);',
-            '  background-image: url(' + dataUrl + ');',
-            '  background-repeat: repeat;',
-            '  opacity: 0.042;',
-            '  mix-blend-mode: screen;',
-            '  pointer-events: none;',
-            '  z-index: 50;',
-            '  animation: _grainShift 0.3s steps(1) infinite;',
-            '}',
-            '@keyframes _grainShift {',
-            '  0%   { transform: translate(0,0); }',
-            '  25%  { transform: translate(-80px,-60px); }',
-            '  50%  { transform: translate(50px,90px); }',
-            '  75%  { transform: translate(-100px,40px); }',
-            '}'
-        ].join('\n');
-        document.head.appendChild(style);
+        var last = 0, FPS = 20, interval = 1000 / FPS;
+
+        function draw(ts) {
+            if (ts - last >= interval) {
+                gen();
+                ctx.clearRect(0, 0, w, h);
+                for (var x = 0; x < w; x += GS)
+                    for (var y = 0; y < h; y += GS)
+                        ctx.drawImage(gc, x, y);
+                last = ts;
+            }
+            requestAnimationFrame(draw);
+        }
+        requestAnimationFrame(draw);
     })();
     </script>
 
@@ -1177,7 +1217,7 @@
     })();
     </script>
 
-
+    <script>
 document.querySelectorAll('.product-card-horizontal').forEach(function (card) {
             var glare = document.createElement('div');
             glare.style.cssText = 'position:absolute;inset:0;border-radius:24px;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.3s ease;';
