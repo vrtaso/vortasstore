@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VORTAS STORE — Документы</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.ico" type="image/x-icon">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050505;
+  --surface:rgba(255,255,255,.03);
+  --border:rgba(255,255,255,.09);
+  --border-hi:rgba(255,255,255,.2);
+  --text:rgba(255,255,255,.72);
+  --text-dim:rgba(255,255,255,.38);
+  --accent:#fff;
+  --neon:0 0 30px rgba(255,255,255,.18);
+  --red:rgba(255,255,255,.28);
+}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Jost',sans-serif;
+  font-weight:400;
+  line-height:1.8;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+body::before{
+  content:'';position:fixed;inset:-300px;
+  width:calc(100% + 600px);height:calc(100% + 600px);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.032;pointer-events:none;z-index:0;mix-blend-mode:screen;
+  animation:grainDrift .4s steps(2) infinite;
+}
+@keyframes grainDrift{
+  0%{transform:translate(0,0)}
+  33%{transform:translate(-40px,30px)}
+  66%{transform:translate(25px,-20px)}
+}
+
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:60px;
+  background:rgba(5,5,5,.9);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;
+}
+.topbar-logo{
+  font-family:'Cinzel Decorative',serif;
+  font-size:1.05rem;color:var(--accent);
+  text-decoration:none;letter-spacing:.1em;
+  text-shadow:var(--neon);
+}
+.topbar-right{
+  display:flex;align-items:center;gap:1.2rem;
+}
+.topbar-tag{
+  font-family:'Cinzel',serif;font-size:.6rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--text-dim);
+  border:1px solid var(--border);
+  padding:.28rem .75rem;border-radius:2px;
+}
+.topbar-home{
+  font-family:'Jost',sans-serif;font-size:.82rem;
+  letter-spacing:.08em;color:var(--text-dim);
+  text-decoration:none;
+  display:flex;align-items:center;gap:.5rem;
+  transition:color .2s;
+}
+.topbar-home:hover{color:var(--accent);}
+.topbar-home svg{opacity:.5;transition:opacity .2s;}
+.topbar-home:hover svg{opacity:1;}
+
+.page{
+  display:grid;
+  grid-template-columns:240px 1fr;
+  gap:0;
+  min-height:100vh;
+  padding-top:60px;
+}
+
+.sidebar{
+  position:sticky;
+  top:60px;
+  height:calc(100vh - 60px);
+  overflow-y:auto;
+  padding:3rem 0 3rem 2.5rem;
+  border-right:1px solid var(--border);
+  background:rgba(255,255,255,.012);
+}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-track{background:transparent}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border)}
+
+.sidebar-eyebrow{
+  font-family:'Cinzel',serif;font-size:.58rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:2rem;
+  display:flex;align-items:center;gap:.6rem;
+}
+.sidebar-eyebrow::before{
+  content:'';display:block;width:16px;height:1px;
+  background:var(--text-dim);flex-shrink:0;
+}
+
+.sidebar-nav{display:flex;flex-direction:column;gap:.15rem;}
+.sidebar-link{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.55rem .8rem .55rem 0;
+  text-decoration:none;
+  font-family:'Cinzel',serif;
+  font-size:.7rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-dim);
+  border-right:2px solid transparent;
+  transition:color .25s,border-color .25s;
+  line-height:1.3;
+  position:relative;
+}
+.sidebar-link:hover{color:rgba(255,255,255,.7);}
+.sidebar-link.active{color:var(--accent);border-right-color:var(--accent);}
+.sidebar-num{
+  font-family:'Cinzel',serif;font-size:.58rem;
+  color:var(--text-dim);flex-shrink:0;
+  transition:color .25s;
+}
+.sidebar-link.active .sidebar-num{color:rgba(255,255,255,.4);}
+
+.sidebar-footer{
+  margin-top:3rem;
+  padding-top:2rem;
+  border-top:1px solid var(--border);
+}
+.sidebar-footer-text{
+  font-size:.72rem;color:var(--text-dim);
+  line-height:1.7;
+}
+
+.content{
+  padding:0;
+  position:relative;
+}
+
+.doc-hero{
+  padding:5rem 5rem 4rem;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+.doc-hero::before{
+  content:'';position:absolute;
+  top:-100px;right:-100px;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(255,255,255,.03) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-number{
+  font-family:'Cinzel Decorative',serif;
+  font-size:7rem;font-weight:700;
+  line-height:1;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.06);
+  position:absolute;top:2rem;right:4rem;
+  letter-spacing:-.02em;
+  pointer-events:none;user-select:none;
+}
+.hero-tag{
+  font-family:'Cinzel',serif;font-size:.65rem;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.hero-tag::before{
+  content:'';width:24px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--text-dim));
+}
+.doc-hero h1{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2rem,3.5vw,3.2rem);
+  font-weight:700;color:var(--accent);
+  letter-spacing:.04em;line-height:1.15;
+  text-shadow:var(--neon);
+  margin-bottom:1.2rem;
+}
+.doc-hero-sub{
+  font-size:1rem;color:var(--text-dim);
+  font-weight:300;max-width:560px;
+  line-height:1.9;
+}
+
+.doc-section{
+  padding:4.5rem 5rem;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  scroll-margin-top:80px;
+}
+.doc-section:last-child{border-bottom:none;}
+
+.section-header{
+  display:flex;align-items:flex-start;
+  gap:1.5rem;margin-bottom:3rem;
+  padding-bottom:2rem;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.section-num{
+  font-family:'Cinzel Decorative',serif;
+  font-size:2.8rem;font-weight:700;
+  line-height:.9;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.12);
+  flex-shrink:0;
+  margin-top:.1rem;
+  user-select:none;
+}
+.section-meta{}
+.section-title{
+  font-family:'Cinzel',serif;
+  font-size:1.4rem;font-weight:700;
+  color:var(--accent);letter-spacing:.04em;
+  margin-bottom:.4rem;
+}
+.section-subtitle{
+  font-size:.8rem;color:var(--text-dim);
+  letter-spacing:.12em;text-transform:uppercase;
+  font-family:'Cinzel',serif;
+}
+
+.doc-body h3{
+  font-family:'Cinzel',serif;
+  font-size:.75rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+  margin:2.5rem 0 .9rem;
+  padding-bottom:.6rem;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;gap:.7rem;
+}
+.doc-body h3::before{
+  content:'';display:inline-block;
+  width:3px;height:12px;
+  background:rgba(255,255,255,.25);
+  border-radius:1px;flex-shrink:0;
+}
+.doc-body h3:first-child{margin-top:0;}
+.doc-body p{
+  font-size:.97rem;color:var(--text);
+  margin-bottom:.9rem;line-height:1.85;
+}
+.doc-body ul,.doc-body ol{
+  padding-left:0;margin-bottom:1rem;
+  list-style:none;
+}
+.doc-body li{
+  font-size:.95rem;color:var(--text);
+  margin-bottom:.5rem;line-height:1.8;
+  padding-left:1.4rem;position:relative;
+}
+.doc-body li::before{
+  content:'—';position:absolute;left:0;
+  color:rgba(255,255,255,.2);font-size:.8rem;
+}
+.doc-body strong{color:var(--accent);font-weight:600;}
+.doc-body em{color:var(--text-dim);font-style:normal;}
+
+.doc-alert{
+  margin:1.2rem 0;
+  padding:1.2rem 1.5rem;
+  background:rgba(255,255,255,.034);
+  border:1px solid rgba(255,255,255,.1);
+  border-left:2px solid rgba(255,255,255,.4);
+  border-radius:0 4px 4px 0;
+  font-size:.93rem;color:var(--text);
+  line-height:1.8;
+}
+.doc-alert strong{color:var(--accent);}
+
+.doc-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  margin:1.2rem 0;
+  border:1px solid var(--border);
+  border-radius:4px;overflow:hidden;
+}
+.doc-grid-cell{
+  padding:1.2rem 1.5rem;
+  background:var(--surface);
+}
+.doc-grid-label{
+  font-family:'Cinzel',serif;
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:.5rem;
+}
+.doc-grid-val{font-size:.93rem;color:var(--text);line-height:1.7;}
+
+.doc-table{width:100%;border-collapse:collapse;margin:1.2rem 0;}
+.doc-table td{
+  padding:.8rem 1rem;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:.9rem;color:var(--text);
+  vertical-align:top;line-height:1.6;
+}
+.doc-table td:first-child{
+  width:36%;
+  font-family:'Cinzel',serif;font-size:.7rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-dim);
+  padding-right:1.5rem;
+  white-space:nowrap;
+}
+.doc-table tr:last-child td{border-bottom:none;}
+
+.doc-meta-line{
+  margin-top:2.5rem;padding-top:1.2rem;
+  border-top:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+}
+.doc-meta-date{
+  font-family:'Cinzel',serif;font-size:.65rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--text-dim);
+}
+.doc-meta-version{
+  font-size:.72rem;color:var(--text-dim);
+}
+
+.page-footer{
+  grid-column:1/-1;
+  padding:2.5rem;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+}
+.footer-logo{
+  font-family:'Cinzel Decorative',serif;
+  font-size:.95rem;color:var(--accent);
+  text-shadow:var(--neon);letter-spacing:.08em;
+}
+.footer-copy{
+  font-size:.75rem;color:var(--text-dim);letter-spacing:.06em;
+}
+.footer-copy a{color:var(--text-dim);text-decoration:none;border-bottom:1px solid var(--border);transition:color .2s,border-color .2s;}
+.footer-copy a:hover{color:var(--accent);border-color:rgba(255,255,255,.35);}
+
+@media(max-width:900px){
+  .page{grid-template-columns:1fr;padding-top:60px;}
+  .sidebar{display:none;}
+  .doc-section{padding:3rem 1.6rem;}
+  .doc-hero{padding:3.5rem 1.6rem 3rem;}
+  .hero-number{display:none;}
+  .doc-grid{grid-template-columns:1fr;}
+  .doc-table td:first-child{white-space:normal;}
+  .page-footer{padding:2rem 1.6rem;}
+}
+@media(max-width:600px){
+  .topbar{padding:0 1.2rem;}
+  .topbar-tag{display:none;}
+  .section-num{font-size:2rem;}
+  .section-title{font-size:1.15rem;}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="https://vortas.store" class="topbar-logo">VORTAS STORE</a>
+  <div class="topbar-right">
+    <span class="topbar-tag">Документы</span>
+    <a href="https://vortas.store" class="topbar-home">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      На главную
+    </a>
+  </div>
+</header>
+
+<div class="page">
+
+  
+  <aside class="sidebar">
+    <p class="sidebar-eyebrow">Содержание</p>
+    <nav class="sidebar-nav">
+      <a href="#about" class="sidebar-link" data-section="about">
+        <span class="sidebar-num">01</span>О нас
+      </a>
+      <a href="#agreement" class="sidebar-link" data-section="agreement">
+        <span class="sidebar-num">02</span>Пользовательское соглашение
+      </a>
+      <a href="#oferta" class="sidebar-link" data-section="oferta">
+        <span class="sidebar-num">03</span>Публичная оферта
+      </a>
+      <a href="#personal-data" class="sidebar-link" data-section="personal-data">
+        <span class="sidebar-num">04</span>Персональные данные
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <p class="sidebar-footer-text">© 2026 VORTAS STORE<br>Все права защищены</p>
+    </div>
+  </aside>
+
+  
+  <main class="content">
+
+    
+    <div class="doc-hero">
+      <div class="hero-number">VS</div>
+      <p class="hero-tag">Правовая база</p>
+      <h1>Юридические<br>документы</h1>
+      <p class="doc-hero-sub">Все документы, регулирующие отношения между VORTAS STORE и клиентами. Оформляя заказ, вы принимаете условия публичной оферты.</p>
+    </div>
+
+    
+    <section class="doc-section" id="about">
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <div class="section-meta">
+          <div class="section-title">О VORTAS STORE</div>
+          <div class="section-subtitle">История студии и философия</div>
+        </div>
+      </div>
+      <div class="doc-body">
+        <h3>О нас</h3>
+        <p>Мы небольшая студия, которая работает с изображением и формой. Всё началось с простого вопроса: можно ли показать внутренний мир человека не через слова или фото, а через линию, тень, композицию?</p>
+        <p>Сначала это была просто идея. Потом появились месяцы поисков, проб и ошибок. Мы не гнались за трендами и не пытались понравиться всем. Мы просто шли своим путём. Со временем у нас стало получаться то, к чему люди возвращаются не потому что должны, а потому что чувствуют.</p>
+
+        <h3>Почему готика?</h3>
+        <p>Для нас готика — это не маскарадный костюм и не модная картинка. Это язык. В ней есть честность. Резкий свет. Глубокая тьма. Пустота и напряжение. Высота и тишина.</p>
+        <p>Всё это говорит о том, что нам близко: о сложности, о красоте в мрачном, о силе, которая рождается из спокойствия. Мы создаём то, что остаётся с человеком надолго.</p>
+
+        <h3>Как мы работаем</h3>
+        <p>Нас совсем немного. У каждого своё ремесло. Кто-то рисует, кто-то лепит формы, кто-то собирает всё в единое целое. Мы почти не спорим и редко обсуждаем очевидное — чаще всего достаточно одного взгляда, чтобы понять друг друга.</p>
+
+        <h3>Для кого это</h3>
+        <p>Этот сайт для тех, кто чувствует. Кто ищет не просто красивую картинку, а образ, который отзывается внутри. Если вы зашли сюда и сразу подумали «это про меня» — значит, вы на своём месте.</p>
+      </div>
+    </section>
+
+    
+    <section class="doc-section" id="agreement">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div class="section-meta">
+          <div class="section-title">Пользовательское соглашение</div>
+          <div class="section-subtitle">Публичная оферта · условия покупки</div>
+        </div>
+      </div>
+      <div class="doc-body">
+        <h3>Стороны</h3>
+        <table class="doc-table">
+          <tr><td>Продавец / Исполнитель</td><td>Цыпленков Николай Николаевич · ИНН: <strong>550621225531</strong><br>Telegram: <strong>@vrtas</strong></td></tr>
+          <tr><td>Покупатель / Заказчик</td><td>Физическое лицо, принявшее условия соглашения</td></tr>
+          <tr><td>Сайт</td><td>vortas.store</td></tr>
+        </table>
+
+        <h3>Акцепт оферты</h3>
+        <p>Совершение Покупателем Заказа считается полным и безоговорочным акцептом настоящей оферты. Оформляя заказ, вы подтверждаете, что достигли возраста <strong>14 лет</strong> или действуете с согласия законных представителей.</p>
+
+        <h3>Оплата и передача товара</h3>
+        <div class="doc-alert">Товар передаётся только после <strong>100% предоплаты</strong>. Работа начинается после подтверждения поступления средств.</div>
+        <p>После оформления Заказа Продавец информирует Покупателя о доступных способах оплаты и выставляет счёт. Цифровой товар направляется в согласованный срок; для физического — стороны согласовывают способ получения.</p>
+
+        <h3>Отказ от товара</h3>
+        <div class="doc-alert">В соответствии с п. 4 ст. 26.1 ФЗ «О защите прав потребителей» Покупатель <strong>не вправе отказаться</strong> от цифрового товара надлежащего качества после его передачи.</div>
+
+        <h3>Авторские права</h3>
+        <p>Весь контент Сайта является объектом интеллектуальной собственности Продавца. Любое копирование дизайна или контента без письменного разрешения запрещено и преследуется по закону.</p>
+
+        <h3>Споры и изменения</h3>
+        <p>Все споры решаются путём переговоров — претензии направляются на контактные данные Продавца. Соглашение может быть изменено в одностороннем порядке с момента публикации новой редакции.</p>
+      </div>
+    </section>
+
+    
+    <section class="doc-section" id="oferta">
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <div class="section-meta">
+          <div class="section-title">Публичная оферта</div>
+          <div class="section-subtitle">Договор оказания дизайн-услуг</div>
+        </div>
+      </div>
+      <div class="doc-body">
+        <h3>Предмет договора</h3>
+        <div class="doc-grid">
+          <div class="doc-grid-cell"><div class="doc-grid-label">VEXILLUM</div><div class="doc-grid-val">Рекламная и баннерная графика<br><strong>от 700 ₽ / $8</strong></div></div>
+          <div class="doc-grid-cell"><div class="doc-grid-label">EFFIGY</div><div class="doc-grid-val">Дизайн-макеты для печати и соцсетей<br><strong>от 1 200 ₽ / $14</strong></div></div>
+          <div class="doc-grid-cell"><div class="doc-grid-label">TENEBRATION</div><div class="doc-grid-val">Обработка и ретушь фотографий<br><strong>от 300 ₽ / $4</strong></div></div>
+          <div class="doc-grid-cell"><div class="doc-grid-label">PACTLINGS</div><div class="doc-grid-val">Маскоты, адопты, стикеры<br><strong>от 500 ₽ / $7</strong></div></div>
+        </div>
+        <p>Результат передаётся в виде цифрового файла. Параметры, объём и сроки каждого заказа согласовываются индивидуально.</p>
+
+        <h3>Сроки выполнения</h3>
+        <table class="doc-table">
+          <tr><td>Стандарт</td><td>3–13 рабочих дней</td></tr>
+          <tr><td>Срочно</td><td>1–6 дней · с надбавкой</td></tr>
+          <tr><td>Очень срочно</td><td>1–3 дня · с надбавкой</td></tr>
+          <tr><td>Сверхсрочно</td><td>24 часа · с надбавкой</td></tr>
+        </table>
+
+        <h3>Обязанности сторон</h3>
+        <p><strong>Исполнитель:</strong> выполнить работу в согласованные сроки, предоставлять промежуточные результаты по запросу, информировать о ходе выполнения.</p>
+        <p><strong>Заказчик:</strong> предоставить чёткое ТЗ и необходимые материалы, своевременно оплатить заказ, не перепродавать исходники без письменного согласия Исполнителя.</p>
+
+        <h3>Возврат и претензии</h3>
+        <div class="doc-alert"><strong>Заказчик не вправе отказаться</strong> от цифрового результата надлежащего качества после его передачи. Возврат возможен только если работа ещё не начата. Претензии по качеству принимаются в течение <strong>3 рабочих дней</strong> с момента получения результата.</div>
+
+        <h3>Интеллектуальная собственность</h3>
+        <p>Все авторские права на созданные произведения принадлежат Исполнителю. После полной оплаты Заказчик получает неисключительное право использовать результат в согласованных целях. Исполнитель вправе использовать работы в портфолио, если Заказчик не запросил конфиденциальность.</p>
+
+        <div class="doc-meta-line">
+          <span class="doc-meta-date">Редакция: 01 января 2026</span>
+          <span class="doc-meta-version">ст. 437, 438 ГК РФ</span>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="doc-section" id="personal-data">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <div class="section-meta">
+          <div class="section-title">Персональные данные</div>
+          <div class="section-subtitle">Согласие · ФЗ № 152</div>
+        </div>
+      </div>
+      <div class="doc-body">
+        <h3>Оператор</h3>
+        <table class="doc-table">
+          <tr><td>ФИО</td><td><strong>Цыпленков Николай Николаевич</strong></td></tr>
+          <tr><td>ИНН</td><td><strong>550621225531</strong></td></tr>
+          <tr><td>Telegram</td><td>@vrtas</td></tr>
+          <tr><td>Сайт</td><td>vortas.store</td></tr>
+        </table>
+
+        <h3>Какие данные собираются</h3>
+        <p>При оформлении заказа через форму собираются только:</p>
+        <ul>
+          <li><strong>Telegram-юзернейм</strong> — если выбран способ связи «Telegram»</li>
+          <li><strong>Адрес электронной почты</strong> — если выбран способ связи «Email»</li>
+        </ul>
+        <p>Иные персональные данные не запрашиваются и не собираются.</p>
+
+        <h3>Цель и передача данных</h3>
+        <p>Данные используются исключительно для связи с Заказчиком по оформленному заказу. Они передаются в <strong>Telegram-бот</strong> VORTAS STORE в виде уведомления о новом заказе.</p>
+        <div class="doc-alert">Данные <strong>не продаются</strong> и не передаются третьим лицам ни при каких обстоятельствах.</div>
+
+        <h3>Ваши права</h3>
+        <p>Вы вправе в любой момент <strong>отозвать согласие</strong>, запросить информацию о хранящихся данных или потребовать их удаления. Для этого обратитесь через Telegram: <strong>@vrtas</strong>.</p>
+
+        <h3>Правовое основание</h3>
+        <p>Обработка осуществляется на основании согласия субъекта персональных данных — п. 1 ч. 1 ст. 6 Федерального закона № 152-ФЗ «О персональных данных».</p>
+      </div>
+    </section>
+
+  </main>
+
+  
+  <footer class="page-footer">
+    <span class="footer-logo">VORTAS STORE</span>
+    <span class="footer-copy">© 2026 · Все права защищены · <a href="https://vortas.store">На главную</a></span>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  var links = document.querySelectorAll('.sidebar-link');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.doc-section'));
+
+  function onScroll() {
+    var scrollY = window.scrollY + 120;
+    var active = null;
+    for (var i = sections.length - 1; i >= 0; i--) {
+      if (sections[i].offsetTop <= scrollY) { active = sections[i].id; break; }
+    }
+    links.forEach(function(l) {
+      l.classList.toggle('active', l.dataset.section === active);
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
