@@ -1,24 +1,5 @@
-/**
- * VORTAS STORE — Cloudflare Worker
- * Безопасный прокси для отправки заказов в Telegram.
- *
- * Деплой:
- *   1. wrangler deploy  (или через Dashboard → Workers)
- *   2. Добавить секреты:
- *        wrangler secret put BOT_TOKEN   ← токен бота
- *        wrangler secret put CHAT_ID     ← id чата/юзера
- *   3. Настроить маршрут:  vortas.store/api/order
- *      (Settings → Triggers → Routes)
- *
- * Переменные окружения (wrangler.toml):
- *   ALLOWED_ORIGIN = "https://vortas.store"
- *   KV namespace: RATE_LIMIT (привязать в wrangler.toml как [[kv_namespaces]])
- */
-
-// ── Константы ───────────────────────────────────────────────────────────────
-
-const RATE_LIMIT_MAX     = 3;    // максимум заказов с одного IP за окно
-const RATE_LIMIT_WINDOW  = 3600; // секунд (1 час)
+const RATE_LIMIT_MAX     = 3;
+const RATE_LIMIT_WINDOW  = 3600;
 
 const VALID_PRODUCTS  = ['VEXILLUM', 'EFFIGY', 'TENEBRATION', 'PACTLINGS'];
 const VALID_PAYMENTS  = ['Рубли', 'Доллары'];
@@ -30,57 +11,39 @@ const VALID_URGENCY   = [
 ];
 const VALID_CONTACTS  = ['Telegram', 'Email'];
 
-// ── Главный обработчик ───────────────────────────────────────────────────────
-
 export default {
   async fetch(request, env) {
 
-    // ── CORS preflight ───────────────────────────────────────────────────
     if (request.method === 'OPTIONS') {
       return corsResponse(null, 204, env);
     }
-
-    // ── Только POST /api/order ───────────────────────────────────────────
     const url = new URL(request.url);
     if (request.method !== 'POST' || url.pathname !== '/api/order') {
       return corsResponse(json({ ok: false, error: 'Not found' }), 404, env);
     }
-
-    // ── Проверка Origin ──────────────────────────────────────────────────
     const origin  = request.headers.get('Origin') || '';
     const allowed = env.ALLOWED_ORIGIN || 'https://vortas.store';
     if (origin !== allowed) {
       return corsResponse(json({ ok: false, error: 'Forbidden' }), 403, env);
     }
-
-    // ── Rate limiting по IP ──────────────────────────────────────────────
     const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
     const rateLimitError = await checkRateLimit(ip, env);
     if (rateLimitError) {
       return corsResponse(json({ ok: false, error: rateLimitError }), 429, env);
     }
-
-    // ── Парсинг тела ─────────────────────────────────────────────────────
     let body;
     try {
       body = await request.json();
     } catch {
       return corsResponse(json({ ok: false, error: 'Invalid JSON' }), 400, env);
     }
-
-    // ── Honeypot (антибот-поле, должно быть пустым) ──────────────────────
     if (body.website || body.phone2) {
-      // Молча «успешно» — боту не сообщаем, что засекли
       return corsResponse(json({ ok: true }), 200, env);
     }
-
-    // ── Валидация полей ──────────────────────────────────────────────────
     const validationError = validateOrder(body);
     if (validationError) {
       return corsResponse(json({ ok: false, error: validationError }), 422, env);
     }
-
-    // ── Формирование и отправка сообщения ────────────────────────────────
     const message = buildMessage(body);
 
     try {
@@ -117,8 +80,6 @@ export default {
     }
   },
 };
-
-// ── Вспомогательные функции ──────────────────────────────────────────────────
 
 function json(obj) {
   return new Response(JSON.stringify(obj), {
