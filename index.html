@@ -28,7 +28,6 @@
 </head>
 <body>
 
-    <!-- Film grain overlay (ламповый телевизор) -->
     <canvas id="filmGrain" aria-hidden="true"></canvas>
 
     <div id="gothic-loader" class="gothic-loader" role="status" aria-label="Загрузка сайта">
@@ -56,7 +55,6 @@
         </div>
     </div>
 	
-    <!-- Burger menu overlay -->
     <div class="burger-overlay" id="burgerOverlay" aria-hidden="true"></div>
     <nav class="burger-nav" id="burgerNav" role="navigation" aria-label="Мобильное меню" aria-hidden="true">
         <button class="burger-close" id="burgerClose" aria-label="Закрыть меню">
@@ -73,7 +71,6 @@
         <canvas class="header-canvas" id="headerCanvas" aria-hidden="true"></canvas>
         <div class="header-scanline" aria-hidden="true"></div>
 
-        <!-- Burger toggle button (mobile only) -->
         <button class="burger-toggle" id="burgerToggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="burgerNav">
             <span></span><span></span><span></span>
         </button>
@@ -201,9 +198,6 @@
             </div>
         </section>
 
-        <!-- ══════════════════════════════════════════
-             PORTFOLIO SLIDER
-        ══════════════════════════════════════════ -->
         <section id="portfolio" class="portfolio-section reveal">
             <h2>Портфолио</h2>
             <div class="portfolio-slider" id="portfolioSlider">
@@ -289,14 +283,12 @@
 
                 </div>
 
-                <!-- Slide counter -->
                 <div class="slider-counter" aria-live="polite" aria-atomic="true">
                     <span class="slider-counter-current" id="sliderCurrent">01</span>
                     <span class="slider-counter-sep">/</span>
                     <span class="slider-counter-total" id="sliderTotal">06</span>
                 </div>
 
-                <!-- Navigation arrows -->
                 <button class="slider-btn slider-btn-prev" id="sliderPrev" aria-label="Предыдущий слайд">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
                 </button>
@@ -304,15 +296,12 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
                 </button>
 
-                <!-- Dot navigation -->
                 <div class="slider-dots" id="sliderDots" role="tablist" aria-label="Навигация по слайдам"></div>
 
-                <!-- Autoplay progress bar -->
                 <div class="slider-progress" aria-hidden="true">
                     <div class="slider-progress-bar" id="sliderProgressBar"></div>
                 </div>
 
-                <!-- View More button (shows after seeing all slides) -->
                 <div class="portfolio-viewmore" id="portfolioViewMore">
                     <a href="https://t.me/vortas_store" target="_blank" rel="noopener noreferrer" class="viewmore-btn">
                         Смотреть все работы
@@ -492,7 +481,7 @@
                     <ul>
                         <li><strong>Сайт:</strong> Интернет-магазин, расположенный по адресу <em>vortas.store</em>.</li>
                         <li><strong>Товар:</strong> Цифровой продукт (электронный файл, ключ активации, лицензионный код, доступ к онлайн-сервису, шаблон, руководство и т.п.) или физический товар, передаваемый Покупателю способом, не подразумевающим доставку силами Продавца.</li>
-                        <li><strong>Продавец (Исполнитель):</strong> <em>VORTAS (Николай)</em>. Контакты: <em>telegram — vrtas</em>.</li>
+                        <li><strong>Продавец (Исполнитель):</strong> Данные предоставляются по запросу через Telegram: <em>@vrtas</em>.</li>
                         <li><strong>Покупатель (Заказчик):</strong> Физическое лицо, принявшее условия настоящего Соглашения.</li>
                         <li><strong>Заказ:</strong> Добровольное и осознанное действие Покупателя по оформлению запроса на приобретение Товара на Сайте.</li>
                     </ul>
@@ -538,7 +527,7 @@
                     <p><strong>1.2.</strong> Полным и безоговорочным акцептом считается оформление заказа через форму на сайте или через мессенджер.</p>
                     <h3>2. Стороны договора</h3>
                     <ul>
-                        <li><strong>Исполнитель:</strong> VORTAS (Николай). Telegram: <em>@vrtas</em>. Сайт: <em>vortas.store</em>.</li>
+                        <li><strong>Исполнитель:</strong> Данные предоставляются по запросу. Telegram: <em>@vrtas</em>. Сайт: <em>vortas.store</em>.</li>
                         <li><strong>Заказчик:</strong> физическое лицо, оформившее заказ.</li>
                     </ul>
                     <p class="agreement-important"><strong>Важно:</strong> Оформляя заказ, Заказчик подтверждает достижение возраста 14&nbsp;лет или наличие согласия законных представителей.</p>
@@ -588,7 +577,7 @@
                 <div class="agreement-text">
                     <p class="agreement-subtitle">В соответствии с Федеральным законом № 152-ФЗ «О персональных данных» · <strong>vortas.store</strong></p>
                     <h3>Кто собирает данные</h3>
-                    <p>Оператор персональных данных: <strong>VORTAS STORE</strong> (Николай). Telegram: <em>@vrtas</em>. Сайт: <em>vortas.store</em>.</p>
+                    <p>Оператор персональных данных: <strong>VORTAS STORE</strong>. Данные о продавце предоставляются по запросу. Telegram: <em>@vrtas</em>. Сайт: <em>vortas.store</em>.</p>
                     <h3>Какие данные собираются</h3>
                     <p>При оформлении заказа через форму на сайте собираются следующие данные:</p>
                     <ul>
@@ -611,7 +600,8 @@
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
     (function () {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             var loader = document.getElementById('gothic-loader');
@@ -813,10 +803,8 @@
         document.head.appendChild(style);
     }());
 
-
     window.addEventListener('load', function () {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        // Skip particle canvas on mobile — saves CPU, not visible anyway
         if (window.innerWidth < 900) return;
 
         var c = document.getElementById('headerCanvas');
@@ -873,7 +861,6 @@
             return result;
         }
 
-        // Pause animation when header is off-screen
         var isVisible = true;
         var rafId = null;
         var frameCount = 0;
@@ -886,7 +873,7 @@
 
         function draw() {
             rafId = null;
-            if (!isVisible) return;  // Stop loop when header not visible
+            if (!isVisible) return; 
             rafId = requestAnimationFrame(draw);
 
             ctx.clearRect(0, 0, c.width, c.height);
@@ -939,14 +926,12 @@
     }());
     </script>
 
-    <!-- ══ FILM GRAIN (CSS-only, zero repaint) ══ -->
     <script>
     (function() {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var canvas = document.getElementById('filmGrain');
         if (!canvas) return;
 
-        // Generate grain texture ONCE (256×256), then animate via CSS
         var GS = 256;
         canvas.width = canvas.height = GS;
         var ctx = canvas.getContext('2d');
@@ -959,7 +944,6 @@
         }
         ctx.putImageData(id, 0, 0);
 
-        // Convert to CSS background — no more JS animation loop
         var dataUrl = canvas.toDataURL();
         canvas.style.display = 'none';
 
@@ -990,52 +974,106 @@
     })();
     </script>
 
-    <!-- ══ PORTFOLIO SLIDER ══ -->
     <script>
     (function() {
         var slider = document.getElementById('portfolioSlider');
         if (!slider) return;
 
-        var slides       = Array.prototype.slice.call(slider.querySelectorAll('.slide'));
-        var dotsWrap     = document.getElementById('sliderDots');
-        var prevBtn      = document.getElementById('sliderPrev');
-        var nextBtn      = document.getElementById('sliderNext');
-        var progressBar  = document.getElementById('sliderProgressBar');
-        var counterCur   = document.getElementById('sliderCurrent');
-        var counterTot   = document.getElementById('sliderTotal');
-        var viewMoreEl   = document.getElementById('portfolioViewMore');
+        var slides      = Array.prototype.slice.call(slider.querySelectorAll('.slide'));
+        var dotsWrap    = document.getElementById('sliderDots');
+        var prevBtn     = document.getElementById('sliderPrev');
+        var nextBtn     = document.getElementById('sliderNext');
+        var progressBar = document.getElementById('sliderProgressBar');
+        var counterCur  = document.getElementById('sliderCurrent');
+        var counterTot  = document.getElementById('sliderTotal');
+        var viewMoreEl  = document.getElementById('portfolioViewMore');
 
         var total = slides.length;
         var current = 0;
         var DURATION = 5500;
         var transitioning = false;
         var paused = false;
-        var timer = null;
         var autoplayStarted = false;
         var seenSlides = {};
         seenSlides[0] = true;
 
-        // Auto-detect image format
+        var _raf = null;
+        var _startTime = null;
+        var _pauseProgress = 0;   // 0..1 where we froze
+        var _isPaused = false;
+        var _onDone = null;
+
+        function _tick(ts) {
+            if (_isPaused) { _raf = null; return; }
+            if (_startTime === null) _startTime = ts;
+            var p = Math.min((ts - _startTime) / DURATION, 1);
+            progressBar.style.transform = 'scaleX(' + p + ')';
+            if (p < 1) {
+                _raf = requestAnimationFrame(_tick);
+            } else {
+                _raf = null;
+                if (_onDone) { var cb = _onDone; _onDone = null; cb(); }
+            }
+        }
+
+        function progressStart(cb) {
+            if (_raf) cancelAnimationFrame(_raf);
+            _startTime = null;
+            _pauseProgress = 0;
+            _isPaused = false;
+            _onDone = cb || null;
+            progressBar.style.transform = 'scaleX(0)';
+            _raf = requestAnimationFrame(_tick);
+        }
+
+        function progressPause() {
+            if (_isPaused) return;
+            _isPaused = true;
+            if (_raf) { cancelAnimationFrame(_raf); _raf = null; }
+            var m = progressBar.style.transform.match(/scaleX\(([^)]+)\)/);
+            _pauseProgress = m ? parseFloat(m[1]) : 0;
+        }
+
+        function progressResume() {
+            if (!_isPaused) return;
+            _isPaused = false;
+            var saved = _pauseProgress;
+            var savedDone = _onDone;
+            _startTime = null;
+            function _resumeTick(ts) {
+                if (_isPaused) { _raf = null; return; }
+                if (_startTime === null) _startTime = ts;
+                var elapsed = (ts - _startTime) / DURATION;
+                var p = Math.min(saved + elapsed * (1 - saved) / (1 - saved), 1);
+                var totalElapsed = saved * DURATION + (ts - _startTime);
+                p = Math.min(totalElapsed / DURATION, 1);
+                progressBar.style.transform = 'scaleX(' + p + ')';
+                if (p < 1) {
+                    _raf = requestAnimationFrame(_resumeTick);
+                } else {
+                    _raf = null;
+                    if (savedDone) { _onDone = null; savedDone(); }
+                }
+            }
+            _raf = requestAnimationFrame(_resumeTick);
+        }
+
+        function progressStop() {
+            if (_raf) cancelAnimationFrame(_raf);
+            _raf = null; _isPaused = false;
+            progressBar.style.transform = 'scaleX(0)';
+        }
+
         slides.forEach(function(slide) {
             var img = slide.querySelector('.slide-img');
             if (!img) return;
-            function detectFormat() {
+            function detect() {
                 var w = img.naturalWidth, h = img.naturalHeight;
                 if (!w || !h) return;
-                var ratio = w / h;
-                if (ratio > 1.55) {
-                    slide.classList.add('fmt-banner');
-                } else if (ratio < 0.78) {
-                    slide.classList.add('fmt-poster');
-                } else {
-                    slide.classList.add('fmt-square');
-                }
+                var r = w / h;
+                slide.classList.add(r > 1.55 ? 'fmt-banner' : r < 0.78 ? 'fmt-poster' : 'fmt-square');
             }
-            if (img.complete && img.naturalWidth) {
-                detectFormat();
-            } else {
-                img.addEventListener('load', detectFormat);
-            }
+            img.complete && img.naturalWidth ? detect() : img.addEventListener('load', detect);
         });
 
         if (counterTot) counterTot.textContent = String(total).padStart(2, '0');
@@ -1051,40 +1089,24 @@
         });
 
         slides[0].classList.add('active');
+        checkViewMore();
 
         function checkViewMore() {
             if (!viewMoreEl) return;
-            if (Object.keys(seenSlides).length >= total) {
+            if (window.innerWidth <= 768) { viewMoreEl.classList.add('visible'); return; }
+            if (current === total - 1 || Object.keys(seenSlides).length >= total) {
                 viewMoreEl.classList.add('visible');
+            } else {
+                viewMoreEl.classList.remove('visible');
             }
         }
 
         function updateUI(idx) {
             dotsWrap.querySelectorAll('.slider-dot').forEach(function(d, i) {
                 d.classList.toggle('active', i === idx);
-                d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+                d.setAttribute('aria-selected', String(i === idx));
             });
             if (counterCur) counterCur.textContent = String(idx + 1).padStart(2, '0');
-        }
-
-        function startProgress() {
-            progressBar.style.transition = 'none';
-            progressBar.style.width = '0%';
-            void progressBar.offsetWidth;
-            progressBar.style.transition = 'width ' + DURATION + 'ms linear';
-            progressBar.style.width = '100%';
-        }
-
-        function stopProgress() {
-            var w = parseFloat(window.getComputedStyle(progressBar).width);
-            var total_w = parseFloat(window.getComputedStyle(progressBar.parentElement).width);
-            progressBar.style.transition = 'none';
-            progressBar.style.width = (w / total_w * 100) + '%';
-        }
-
-        function resetProgress() {
-            progressBar.style.transition = 'none';
-            progressBar.style.width = '0%';
         }
 
         function goTo(idx) {
@@ -1092,50 +1114,41 @@
             idx = ((idx % total) + total) % total;
             if (idx === current) return;
             transitioning = true;
-
             var prev = current;
             current = idx;
             seenSlides[current] = true;
-
             slides[prev].classList.add('leaving');
             slides[prev].classList.remove('active');
             slides[current].classList.add('active');
-
-            setTimeout(function() {
-                slides[prev].classList.remove('leaving');
-                transitioning = false;
-            }, 950);
-
+            setTimeout(function() { slides[prev].classList.remove('leaving'); transitioning = false; }, 950);
             updateUI(current);
-            clearTimeout(timer);
-            resetProgress();
-            if (!paused) scheduleNext();
+            if (!paused) schedule();
+            else progressStop();
             checkViewMore();
         }
 
         function next() { goTo(current + 1); }
         function prev() { goTo(current - 1); }
 
-        function scheduleNext() {
-            startProgress();
-            timer = setTimeout(next, DURATION);
+        function schedule() {
+            progressStop();
+            progressStart(function() { next(); });
         }
 
-        // Start autoplay only when slider becomes visible
         if ('IntersectionObserver' in window) {
-            var observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting && !autoplayStarted) {
+            var obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting && !autoplayStarted) {
                         autoplayStarted = true;
-                        scheduleNext();
-                        observer.disconnect();
+                        schedule();
+                        obs.disconnect();
                     }
                 });
             }, { threshold: 0.3 });
-            observer.observe(slider);
+            obs.observe(slider);
         } else {
             autoplayStarted = true;
-            scheduleNext();
+            schedule();
         }
 
         prevBtn.addEventListener('click', prev);
@@ -1147,26 +1160,15 @@
             if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
         });
 
-        slider.addEventListener('mouseenter', function() {
-            paused = true;
-            clearTimeout(timer);
-            stopProgress();
-        });
-        slider.addEventListener('mouseleave', function() {
-            paused = false;
-            resetProgress();
-            scheduleNext();
-        });
+        slider.addEventListener('mouseenter', function() { paused = true; progressPause(); });
+        slider.addEventListener('mouseleave', function() { paused = false; progressResume(); });
 
         var tx = 0, ty = 0, dragging = false;
         slider.addEventListener('touchstart', function(e) {
-            tx = e.touches[0].clientX;
-            ty = e.touches[0].clientY;
-            dragging = false;
+            tx = e.touches[0].clientX; ty = e.touches[0].clientY; dragging = false;
         }, { passive: true });
         slider.addEventListener('touchmove', function(e) {
-            var dx = Math.abs(e.touches[0].clientX - tx);
-            var dy = Math.abs(e.touches[0].clientY - ty);
+            var dx = Math.abs(e.touches[0].clientX - tx), dy = Math.abs(e.touches[0].clientY - ty);
             if (dx > dy && dx > 8) dragging = true;
         }, { passive: true });
         slider.addEventListener('touchend', function(e) {
@@ -1198,7 +1200,6 @@ document.querySelectorAll('.product-card-horizontal').forEach(function (card) {
                 glare.style.opacity = '0';
             });
         });
-    }
     </script>
 
     <script>
