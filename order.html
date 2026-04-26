@@ -14,19 +14,19 @@
 <link rel="icon" href="logo.ico" type="image/x-icon">
 <style>
 :root {
---black: #0a0a0a;
---dark: #111111;
---darker: #1a1a1a;
---gray: #2e2e2e;
---light-gray: #4a4a4a;
---light: #e0e0e0;
+--black: #050505;
+--dark: #080808;
+--darker: #0c0c0c;
+--gray: #1a1a1a;
+--light-gray: #333333;
+--light: #cccccc;
 --accent: #ffffff;
---accent-dark: #b3b3b3;
---glow: rgba(255, 255, 255, 0.1);
---neon: 0 0 10px rgba(255,255,255,0.8);
---neon-accent: 0 0 15px rgba(255,255,255,0.9);
---glass: rgba(255,255,255,0.05);
---glass-border: rgba(255,255,255,0.2);
+--accent-dark: #888888;
+--glow: rgba(255, 255, 255, 0.05);
+--neon: 0 0 8px rgba(255,255,255,0.4);
+--neon-accent: 0 0 12px rgba(255,255,255,0.5);
+--glass: rgba(255,255,255,0.02);
+--glass-border: rgba(255,255,255,0.1);
 }
 * {
 margin: 0;
@@ -45,9 +45,7 @@ h1, h2, h3, label, .radio-label, .submit-btn, .back-link {
 font-family: 'Rajdhani', sans-serif;
 }
 body {
-background:
-radial-gradient(circle at 20% 30%, var(--dark) 0%, var(--black) 100%),
-linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.7));
+background: #050505;
 color: var(--light);
 line-height: 1.6;
 overflow-x: hidden;
@@ -57,7 +55,7 @@ scroll-behavior: smooth;
 .simple-header {
 text-align: center;
 padding: 2rem 0;
-border-bottom: 1px solid var(--light-gray);
+border-bottom: 1px solid var(--glass-border);
 }
 .simple-header .logo {
 font-size: 2.2rem;
@@ -74,7 +72,7 @@ color: var(--accent-dark);
 text-transform: uppercase;
 }
 .info-block {
-background: rgba(30, 30, 30, 0.4);
+background: rgba(10, 10, 10, 0.6);
 border: 1px solid var(--glass-border);
 border-radius: 15px;
 padding: 2rem;
@@ -83,9 +81,7 @@ max-width: 800px;
 text-align: center;
 backdrop-filter: blur(12px);
 -webkit-backdrop-filter: blur(12px);
-box-shadow:
-0 10px 30px rgba(0,0,0,0.3),
-inset 0 0 15px rgba(255,255,255,0.05);
+box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 animation: fadeIn 1s ease-out;
 position: relative;
 overflow: hidden;
@@ -129,7 +125,7 @@ border-radius: 8px;
 border-left: 3px solid var(--accent);
 }
 .order-container {
-background: rgba(30, 30, 30, 0.4);
+background: rgba(10, 10, 10, 0.6);
 border: 1px solid var(--glass-border);
 border-radius: 15px;
 padding: 3rem;
@@ -137,9 +133,7 @@ max-width: 800px;
 margin: 0 auto 4rem;
 backdrop-filter: blur(12px);
 -webkit-backdrop-filter: blur(12px);
-box-shadow:
-0 15px 40px rgba(0,0,0,0.4),
-inset 0 0 20px rgba(255,255,255,0.05);
+box-shadow: 0 20px 50px rgba(0,0,0,0.8);
 position: relative;
 overflow: hidden;
 animation: fadeIn 1s ease-out;
@@ -893,141 +887,129 @@ line-height: 1.6;
 }
 </style>
 </head>
-<body>
-<header class="simple-header">
-<h1 class="logo">VORTAS STORE</h1>
-<p class="subtitle">design store by vortas</p>
-</header>
-<div class="info-block">
-<p>Эта форма собирает основные данные для вашего заказа.</p>
-<p>После отправки формы свяжемся с вами в Telegram</p>
-<p>или на указанную почту (в зависимости от выбранного способа связи)</p>
-<p>для обсуждения дополнительных деталей и уточнения ваших пожеланий.</p>
-<p class="info-note">При выборе Email: в переписке мы найдем удобный для вас способ связи</p>
-</div>
-<main>
-<div class="order-container">
-<div class="order-header">
-<h1>VORTAS STORE<span>Оформление заказа</span></h1>
-</div>
-<form id="order-form">
-<input type="hidden" id="product-type" name="product-type">
-<!-- Honeypot: настоящие пользователи не заполняют эти поля -->
-<div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;">
-  <input type="text"  name="website" tabindex="-1" autocomplete="off">
-  <input type="tel"   name="phone2"  tabindex="-1" autocomplete="off">
-</div>
-<div class="form-group">
-<label for="product-name">Тип позиции:</label>
-<div class="product-selector">
-<input type="text" id="product-name" name="product-name" readonly
-placeholder="Нажмите для выбора товара">
-</div>
-</div>
-<div class="form-group">
-<label>Связь через:</label>
-<div class="radio-group" id="contact-type-group">
-<label class="radio-option">
-<input type="radio" name="contact-type" value="Telegram" checked>
-<span class="radio-label">
-<i class="fab fa-telegram"></i>
-<span>Telegram</span>
-</span>
-</label>
-<label class="radio-option">
-<input type="radio" name="contact-type" value="Email">
-<span class="radio-label">
-<i class="fas fa-envelope"></i>
-<span>Email</span>
-</span>
-</label>
-</div>
-</div>
-<div class="form-group" id="contact-field-group">
-<label id="contact-field-label" for="contact-field">Ваш юзернейм в Telegram:</label>
-<div class="contact-input-wrapper telegram-field">
-<input type="text" id="contact-field" name="contact-field" required
-placeholder="username"
-pattern="[a-zA-Z0-9_.]{1,30}"
-title="Юзернейм должен содержать 1-30 символов (буквы, цифры, подчеркивания, точки)">
-</div>
-<small id="contact-hint" style="color: var(--accent-dark); font-size: 0.9rem;">
-Для Telegram: @username<br>
-Для Email: введите ваш email адрес<br>
-<span style="color: var(--accent);">При выборе Email: в переписке договоримся об удобном способе связи</span>
-</small>
-</div>
-<div class="form-group">
-<label>Оплата:</label>
-<div class="radio-group">
-<label class="radio-option">
-<input type="radio" name="payment" value="Рубли" checked>
-<span class="radio-label">
-<i class="fas fa-ruble-sign"></i>
-<span>Рубли</span>
-</span>
-</label>
-<label class="radio-option">
-<input type="radio" name="payment" value="Доллары">
-<span class="radio-label">
-<i class="fas fa-dollar-sign"></i>
-<span>Доллары</span>
-</span>
-</label>
-</div>
-</div>
-<div class="form-group">
-<label for="urgency">Срочность:</label>
-<select id="urgency" name="urgency" required>
-<option value="" disabled selected>Выберите срочность</option>
-<option value="Стандарт (3-13 дней)">Стандарт (3-13 дней)</option>
-<option value="Срочно (1-6 дней)">Срочно (1-6 дней)</option>
-<option value="Очень срочно (1-3 дня)">Очень срочно (1-3 дня)</option>
-<option value="Сверхсрочно (24 часа)">Сверхсрочно (24 часа)</option>
-</select>
-</div>
-<div class="form-group">
-<label class="consent-wrapper">
-<input type="checkbox" id="consent-check">
-<span class="consent-box"></span>
-<span class="consent-text">
-Я ознакомился(-лась) и согласен(-на) с
-<a href="#" onclick="event.preventDefault();event.stopPropagation();openDocModal('agreement')">Пользовательским соглашением</a>
-и
-<a href="#" onclick="event.preventDefault();event.stopPropagation();openDocModal('oferta')">Публичной офертой</a>
-</span>
-</label>
-</div>
-<div class="form-group">
-<label class="consent-wrapper">
-<input type="checkbox" id="pd-check">
-<span class="consent-box"></span>
-<span class="consent-text">
-Я даю согласие на
-<a href="#" onclick="event.preventDefault();event.stopPropagation();openDocModal('pd')">обработку персональных данных</a>
-</span>
-</label>
-</div>
-<button type="submit" class="submit-btn" id="submit-btn" disabled>
-<i class="fas fa-paper-plane"></i>
-<span>Отправить заказ</span>
-</button>
-</form>
-<a href="index.html" class="back-link">
-<i class="fas fa-arrow-left"></i>
-<span>Вернуться к каталогу</span>
-</a>
-</div>
+<body class="noise-bg">
+    <canvas id="filmGrain" aria-hidden="true"></canvas>
+
+    <div class="simple-header">
+        <div class="logo">VORTAS STORE</div>
+        <div class="subtitle">Оформление заказа</div>
+    </div>
+
+    <main>
+        <div class="order-container">
+            <div class="order-header">
+                <h1>Оформление заказа</h1>
+            </div>
+            <form id="order-form" autocomplete="off">
+                <div style="display:none !important;">
+                    <input type="text" name="website" tabindex="-1">
+                    <input type="text" name="phone2" tabindex="-1">
+                </div>
+
+                <div class="form-group">
+                <label for="product-name">Выберите услугу</label>
+                <div class="product-selector" id="product-selector">
+                    <input type="text" id="product-name" name="product-name" readonly placeholder="Выберите из списка...">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Способ связи</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="contact-type" id="type-tg" value="Telegram" checked>
+                        <span class="radio-label"><i class="fab fa-telegram"></i> Telegram</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="contact-type" id="type-email" value="Email">
+                        <span class="radio-label"><i class="fas fa-envelope"></i> Email</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="contact-field" id="contact-field-label">Ваш Telegram (@username)</label>
+                <input type="text" id="contact-field" name="contact-field" required placeholder="@username">
+                <div id="field-hint" class="field-hint"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Оплата:</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="payment" value="Рубли" checked>
+                        <span class="radio-label">
+                            <i class="fas fa-ruble-sign"></i>
+                            <span>Рубли</span>
+                        </span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="payment" value="Доллары">
+                        <span class="radio-label">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Доллары</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="urgency">Срочность:</label>
+                <select id="urgency" name="urgency" required>
+                    <option value="" disabled selected>Выберите срочность</option>
+                    <option value="Стандарт (3-13 дней)">Стандарт (3-13 дней)</option>
+                    <option value="Срочно (1-6 дней)">Срочно (1-6 дней)</option>
+                    <option value="Очень срочно (1-3 дня)">Очень срочно (1-3 дня)</option>
+                    <option value="Сверхсрочно (24 часа)">Сверхсрочно (24 часа)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="consent-wrapper">
+                    <input type="checkbox" id="consent-check">
+                    <span class="consent-box"></span>
+                    <span class="consent-text">
+                        Я ознакомился(-лась) и согласен(-на) с
+                        <a href="#" onclick="event.preventDefault();event.stopPropagation();openDocModal('agreement')">Пользовательским соглашением</a>
+                        и
+                        <a href="#" onclick="event.preventDefault();event.stopPropagation();openDocModal('oferta')">Публичной офертой</a>
+                    </span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="consent-wrapper">
+                    <input type="checkbox" id="pd-check">
+                    <span class="consent-box"></span>
+                    <span class="consent-text">
+                        Я даю согласие на
+                        <a href="#" onclick="event.preventDefault();event.stopPropagation();openDocModal('pd')">обработку персональных данных</a>
+                    </span>
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn" disabled>
+                <i class="fas fa-paper-plane"></i>
+                <span>Отправить заказ</span>
+            </button>
+            </form>
+
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                <span>Вернуться к каталогу</span>
+            </a>
+        </div>
 </main>
+
 <div id="product-modal" class="modal-overlay">
-<div class="modal-content">
-<div class="modal-header">
-<h2>Выберите товар</h2>
-<button class="close-modal">&times;</button>
-</div>
-<div class="products-grid" id="products-container">
-</div>
-</div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Выберите товар</h2>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="products-grid" id="products-container">
+        </div>
+    </div>
 </div>
 
 <script>
@@ -1044,7 +1026,7 @@ const products = [
         name: "EFFIGY",
         price: "от 1200₽/$14",
         image: "images/effigy.png",
-        description: "Это дизайн-макет для печати или публикации в соцсетях. Создаем визуальную идею, которая отражает суть вашего события, продукта или акции. Каждый макет — уникальное решение под вашу задачу."
+        description: "Это постер для печати или публикации в соцсетях. Создаем визуальную идею, которая отражает суть вашего события, продукта или акции. Каждый макет — уникальное решение под вашу задачу."
     },
     {
         id: 3,
@@ -1081,7 +1063,6 @@ const products = [
     }
 ];
 
-// Endpoint Cloudflare Worker (токен хранится в секретах на сервере)
 const ORDER_API = '/api/order';
 
 function openDocModal(type) {
@@ -1128,86 +1109,70 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateContactField(type) {
         if (type === 'Telegram') {
-            contactFieldLabel.textContent = 'Ваш юзернейм в Telegram:';
-            contactFieldInput.placeholder = 'username';
-            contactFieldInput.type = 'text';
-            contactFieldInput.pattern = '[a-zA-Z0-9_]{5,32}';
-            contactFieldInput.title = 'Юзернейм: 5–32 символа (буквы, цифры, подчёркивание)';
-            if (contactFieldInput.value && !contactFieldInput.value.startsWith('@') && !contactFieldInput.value.includes('@')) {
-                contactFieldInput.value = '@' + contactFieldInput.value;
-            }
-            contactInputWrapper.classList.remove('email-field');
-            contactInputWrapper.classList.add('telegram-field');
+            contactFieldLabel.textContent = 'Ваш Telegram (@username)';
+            contactFieldInput.placeholder = '@username';
         } else {
-            contactFieldLabel.textContent = 'Ваш email:';
+            contactFieldLabel.textContent = 'Ваш Email';
             contactFieldInput.placeholder = 'example@mail.com';
-            contactFieldInput.type = 'email';
-            contactFieldInput.pattern = '[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}';
-            contactFieldInput.title = 'Введите корректный email';
-            if (contactFieldInput.value.startsWith('@')) {
-                contactFieldInput.value = contactFieldInput.value.substring(1);
-            }
-            contactInputWrapper.classList.remove('telegram-field');
-            contactInputWrapper.classList.add('email-field');
         }
     }
 
     updateContactField('Telegram');
 
-const fieldHint = document.createElement('div');
-fieldHint.className = 'field-hint';
-contactFieldInput.parentElement.parentElement.appendChild(fieldHint);
+    const fieldHint = document.createElement('div');
+    fieldHint.className = 'field-hint';
+    contactFieldInput.parentElement.parentElement.appendChild(fieldHint);
 
-function validateContactField() {
-    const val = contactFieldInput.value.trim();
-    const type = document.querySelector('input[name="contact-type"]:checked')?.value || 'Telegram';
+    function validateContactField() {
+        const val = contactFieldInput.value.trim();
+        const type = document.querySelector('input[name="contact-type"]:checked')?.value || 'Telegram';
 
-    if (!val) {
+        if (!val) {
+            contactFieldInput.classList.remove('input-error', 'input-ok');
+            fieldHint.className = 'field-hint';
+            fieldHint.textContent = '';
+            return;
+        }
+
+        if (type === 'Telegram') {
+            const clean = val.startsWith('@') ? val.slice(1) : val;
+            const valid = /^[a-zA-Z0-9_]{5,32}$/.test(clean);
+            contactFieldInput.classList.toggle('input-error', !valid);
+            contactFieldInput.classList.toggle('input-ok', valid);
+            if (!valid) {
+                fieldHint.className = 'field-hint error';
+                if (clean.length < 5) fieldHint.textContent = '⚠ Слишком короткий юзернейм (мин. 5 символов)';
+                else if (clean.length > 32) fieldHint.textContent = '⚠ Слишком длинный юзернейм (макс. 32 символа)';
+                else fieldHint.textContent = '⚠ Только буквы, цифры и подчёркивание (_)';
+            } else {
+                fieldHint.className = 'field-hint ok';
+                fieldHint.textContent = '✓ Юзернейм корректен';
+            }
+        } else {
+            const valid = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(val);
+            const hasDot = val.includes('@') && val.split('@')[1]?.includes('.');
+            contactFieldInput.classList.toggle('input-error', !valid);
+            contactFieldInput.classList.toggle('input-ok', valid);
+            if (!valid) {
+                fieldHint.className = 'field-hint error';
+                if (!val.includes('@')) fieldHint.textContent = '⚠ Email должен содержать @';
+                else if (!hasDot) fieldHint.textContent = '⚠ Укажите домен (например: mail.com)';
+                else fieldHint.textContent = '⚠ Некорректный формат email';
+            } else {
+                fieldHint.className = 'field-hint ok';
+                fieldHint.textContent = '✓ Email корректен';
+            }
+        }
+    }
+
+    contactFieldInput.addEventListener('input', validateContactField);
+    contactFieldInput.addEventListener('blur', validateContactField);
+    contactTypeRadios.forEach(r => r.addEventListener('change', () => {
+        contactFieldInput.value = '';
         contactFieldInput.classList.remove('input-error', 'input-ok');
         fieldHint.className = 'field-hint';
         fieldHint.textContent = '';
-        return;
-    }
-
-    if (type === 'Telegram') {
-        const clean = val.startsWith('@') ? val.slice(1) : val;
-        const valid = /^[a-zA-Z0-9_]{5,32}$/.test(clean);
-        contactFieldInput.classList.toggle('input-error', !valid);
-        contactFieldInput.classList.toggle('input-ok', valid);
-        if (!valid) {
-            fieldHint.className = 'field-hint error';
-            if (clean.length < 5) fieldHint.textContent = '⚠ Слишком короткий юзернейм (мин. 5 символов)';
-            else if (clean.length > 32) fieldHint.textContent = '⚠ Слишком длинный юзернейм (макс. 32 символа)';
-            else fieldHint.textContent = '⚠ Только буквы, цифры и подчёркивание (_)';
-        } else {
-            fieldHint.className = 'field-hint ok';
-            fieldHint.textContent = '✓ Юзернейм корректен';
-        }
-    } else {
-        const valid = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(val);
-        const hasDot = val.includes('@') && val.split('@')[1]?.includes('.');
-        contactFieldInput.classList.toggle('input-error', !valid);
-        contactFieldInput.classList.toggle('input-ok', valid);
-        if (!valid) {
-            fieldHint.className = 'field-hint error';
-            if (!val.includes('@')) fieldHint.textContent = '⚠ Email должен содержать @';
-            else if (!hasDot) fieldHint.textContent = '⚠ Укажите домен (например: mail.com)';
-            else fieldHint.textContent = '⚠ Некорректный формат email';
-        } else {
-            fieldHint.className = 'field-hint ok';
-            fieldHint.textContent = '✓ Email корректен';
-        }
-    }
-}
-
-contactFieldInput.addEventListener('input', validateContactField);
-contactFieldInput.addEventListener('blur', validateContactField);
-contactTypeRadios.forEach(r => r.addEventListener('change', () => {
-    contactFieldInput.value = '';
-    contactFieldInput.classList.remove('input-error', 'input-ok');
-    fieldHint.className = 'field-hint';
-    fieldHint.textContent = '';
-}));
+    }));
 
     products.forEach(product => {
         const item = document.createElement('div');
@@ -1276,7 +1241,6 @@ contactTypeRadios.forEach(r => r.addEventListener('change', () => {
         e.preventDefault();
         const originalBtnText = submitBtn.innerHTML;
 
-        // ── Клиентская валидация ──────────────────────────────────────
         if (!productNameInput.value) {
             showFormError('Пожалуйста, выберите товар');
             return;
@@ -1286,7 +1250,6 @@ contactTypeRadios.forEach(r => r.addEventListener('change', () => {
             return;
         }
 
-        // ── Клиентский rate-limit (3 отправки / 60 мин) ──────────────
         const RL_KEY = 'vs_rl';
         try {
             const rl = JSON.parse(sessionStorage.getItem(RL_KEY) || '{"c":0,"t":0}');
@@ -1301,7 +1264,6 @@ contactTypeRadios.forEach(r => r.addEventListener('change', () => {
             sessionStorage.setItem(RL_KEY, JSON.stringify(rl));
         } catch (_) {}
 
-        // ── Подготовка данных ─────────────────────────────────────────
         const formData   = new FormData(this);
         const data       = Object.fromEntries(formData.entries());
         const contactType = data['contact-type'] || 'Telegram';
@@ -1320,7 +1282,7 @@ contactTypeRadios.forEach(r => r.addEventListener('change', () => {
             }
         }
 
-        // ── Отправка через Worker ─────────────────────────────────────
+
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Отправка...</span>';
 
@@ -1334,7 +1296,6 @@ contactTypeRadios.forEach(r => r.addEventListener('change', () => {
                     product:  data['product-name'] || '',
                     payment:  data.payment         || '',
                     urgency:  data.urgency         || '',
-                    // honeypot (всегда пустые для реального пользователя)
                     website:  data.website         || '',
                     phone2:   data.phone2          || '',
                 }),
@@ -1358,7 +1319,6 @@ contactTypeRadios.forEach(r => r.addEventListener('change', () => {
         }
     });
 
-    // ── UI-хелперы ────────────────────────────────────────────────────
     function showFormError(msg) {
         showToast('❌ ' + msg, 'error');
     }
@@ -1529,14 +1489,15 @@ contactTypeRadios.forEach(r => r.addEventListener('change', () => {
 <li>запросить информацию о хранящихся данных;</li>
 <li>потребовать удаления своих данных.</li>
 </ul>
-<p>Для этого обратитесь к оператору через Telegram: <em>@vrtas</em> или по email: <em><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1f69706d6b7e6c7b7a6c7678716d6a6c5f78727e7673317c7072">[email&#160;protected]</a></em>.</p>
+<p>Для этого обратитесь к оператору через Telegram: <em>@vrtas</em> или по email: <em>vrtas@mail.com</em>.</p>
 <h3>Правовое основание</h3>
 <p>Обработка осуществляется на основании согласия субъекта персональных данных (п. 1 ч. 1 ст. 6 Федерального закона № 152-ФЗ «О персональных данных»).</p>
 </div>
 </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
 (function(){
   var s=document.createElement("span");
   s.className="fas fa-check";
@@ -1551,7 +1512,8 @@ contactTypeRadios.forEach(r => r.addEventListener('change', () => {
     document.head.appendChild(l);
   }
 }());
-
+</script>
+<script>
 document.addEventListener('click', function(e) {
     const active = document.activeElement;
     if (active && (active.tagName === 'INPUT' || active.tagName === 'SELECT') && !active.contains(e.target)) {
@@ -1559,6 +1521,54 @@ document.addEventListener('click', function(e) {
     }
 });
 </script>
+    <script>
+    (function() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var canvas = document.getElementById('filmGrain');
+        if (!canvas) return;
+
+        var GS = 256;
+        canvas.width = canvas.height = GS;
+        var ctx = canvas.getContext('2d');
+        var id = ctx.createImageData(GS, GS);
+        var d = id.data;
+        for (var i = 0; i < d.length; i += 4) {
+            var v = (Math.random() * 255) | 0;
+            d[i] = d[i+1] = d[i+2] = v;
+            d[i+3] = 255;
+        }
+        ctx.putImageData(id, 0, 0);
+
+        var dataUrl = canvas.toDataURL();
+        canvas.style.display = 'none';
+
+        var style = document.createElement('style');
+        style.textContent = [
+            'body::after {',
+            '  content: "";',
+            '  position: fixed;',
+            '  inset: -300px;',
+            '  width: calc(100% + 600px);',
+            '  height: calc(100% + 600px);',
+            '  background-image: url(' + dataUrl + ');',
+            '  background-repeat: repeat;',
+            '  opacity: 0.042;',
+            '  mix-blend-mode: screen;',
+            '  pointer-events: none;',
+            '  z-index: 50;',
+            '  animation: _grainShift 0.3s steps(1) infinite;',
+            '}',
+            '@keyframes _grainShift {',
+            '  0%   { transform: translate(0,0); }',
+            '  25%  { transform: translate(-80px,-60px); }',
+            '  50%  { transform: translate(50px,90px); }',
+            '  75%  { transform: translate(-100px,40px); }',
+            '}'
+        ].join('\n');
+        document.head.appendChild(style);
+    })();
+    </script>
 </body>
+
 
 </html>
