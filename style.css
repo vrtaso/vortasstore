@@ -402,8 +402,6 @@ body.loaded footer {
   filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)) drop-shadow(0 0 28px rgba(255,255,255,0.15));
   animation: textGlow 3s infinite alternate, logoShimmer 7s ease infinite, flicker 10s infinite;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .logo::before,
@@ -2629,9 +2627,4 @@ html, body {
 .rules-section,
 .faq-section {
   contain: style;
-}
-@media (max-width: 768px) {
-  .logo-ring {
-    display: none;
-  }
 }
