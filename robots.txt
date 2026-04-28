@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
+Disallow: /private/
+Disallow: /*.json$
+
+
+Allow: /order.html
+Allow: /documents
+Allow: /images/
+
 
 Sitemap: https://vortas.store/sitemap.xml
+
+
+Crawl-delay: 1
