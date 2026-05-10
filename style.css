@@ -2046,6 +2046,20 @@ nav a:hover::before {
   nav a { font-size: 0.75rem; padding: 0.7rem 1.2rem; letter-spacing: 0.15rem; }
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
 @media (max-width: 576px) {
   .rules-content li { padding-left: 3rem; }
   .rules-content li::before { width: 2.5rem; height: 2.5rem; }
@@ -2122,12 +2136,6 @@ a, button, [role="button"], .faq-item h3, .product-selector, .radio-label, label
   transition: background 0.3s;
 }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.35); }
-
-:focus-visible {
-  outline: 1px solid rgba(255,255,255,0.5);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
 
 html { scroll-padding-top: 1rem; }
 
@@ -2429,7 +2437,8 @@ html { scroll-padding-top: 1rem; }
     width: 100% !important;
     height: 100% !important;
     max-height: 100% !important;
-    object-fit: cover !important;
+    object-fit: contain !important;
+    object-position: center !important;
     transform: none !important;
   }
   .slide.active .slide-img { transform: none !important; }
@@ -2519,8 +2528,9 @@ html { scroll-padding-top: 1rem; }
 }
 
 @media (max-width: 480px) {
-  .portfolio-slider { height: 340px !important; }
+  .portfolio-slider { height: 360px !important; }
   .slide-title { font-size: 1.2rem !important; }
+  .slide-overlay { padding: 1.5rem !important; }
 }
 
 .slide.fmt-banner .slide-img {
